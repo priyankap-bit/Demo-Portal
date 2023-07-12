@@ -24,14 +24,6 @@
 
 }
 
-.left-pan{
-    padding-left: 7px;
-}
-
-.left-pan i{
-   
-   padding-left: 10px;
-}
 
 .form-input{
 
@@ -54,3 +46,30 @@
 }
 
 /* ------------ Project ------------- */
+.searchbar-input{
+    width: 200px;
+    height: 40px;
+    text-indent: 33px;
+    border-radius: 10px;
+}
+
+.project-search-bar{
+    position: relative;
+}
+
+.project-search-bar .fa-search{
+
+    position: absolute;
+    top:14px;
+    left: 20px;
+    color: #a2a0a2 !important;
+
+}
+
+.project-select:focus,
+.searchbar-input:focus{
+
+    box-shadow: none;
+    border-color: #9ca3af;
+}
+

@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import { styled } from 'styled-components'
 import Loginlogo from '../../../assets/images/login/dummy-logo.webp'
-import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -172,14 +171,20 @@ const Logincompo = styled.div`
   /* background-color: #363639; */
   background-color: #b2d4d0;
   .login-border {
-    border: 3px solid #9ee7e3;
-    border-radius: 20px;
+    /* border: 3px solid #9ee7e3;
+    border-radius: 20px; */
   }
   .login-padding {
-    background-color: #f5f4f3;
+    background-color: white;
     border: none;
     border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     min-width: 574px;
+    &:hover {
+      box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+      transform: translateY(-2px);
+      transition: all 0.2s;
+    }
     @media (max-width: 576px) {
       min-width: 450px;
     }
@@ -200,10 +205,10 @@ const Logincompo = styled.div`
   }
   .login-input {
     min-height: 58px;
-    border: 2px solid black;
+    border: 3px solid #9ee7e3;
     border-radius: 10px;
     &:focus {
-      outline: #9ee7e3 solid 5px;
+      outline: #9ee7e3 solid 2px;
       transition: all 0.2s;
     }
   }

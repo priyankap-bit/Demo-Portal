@@ -15,7 +15,7 @@ const Login = () => {
           <div className="login-padding p-5 text-center">
             <div className="content w-75 mx-auto">
               <img src={Loginlogo} alt="logo" className="mb-5 pb-3 " />
-              <h2 className="login-heading mb-4">Login Page</h2>
+              <h2 className="login-heading mb-5">Login Page</h2>
 
               <Form onSubmit={handlelogin}>
                 <Form.Group
@@ -100,16 +100,21 @@ const Logincompo = styled.div`
   }
   .login-btn {
     min-height: 58px;
-    border: 2px solid black;
+    border: none;
     border-radius: 10px;
-    background-color: black;
-    color: white;
+    background-color: #9ee7e3;
+    color: black;
     width: 100%;
     font-size: 21px;
     font-weight: 600;
     line-height: 27px;
     letter-spacing: 0em;
     text-align: center;
+    &:hover {
+      background-color: black;
+      transition: all 0.5s;
+      color: white;
+    }
   }
 `
 

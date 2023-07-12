@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 
 const jwt = require("jsonwebtoken");
 const con = require("../config/db");

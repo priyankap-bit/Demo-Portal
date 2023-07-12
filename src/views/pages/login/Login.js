@@ -106,14 +106,13 @@ const Login = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   name="email"
                   placeholder="Email Id"
-                  required
                 >
                   <Form.Label className="inp-label">
                     Email address <span className="text-danger">*</span>
                   </Form.Label>
-                  <Form.Control type="email" placeholder="Enter email" className="login-input" />
+                  <Form.Control type="text" placeholder="Enter email" className="login-input" />
                 </Form.Group>
-                {emailError && <p className="error ">{emailError}</p>}
+                {emailError && <p className="error">{emailError}</p>}
 
                 <Form.Group
                   className="mb-3 d-flex align-items-start flex-column"
@@ -235,6 +234,10 @@ const Logincompo = styled.div`
       transition: all 0.5s;
       color: white;
     }
+  }
+  .error{
+    text-align: start;
+    color: red;
   }
 `
 

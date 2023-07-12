@@ -1,6 +1,11 @@
+/* eslint-disable */
 import React, { Component, Suspense } from 'react'
-import { HashRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { Navigate } from 'react-router-dom' // Import the Navigate component
 import './scss/style.scss'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import ProtectedRoute from './auth/ProtectedRoute'
 
 const loading = (
   <div className="pt-3 text-center">
@@ -16,21 +21,33 @@ const Login = React.lazy(() => import('./views/pages/login/Login'))
 const Register = React.lazy(() => import('./views/pages/register/Register'))
 const Page404 = React.lazy(() => import('./views/pages/page404/Page404'))
 const Page500 = React.lazy(() => import('./views/pages/page500/Page500'))
+const Auth = React.lazy(() => import('./auth/Auth.js'))
 
 class App extends Component {
   render() {
     return (
-      <HashRouter>
+      <Router>
         <Suspense fallback={loading}>
           <Routes>
-            <Route exact path="/login" name="Login Page" element={<Login />} />
-            <Route exact path="/register" name="Register Page" element={<Register />} />
-            <Route exact path="/404" name="Page 404" element={<Page404 />} />
-            <Route exact path="/500" name="Page 500" element={<Page500 />} />
-            <Route path="*" name="Home" element={<DefaultLayout />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/404" element={<Page404 />} />
+            <Route path="/500" element={<Page500 />} />
+            {/* <Route element={<ProtectedRoute />}> */}
+              <Route element={<Auth />}>
+                <Route path="/*" element={<DefaultLayout />} />
+                <Route path="/*" element={<Navigate to="/*" replace />} />
+              {/* </Route> */}
+            </Route>
           </Routes>
         </Suspense>
-      </HashRouter>
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={true}
+          style={{ maxHeight: '50px' }}
+        />
+      </Router>
     )
   }
 }

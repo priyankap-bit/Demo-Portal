@@ -1,12 +1,13 @@
 // eslint-disable
 import React from 'react'
 import { styled } from 'styled-components'
-import Loginlogo from '../../../assets/images/login/logo(1).png'
+import Loginlogo from '../../../assets/images/login/dummy-logo.webp'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { Link } from 'react-router-dom'
 
 const Login = () => {
+  const handlelogin = () => {}
   return (
     <>
       <Logincompo className="bg-login d-flex justify-content-center align-items-center ">
@@ -16,12 +17,14 @@ const Login = () => {
               <img src={Loginlogo} alt="logo" className="mb-5 pb-3 " />
               <h2 className="login-heading mb-4">Login Page</h2>
 
-              <Form>
+              <Form onSubmit={handlelogin}>
                 <Form.Group
                   className="mb-3 d-flex align-items-start flex-column"
                   controlId="formBasicEmail"
                 >
-                  <Form.Label className="inp-label">Email address</Form.Label>
+                  <Form.Label className="inp-label">
+                    Email address <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control type="email" placeholder="Enter email" className="login-input" />
                 </Form.Group>
 
@@ -29,7 +32,9 @@ const Login = () => {
                   className="mb-3 d-flex align-items-start flex-column"
                   controlId="formBasicPassword"
                 >
-                  <Form.Label className="inp-label">Password</Form.Label>
+                  <Form.Label className="inp-label">
+                    Password <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control
                     type="password"
                     placeholder="Enter password"

@@ -1,7 +1,7 @@
 // eslint-disable
 import React from 'react'
 import { styled } from 'styled-components'
-import Loginlogo from '../../../assets/images/login/logo(1).png'
+import Loginlogo from '../../../assets/images/login/dummy-logo.webp'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { Link } from 'react-router-dom'
@@ -21,7 +21,9 @@ const Register = () => {
                   className="mb-3 d-flex align-items-start flex-column"
                   controlId="formBasicEmail"
                 >
-                  <Form.Label className="inp-label">Email address</Form.Label>
+                  <Form.Label className="inp-label">
+                    Email address <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control type="email" placeholder="Enter email" className="login-input" />
                 </Form.Group>
 
@@ -29,7 +31,9 @@ const Register = () => {
                   className="mb-3 d-flex align-items-start flex-column"
                   controlId="formBasicPassword"
                 >
-                  <Form.Label className="inp-label">Create Password</Form.Label>
+                  <Form.Label className="inp-label">
+                    Create Password <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control
                     type="password"
                     placeholder="Create password"
@@ -37,7 +41,7 @@ const Register = () => {
                   />
                 </Form.Group>
 
-                <Form.Group
+                {/* <Form.Group
                   className="mb-3 d-flex align-items-start flex-column"
                   controlId="formBasicPassword"
                 >
@@ -47,7 +51,7 @@ const Register = () => {
                     placeholder="Repeat password"
                     className="login-input"
                   />
-                </Form.Group>
+                </Form.Group> */}
 
                 <Form.Group
                   className="mb-3 d-flex align-items-start flex-column"

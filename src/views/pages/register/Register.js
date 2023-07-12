@@ -2,7 +2,6 @@
 import React from 'react'
 import { styled } from 'styled-components'
 import Loginlogo from '../../../assets/images/login/dummy-logo.webp'
-import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { Link } from 'react-router-dom'
 
@@ -109,16 +108,23 @@ const Registercompo = styled.div`
   color: black;
   width: 100%;
   min-height: 100vh;
-  background-color: #363639;
+  /* background-color: #363639; */
+  background-color: #b2d4d0;
   .login-border {
-    border: 2px solid #a2a0a2;
-    border-radius: 20px;
+    /* border: 3px solid #9ee7e3;
+    border-radius: 20px; */
   }
   .login-padding {
-    background-color: #f5f4f3;
+    background-color: white;
     border: none;
     border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     min-width: 574px;
+    &:hover {
+      box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+      transform: translateY(-2px);
+      transition: all 0.2s;
+    }
     @media (max-width: 576px) {
       min-width: 450px;
     }
@@ -139,21 +145,30 @@ const Registercompo = styled.div`
   }
   .login-input {
     min-height: 58px;
-    border: 2px solid black;
+    border: 3px solid #9ee7e3;
     border-radius: 10px;
+    &:focus {
+      outline: #9ee7e3 solid 2px;
+      transition: all 0.2s;
+    }
   }
   .login-btn {
     min-height: 58px;
-    border: 2px solid black;
+    border: none;
     border-radius: 10px;
-    background-color: black;
-    color: white;
+    background-color: #9ee7e3;
+    color: black;
     width: 100%;
     font-size: 21px;
     font-weight: 600;
     line-height: 27px;
     letter-spacing: 0em;
     text-align: center;
+    &:hover {
+      background-color: black;
+      transition: all 0.5s;
+      color: white;
+    }
   }
 `
 

@@ -1,21 +1,31 @@
-/* eslint-disable prettier/prettier */
 import React from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import { CBadge, CContainer } from '@coreui/react'
+import { CBadge } from '@coreui/react'
 
-export const AppSidebarNav = ({ items }) => {
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-  const location = useLocation()
-  const navLink = (name, icon, badge) => {
+export const AppSidebarNav = ({ items, location, navigate }) => {
+  const useHandleLogout = () => {
+    localStorage.removeItem('token')
+    toast.success('Successfully Logout!', {
+      position: toast.POSITION.TOP_CENTER,
+    })
+    navigate('/login')
+
+    console.log('you are clicked logout btn')
+  }
+
+  const navLink = (name, icon, badge, onClick) => {
     return (
       <>
         {icon && icon}
-        {name && name}
+        {name && <span onClick={onClick === 'logout' ? useHandleLogout : undefined}>{name}</span>}
         {badge && (
           <CBadge color={badge.color} className="ms-auto">
-            {Notification}
+            {badge.text}
           </CBadge>
         )}
       </>
@@ -23,8 +33,8 @@ export const AppSidebarNav = ({ items }) => {
   }
 
   const navItem = (item, index) => {
-    const { component, name, badge, icon, ...rest } = item
-    const Component = component
+    const { component: Component, name, badge, icon, onClick, ...rest } = item
+    // const Component = component
     return (
       <Component
         {...(rest.to &&
@@ -34,13 +44,13 @@ export const AppSidebarNav = ({ items }) => {
         key={index}
         {...rest}
       >
-        {navLink(name, icon, badge)}
+        {navLink(name, icon, badge, onClick)}
       </Component>
     )
   }
   const navGroup = (item, index) => {
-    const { component, name, icon, to, ...rest } = item
-    const Component = component
+    const { component: Component, name, icon, to, ...rest } = item
+    // const Component = component
     return (
       <Component
         idx={String(index)}
@@ -64,58 +74,12 @@ export const AppSidebarNav = ({ items }) => {
   )
 }
 
-AppSidebarNav.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.any).isRequired,
-}
-
-  
-
-//   return (
-//     <>
-//       <CContainer fluid>
-//         <div className=" sidebarnav mt-5" >
-//           <div className="d-flex">
-//             <div className="px-3">
-//               <i className="fas fa-home"></i>
-//             </div>
-//             <div>
-//               <p>Home</p>
-//             </div>
-//           </div>
-
-//           <div className="d-flex">
-//             <div className="px-3">
-//               <i className="far fa-check-circle"></i>
-//             </div>
-//             <div>
-//               <p>My Task</p>
-//             </div>
-//           </div>
-
-//           <div className="d-flex">
-//             <div className="px-3">
-//               <i className="far fa-bell"></i>
-//             </div>
-//             <div>
-//               <p>Inbox</p>
-//             </div>
-//           </div>
-
-//           <hr />
-
-//           <div className="row">
-//             <div>
-//               <p>Project</p>
-//             </div>
-//           </div>
-
-//         </div>
-
-//       </CContainer>
-//     </>
-//   )
-// }
-
 // AppSidebarNav.propTypes = {
 //   items: PropTypes.arrayOf(PropTypes.any).isRequired,
 // }
+
+AppSidebarNav.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.any).isRequired,
+  location: PropTypes.object.isRequired,
+  navigate: PropTypes.func.isRequired,
+}

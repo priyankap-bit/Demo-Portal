@@ -1,0 +1,56 @@
+.sidebar{
+    background-color: #252628;
+}
+
+.headermain{
+    background-color: #252628;
+}
+
+.header-tog{
+    color: #9ca3af !important;
+}
+
+.form{
+
+    position: relative;
+}
+
+.form .fa-search{
+
+    position: absolute;
+    top:14px;
+    left: 20px;
+    color: #a2a0a2 !important;
+
+}
+
+.left-pan{
+    padding-left: 7px;
+}
+
+.left-pan i{
+   
+   padding-left: 10px;
+}
+
+.form-input{
+
+    height: 40px;
+    width: 500px;
+    text-indent: 33px;
+    border-radius: 20px;
+    border: none;
+    background-color: #424244;
+}
+
+.form-input::placeholder{
+    color: #9ca3af;
+}
+
+.form-input:focus{
+
+    box-shadow: none;
+    border:none;
+}
+
+/* ------------ Project ------------- */

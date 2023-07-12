@@ -20,7 +20,7 @@ const Login = () => {
 
   // Inside the validateForm function:
 
-  const validateForm = () => { 
+  const validateForm = () => {
     let valid = true
     if (!email) {
       setEmailError('Please enter the email')
@@ -83,7 +83,6 @@ const Login = () => {
         const userdata = response.data
 
         localStorage.setItem('token', userdata.Token)
-
       } catch (error) {
         toast.error('Invalid Email And Password!', {
           // position: toast.POSITION.TOP_CENTER,
@@ -120,9 +119,16 @@ const Login = () => {
                   className="mb-3 d-flex align-items-start flex-column"
                   controlId="formBasicPassword"
                   onChange={(e) => setPassword(e.target.value)}
-                  type={showPassword ? 'text' : 'password'}
                   name="password"
                 >
+                  <Form.Label className="inp-label">
+                    Password <span className="text-danger">*</span>
+                  </Form.Label>
+                  <Form.Control
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="Enter password"
+                    className="login-input"
+                  />
                   {showPassword ? (
                     <i
                       className="fa-solid fa-eye email-password-icon "
@@ -134,32 +140,24 @@ const Login = () => {
                       onClick={() => setShowPassword(!showPassword)}
                     ></i>
                   )}
-                <Form.Label className="inp-label">
-                  Password <span className="text-danger">*</span>
-                </Form.Label>
-                <Form.Control
-                  // type="password"
-                  placeholder="Enter password"
-                  className="login-input"
-                />
-              </Form.Group>
-              {passwordError && <p className="error">{passwordError}</p>}
+                </Form.Group>
+                {passwordError && <p className="error">{passwordError}</p>}
 
-              <button className="login-btn my-3">Login</button>
+                <button className="login-btn my-3">Login</button>
 
-              <div className="sign-in-suggetion">
-                <p>
-                  New to our platform? <Link to="/register">Create an account</Link>
-                </p>
-                <p>
-                  <Link>Forgot password?</Link>
-                </p>
-              </div>
-            </Form>
+                <div className="sign-in-suggetion">
+                  <p>
+                    New to our platform? <Link to="/register">Create an account</Link>
+                  </p>
+                  <p>
+                    <Link>Forgot password?</Link>
+                  </p>
+                </div>
+              </Form>
+            </div>
           </div>
         </div>
-      </div>
-    </Logincompo >
+      </Logincompo>
     </>
   )
 }
@@ -173,6 +171,14 @@ const Logincompo = styled.div`
   .login-border {
     /* border: 3px solid #9ee7e3;
     border-radius: 20px; */
+  }
+  .email-password-icon {
+    position: relative;
+    top: -35px;
+    left: 315px;
+    @media (max-width: 576px) {
+      left: 225px;
+    }
   }
   .login-padding {
     background-color: white;

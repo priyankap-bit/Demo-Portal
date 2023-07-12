@@ -1,10 +1,12 @@
+/* eslint-disable prettier/prettier */
 import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import { CBadge } from '@coreui/react'
+import { CBadge, CContainer } from '@coreui/react'
 
 export const AppSidebarNav = ({ items }) => {
+
   const location = useLocation()
   const navLink = (name, icon, badge) => {
     return (
@@ -13,7 +15,7 @@ export const AppSidebarNav = ({ items }) => {
         {name && name}
         {badge && (
           <CBadge color={badge.color} className="ms-auto">
-            {badge.text}
+            {Notification}
           </CBadge>
         )}
       </>
@@ -65,3 +67,55 @@ export const AppSidebarNav = ({ items }) => {
 AppSidebarNav.propTypes = {
   items: PropTypes.arrayOf(PropTypes.any).isRequired,
 }
+
+  
+
+//   return (
+//     <>
+//       <CContainer fluid>
+//         <div className=" sidebarnav mt-5" >
+//           <div className="d-flex">
+//             <div className="px-3">
+//               <i className="fas fa-home"></i>
+//             </div>
+//             <div>
+//               <p>Home</p>
+//             </div>
+//           </div>
+
+//           <div className="d-flex">
+//             <div className="px-3">
+//               <i className="far fa-check-circle"></i>
+//             </div>
+//             <div>
+//               <p>My Task</p>
+//             </div>
+//           </div>
+
+//           <div className="d-flex">
+//             <div className="px-3">
+//               <i className="far fa-bell"></i>
+//             </div>
+//             <div>
+//               <p>Inbox</p>
+//             </div>
+//           </div>
+
+//           <hr />
+
+//           <div className="row">
+//             <div>
+//               <p>Project</p>
+//             </div>
+//           </div>
+
+//         </div>
+
+//       </CContainer>
+//     </>
+//   )
+// }
+
+// AppSidebarNav.propTypes = {
+//   items: PropTypes.arrayOf(PropTypes.any).isRequired,
+// }

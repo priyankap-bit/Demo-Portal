@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
@@ -10,6 +11,9 @@ import {
   CHeaderToggler,
   CNavLink,
   CNavItem,
+  CFormInput,
+  CRow,
+  CCol,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilBell, cilEnvelopeOpen, cilList, cilMenu } from '@coreui/icons'
@@ -23,55 +27,48 @@ const AppHeader = () => {
   const sidebarShow = useSelector((state) => state.sidebarShow)
 
   return (
-    <CHeader position="sticky" className="mb-4">
+    <CHeader position="sticky" className="headermain mb-4">
       <CContainer fluid>
         <CHeaderToggler
-          className="ps-1"
+          classNameName="ps-1"
           onClick={() => dispatch({ type: 'set', sidebarShow: !sidebarShow })}
         >
-          <CIcon icon={cilMenu} size="lg" />
+          <CIcon className="header-tog" icon={cilMenu} size="lg" />
         </CHeaderToggler>
-        <CHeaderBrand className="mx-auto d-md-none" to="/">
-          <CIcon icon={logo} height={48} alt="Logo" />
+        <CHeaderBrand classNameName="mx-auto d-md-none" to="/">
+            
         </CHeaderBrand>
-        <CHeaderNav className="d-none d-md-flex me-auto">
-          <CNavItem>
-            <CNavLink to="/dashboard" component={NavLink}>
-              Dashboard
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">Users</CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">Settings</CNavLink>
-          </CNavItem>
-        </CHeaderNav>
-        <CHeaderNav>
-          <CNavItem>
-            <CNavLink href="#">
-              <CIcon icon={cilBell} size="lg" />
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">
-              <CIcon icon={cilList} size="lg" />
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="#">
-              <CIcon icon={cilEnvelopeOpen} size="lg" />
-            </CNavLink>
-          </CNavItem>
-        </CHeaderNav>
-        <CHeaderNav className="ms-3">
+        
+        {/* <CHeaderNav  className="d-none d-md-flex me-auto"> */}
+        
+        {/* <CRow>
+          <CCol  xs lg={2}> */}
+          <div className="container">
+
+            <div className="row height d-flex justify-content-center align-items-center">
+
+              <div className="col-md-6">
+
+                <div className="form">
+                  <i className="fa fa-search"></i>
+                  <input type="text" className="form-control form-input" placeholder="Search anything..." />
+                </div>
+                
+              </div>
+              
+            </div>
+          </div>
+          {/* </CCol>
+        </CRow> */}
+        
+        {/* </CHeaderNav> */}
+        
+        <CHeaderNav classNameName="ms-3">
           <AppHeaderDropdown />
         </CHeaderNav>
       </CContainer>
-      <CHeaderDivider />
-      <CContainer fluid>
-        <AppBreadcrumb />
-      </CContainer>
+      {/* <CHeaderDivider /> */}
+      
     </CHeader>
   )
 }

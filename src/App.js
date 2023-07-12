@@ -6,6 +6,8 @@ import './scss/style.scss'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import ProtectedRoute from './auth/ProtectedRoute'
+import './scss/style.scss'
+import './views/css/mansi.css'
 
 const loading = (
   <div className="pt-3 text-center">

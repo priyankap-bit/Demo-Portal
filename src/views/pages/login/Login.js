@@ -110,13 +110,13 @@ const Login = () => {
 
               <Form onSubmit={handleSubmit}>
                 <Form.Group
-                  className="mb-3 d-flex align-items-start flex-column"
+                  className=" d-flex align-items-start flex-column"
                   controlId="formBasicEmail"
                   onChange={(e) => setEmail(e.target.value)}
                   name="email"
                   placeholder="Email Id"
                 >
-                  <Form.Label className="inp-label">
+                  <Form.Label className="inp-label mt-3">
                     Email address <span className="text-danger">*</span>
                   </Form.Label>
                   <Form.Control type="text" placeholder="Enter email" className="login-input" />
@@ -124,12 +124,12 @@ const Login = () => {
                 {emailError && <p className="error">{emailError}</p>}
 
                 <Form.Group
-                  className="mb-3 d-flex align-items-start flex-column"
+                  className=" d-flex align-items-start flex-column"
                   controlId="formBasicPassword"
                   onChange={(e) => setPassword(e.target.value)}
                   name="password"
                 >
-                  <Form.Label className="inp-label">
+                  <Form.Label className="inp-label mt-3">
                     Password <span className="text-danger">*</span>
                   </Form.Label>
                   <Form.Control
@@ -151,7 +151,7 @@ const Login = () => {
                 </Form.Group>
                 {passwordError && <p className="error">{passwordError}</p>}
 
-                <button className="login-btn my-3">Login</button>
+                <button className="login-btn mb-3 mt-4">Login</button>
 
                 <div className="sign-in-suggetion">
                   <p>
@@ -181,6 +181,7 @@ const Logincompo = styled.div`
     border-radius: 20px; */
   }
   .email-password-icon {
+    margin-bottom: -15px;
     position: relative;
     top: -35px;
     left: 90%;
@@ -247,7 +248,8 @@ const Logincompo = styled.div`
       color: white;
     }
   }
-  .error{
+  .error {
+    margin: 0px;
     text-align: start;
     color: red;
   }

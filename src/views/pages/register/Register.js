@@ -124,10 +124,10 @@ const Register = () => {
 
               <Form onSubmit={handleSubmit}>
                 <Form.Group
-                  className="mb-3 d-flex align-items-start flex-column"
+                  className=" d-flex align-items-start flex-column"
                   controlId="formBasicEmail"
                 >
-                  <Form.Label className="inp-label">
+                  <Form.Label className="inp-label mt-3">
                     Email address <span className="text-danger">*</span>
                   </Form.Label>
                   <Form.Control
@@ -141,10 +141,10 @@ const Register = () => {
                 {emailError && <p className="error">{emailError}</p>}
 
                 <Form.Group
-                  className="mb-3 d-flex align-items-start flex-column"
+                  className=" d-flex align-items-start flex-column"
                   controlId="formBasicPassword"
                 >
-                  <Form.Label className="inp-label">
+                  <Form.Label className="inp-label mt-3">
                     Password <span className="text-danger">*</span>
                   </Form.Label>
                   <Form.Control
@@ -169,10 +169,10 @@ const Register = () => {
                 {passwordError && <p className="error">{passwordError}</p>}
 
                 <Form.Group
-                  className="mb-3 d-flex align-items-start flex-column"
+                  className=" d-flex align-items-start flex-column"
                   controlId="formBasicConfirmPassword"
                 >
-                  <Form.Label className="inp-label">
+                  <Form.Label className="inp-label mt-3">
                     Confirm Password <span className="text-danger">*</span>
                   </Form.Label>
                   <Form.Control
@@ -197,10 +197,10 @@ const Register = () => {
                 {confirmPasswordError && <p className="error">{confirmPasswordError}</p>}
 
                 <Form.Group
-                  className="mb-3 d-flex align-items-start flex-column"
+                  className=" d-flex align-items-start flex-column"
                   controlId="formBasicPassword"
                 >
-                  <Form.Label className="inp-label">First Name</Form.Label>
+                  <Form.Label className="inp-label mt-3">First Name</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter First Name"
@@ -209,10 +209,10 @@ const Register = () => {
                 </Form.Group>
 
                 <Form.Group
-                  className="mb-3 d-flex align-items-start flex-column"
+                  className=" d-flex align-items-start flex-column"
                   controlId="formBasicPassword"
                 >
-                  <Form.Label className="inp-label">Last Name</Form.Label>
+                  <Form.Label className="inp-label mt-3">Last Name</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter Last Name"
@@ -221,10 +221,10 @@ const Register = () => {
                 </Form.Group>
 
                 <Form.Group
-                  className="mb-3 d-flex align-items-start flex-column"
+                  className=" d-flex align-items-start flex-column"
                   controlId="formBasicPassword"
                 >
-                  <Form.Label className="inp-label">Organization Name</Form.Label>
+                  <Form.Label className="inp-label mt-3">Organization Name</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter Organization Name "
@@ -232,7 +232,7 @@ const Register = () => {
                   />
                 </Form.Group>
 
-                <button className="register-btn my-3">Register</button>
+                <button className="register-btn mb-3 mt-4">Register</button>
 
                 <div className="sign-in-suggetion">
                   <p>
@@ -264,6 +264,7 @@ const Registercompo = styled.div`
   }
   .email-password-icon {
     position: relative;
+    margin-bottom: -15px;
     top: -35px;
     left: 90%;
     @media (max-width: 576px) {
@@ -330,6 +331,7 @@ const Registercompo = styled.div`
     text-align: start;
     color: red;
     max-width: 400px;
+    margin: 0px;
   }
 `
 

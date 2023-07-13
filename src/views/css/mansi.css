@@ -28,7 +28,7 @@
 .form-input{
 
     height: 40px;
-    width: 500px;
+    width: 100%;
     text-indent: 33px;
     border-radius: 20px;
     border: none;
@@ -79,9 +79,15 @@
     border-color: #9ca3af;
 }
 
-.table-container{
+/* .table-container{
     width: 1300px;
-}
+} */
+
+.table-scroll{
+    overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  }
 
 .edit-input{
    border-radius: 10px; 
@@ -115,5 +121,13 @@
     border: #9ca3af;
     box-shadow: #a2a0a2;
     transition: box-shadow 0.01s ease-out;
+} */
+
+
+
+/* @media (max-width: 767px) {
+    .d-flex {
+        flex-direction: column;
+    }
 } */
 

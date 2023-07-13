@@ -26,7 +26,7 @@ exports.registerUser = async (req, res, next) => {
       });
     }
     const userId = user.insertId;
-    const Token = jwt.sign({ id: userId }, "yash1234", {
+    const Token = jwt.sign({ id: userId }, "Tarun1234", {
       expiresIn: "5d",
     });
     console.log(userId, "controller");
@@ -78,7 +78,7 @@ exports.loginUser = async (req, res, next) => {
     const userId = user[0].id;
     const status = user[0].status;
    
-    const Token = jwt.sign({ id: userId }, "yash1234", {
+    const Token = jwt.sign({ id: userId }, "Tarun1234", {
       expiresIn: "5d",
     });
 

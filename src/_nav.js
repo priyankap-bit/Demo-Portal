@@ -45,13 +45,6 @@ const _nav = [
     to: '/project',
     icon: <FontAwesomeIcon icon={faFolder} style={{ paddingRight:"20px"}} />,
   },
-  {
-    component: CNavItem,
-    name: "Logout",
-    // to: '/login',
-    icon: <FontAwesomeIcon icon={faSignOut} rotation={180} style={{ paddingLeft:"20px", marginLeft:"16px"}}  />,
-    onClick:'logout'
-  },
   
 ]
 

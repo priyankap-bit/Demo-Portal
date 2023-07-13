@@ -3,22 +3,24 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import { CBadge } from '@coreui/react'
+import { CBadge, CNavItem, CNavLink } from '@coreui/react'
 
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSignOut } from '@fortawesome/free-solid-svg-icons'
 
 export const AppSidebarNav = ({ items, location, navigate }) => {
   const useHandleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('token')
     toast.success('Successfully Logout!', {
       position: toast.POSITION.TOP_CENTER,
-    });
-    navigate('/login');
-    console.log('you are logged out');
-    console.log(localStorage.getItem('token')); // Add this line to check if the token is removed
-  };
-  
+    })
+    navigate('/login')
+    console.log('you are logged out')
+    console.log(localStorage.getItem('token')) // Add this line to check if the token is removed
+  }
+
   const navLink = (name, icon, badge, onClick) => {
     return (
       <>
@@ -71,6 +73,12 @@ export const AppSidebarNav = ({ items, location, navigate }) => {
     <React.Fragment>
       {items &&
         items.map((item, index) => (item.items ? navGroup(item, index) : navItem(item, index)))}
+      <CNavItem>
+        <CNavLink to="/login" onClick={useHandleLogout} style={{ cursor: 'pointer' }}>
+          <FontAwesomeIcon icon={faSignOut} rotation={180} style={{ paddingLeft: '20px' }} />
+          Logout
+        </CNavLink>
+      </CNavItem>
     </React.Fragment>
   )
 }

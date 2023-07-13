@@ -1,21 +1,128 @@
 // eslint-disable
-import React from 'react'
+import React, { useState } from 'react'
 import { styled } from 'styled-components'
 import Loginlogo from '../../../assets/images/login/dummy-logo.webp'
 import Form from 'react-bootstrap/Form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Register = () => {
+  const navigate = useNavigate()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [emailError, setEmailError] = useState('')
+  const [passwordError, setPasswordError] = useState('')
+  const [confirmPasswordError, setConfirmPasswordError] = useState('')
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/
+
+  const validateForm = () => {
+    let valid = true
+
+    if (!email) {
+      setEmailError('Please enter an email')
+      valid = false
+    } else if (!emailRegex.test(email)) {
+      setEmailError('Please enter a valid email')
+      valid = false
+    } else {
+      setEmailError('')
+    }
+
+    if (!password) {
+      setPasswordError('Please enter a password')
+      valid = false
+    } else if (!passwordRegex.test(password)) {
+      setPasswordError(
+        'Password must contain at least one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long',
+      )
+      valid = false
+    } else {
+      setPasswordError('')
+    }
+
+    if (!confirmPassword) {
+      setConfirmPasswordError('Please confirm the password')
+      valid = false
+    } else if (password !== confirmPassword) {
+      setConfirmPasswordError('Passwords do not match')
+      valid = false
+    } else {
+      setConfirmPasswordError('')
+    }
+
+    return valid
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    if (validateForm()) {
+      try {
+        // Send the registration request
+        const response = await axios.post(
+          'http://localhost:5000/user/register',
+          { email, password },
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        )
+
+        // Process the response
+        const { status } = response.data
+        console.log(response.data.status)
+        localStorage.setItem('status', status)
+
+        if (status === 0) {
+          console.log('user registered')
+          navigate('/dashboard')
+          toast.success('Successfully registered!', {
+            // position: toast.POSITION.TOP_CENTER,
+          })
+          // } else if (status === 1) {
+          //   console.log('Admin registered')
+          //   navigate('/dashboard')
+          //   toast.success('Successfully registered!', {
+          //     // position: toast.POSITION.TOP_CENTER,
+          //   })
+          // } else if (status === 2) {
+          //   console.log('Master Admin registered')
+          //   navigate('/dashboard')
+          //   toast.success('Successfully registered!', {
+          //     // position: toast.POSITION.TOP_CENTER,
+          //   })
+        }
+
+        const userdata = response.data
+
+        localStorage.setItem('token', userdata.Token)
+      } catch (error) {
+        toast.error('Registration failed!', {
+          // position: toast.POSITION.TOP_CENTER,
+        })
+      }
+    }
+  }
+
   return (
     <>
-      <Registercompo className="bg-login d-flex justify-content-center align-items-center ">
-        <div className="login-border p-1">
-          <div className="login-padding p-5 text-center">
+      <Registercompo className="bg-register d-flex justify-content-center align-items-center ">
+        <div className="register-border p-2 my-5">
+          <div className="register-padding p-5 text-center">
             <div className="content w-75 mx-auto">
               <img src={Loginlogo} alt="logo" className="mb-5 pb-3 " />
-              <h2 className="login-heading mb-4">Register Page</h2>
+              <h2 className="register-heading mb-5">Register Page</h2>
 
-              <Form>
+              <Form onSubmit={handleSubmit}>
                 <Form.Group
                   className="mb-3 d-flex align-items-start flex-column"
                   controlId="formBasicEmail"
@@ -23,34 +130,71 @@ const Register = () => {
                   <Form.Label className="inp-label">
                     Email address <span className="text-danger">*</span>
                   </Form.Label>
-                  <Form.Control type="email" placeholder="Enter email" className="login-input" />
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter email"
+                    className="register-input"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </Form.Group>
+                {emailError && <p className="error">{emailError}</p>}
 
                 <Form.Group
                   className="mb-3 d-flex align-items-start flex-column"
                   controlId="formBasicPassword"
                 >
                   <Form.Label className="inp-label">
-                    Create Password <span className="text-danger">*</span>
+                    Password <span className="text-danger">*</span>
                   </Form.Label>
                   <Form.Control
-                    type="password"
-                    placeholder="Create password"
-                    className="login-input"
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="Enter password"
+                    className="register-input"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
+                  {showPassword ? (
+                    <i
+                      className="fa-solid fa-eye email-password-icon "
+                      onClick={() => setShowPassword(!showPassword)}
+                    ></i>
+                  ) : (
+                    <i
+                      className="  fa-solid fa-eye-slash email-password-icon"
+                      onClick={() => setShowPassword(!showPassword)}
+                    ></i>
+                  )}
                 </Form.Group>
+                {passwordError && <p className="error">{passwordError}</p>}
 
-                {/* <Form.Group
+                <Form.Group
                   className="mb-3 d-flex align-items-start flex-column"
-                  controlId="formBasicPassword"
+                  controlId="formBasicConfirmPassword"
                 >
-                  <Form.Label className="inp-label">Repeat Password</Form.Label>
+                  <Form.Label className="inp-label">
+                    Confirm Password <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control
-                    type="password"
-                    placeholder="Repeat password"
-                    className="login-input"
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    placeholder="Confirm password"
+                    className="register-input"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                   />
-                </Form.Group> */}
+                  {showConfirmPassword ? (
+                    <i
+                      className="fa-solid fa-eye email-password-icon "
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    ></i>
+                  ) : (
+                    <i
+                      className="  fa-solid fa-eye-slash email-password-icon"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    ></i>
+                  )}
+                </Form.Group>
+                {confirmPasswordError && <p className="error">{confirmPasswordError}</p>}
 
                 <Form.Group
                   className="mb-3 d-flex align-items-start flex-column"
@@ -60,7 +204,7 @@ const Register = () => {
                   <Form.Control
                     type="text"
                     placeholder="Enter First Name"
-                    className="login-input"
+                    className="register-input"
                   />
                 </Form.Group>
 
@@ -69,7 +213,11 @@ const Register = () => {
                   controlId="formBasicPassword"
                 >
                   <Form.Label className="inp-label">Last Name</Form.Label>
-                  <Form.Control type="text" placeholder="Enter Last Name" className="login-input" />
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Last Name"
+                    className="register-input"
+                  />
                 </Form.Group>
 
                 <Form.Group
@@ -80,11 +228,11 @@ const Register = () => {
                   <Form.Control
                     type="text"
                     placeholder="Enter Organization Name "
-                    className="login-input"
+                    className="register-input"
                   />
                 </Form.Group>
 
-                <button className="login-btn my-3">Register</button>
+                <button className="register-btn my-3">Register</button>
 
                 <div className="sign-in-suggetion">
                   <p>
@@ -110,16 +258,24 @@ const Registercompo = styled.div`
   min-height: 100vh;
   /* background-color: #363639; */
   background-color: #b2d4d0;
-  .login-border {
+  .register-border {
     /* border: 3px solid #9ee7e3;
     border-radius: 20px; */
   }
-  .login-padding {
+  .email-password-icon {
+    position: relative;
+    top: -35px;
+    left: 90%;
+    @media (max-width: 576px) {
+      left: 225px;
+    }
+  }
+  .register-padding {
     background-color: white;
     border: none;
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    min-width: 574px;
+    /* min-width: 574px; */
     &:hover {
       box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
       transform: translateY(-2px);
@@ -129,7 +285,7 @@ const Registercompo = styled.div`
       min-width: 450px;
     }
   }
-  .login-heading {
+  .register-heading {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 40px;
     font-weight: 700;
@@ -143,7 +299,7 @@ const Registercompo = styled.div`
     letter-spacing: 0em;
     text-align: center;
   }
-  .login-input {
+  .register-input {
     min-height: 58px;
     border: 3px solid #9ee7e3;
     border-radius: 10px;
@@ -152,7 +308,7 @@ const Registercompo = styled.div`
       transition: all 0.2s;
     }
   }
-  .login-btn {
+  .register-btn {
     min-height: 58px;
     border: none;
     border-radius: 10px;
@@ -169,6 +325,11 @@ const Registercompo = styled.div`
       transition: all 0.5s;
       color: white;
     }
+  }
+  .error {
+    text-align: start;
+    color: red;
+    max-width: 400px;
   }
 `
 

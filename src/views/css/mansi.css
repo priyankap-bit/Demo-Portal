@@ -46,6 +46,12 @@
 }
 
 /* ------------ Project ------------- */
+
+.add-project-btn{
+    background-color: #424244 !important;
+    border: none;
+}
+
 .searchbar-input{
     width: 200px;
     height: 40px;
@@ -63,13 +69,51 @@
     top:14px;
     left: 20px;
     color: #a2a0a2 !important;
-
 }
 
 .project-select:focus,
-.searchbar-input:focus{
+.searchbar-input:focus,
+.edit-input:focus{
 
     box-shadow: none;
     border-color: #9ca3af;
 }
+
+.table-container{
+    width: 1300px;
+}
+
+.edit-input{
+   border-radius: 10px; 
+}
+
+.edit-input:focus{
+    color: blue;
+}
+
+.edit-checkbox{
+    font-size: 14px;
+}
+
+.edit-icon-btn{
+    background-color: none !important;
+}
+
+.edit-btn{
+    background-color: #252628;
+    border: none;
+}
+
+.edit-btn:hover{
+    background-color: #9ca3af;
+    border: none;
+}
+
+/* #flexRadioDefault1:focus,
+#flexRadioDefault2:focus{
+    background-color: #9ca3af;
+    border: #9ca3af;
+    box-shadow: #a2a0a2;
+    transition: box-shadow 0.01s ease-out;
+} */
 

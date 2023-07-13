@@ -174,7 +174,7 @@ const Logincompo = styled.div`
   .email-password-icon {
     position: relative;
     top: -35px;
-    left: 315px;
+    left: 90%;
     @media (max-width: 576px) {
       left: 225px;
     }
@@ -184,7 +184,10 @@ const Logincompo = styled.div`
     border: none;
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    min-width: 574px;
+    min-width: 576px;
+    @media (max-width: 576px) {
+      min-width: auto;
+    }
     &:hover {
       box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
       transform: translateY(-2px);

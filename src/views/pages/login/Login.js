@@ -1,5 +1,5 @@
 /*eslint-disable */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { styled } from 'styled-components'
 import Loginlogo from '../../../assets/images/login/dummy-logo.webp'
 import Form from 'react-bootstrap/Form'
@@ -90,6 +90,15 @@ const Login = () => {
       }
     }
   }
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+
+    if (token) {
+      navigate('/dashboard')
+    }
+  }, [navigate])
+
   return (
     <>
       <Logincompo className="bg-login d-flex justify-content-center align-items-center ">

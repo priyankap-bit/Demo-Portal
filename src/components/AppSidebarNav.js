@@ -7,6 +7,7 @@ import { CBadge } from '@coreui/react'
 
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
 export const AppSidebarNav = ({ items, location, navigate }) => {
   const useHandleLogout = () => {
@@ -18,7 +19,7 @@ export const AppSidebarNav = ({ items, location, navigate }) => {
     console.log('you are logged out');
     console.log(localStorage.getItem('token')); // Add this line to check if the token is removed
   };
-  
+
   const navLink = (name, icon, badge, onClick) => {
     return (
       <>
@@ -40,8 +41,8 @@ export const AppSidebarNav = ({ items, location, navigate }) => {
       <Component
         {...(rest.to &&
           !rest.items && {
-            component: NavLink,
-          })}
+          component: NavLink,
+        })}
         key={index}
         {...rest}
       >

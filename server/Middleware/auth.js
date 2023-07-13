@@ -14,7 +14,7 @@ exports.isAuthenticatedUser = async (req, res, next) => {
   }
 
   try {
-    const decodedData = jwt.verify(Token, "yash1234");
+    const decodedData = jwt.verify(Token, "Tarun1234");
     console.log(decodedData, "decodedata");
     const userId = decodedData.id;
     console.log(userId);

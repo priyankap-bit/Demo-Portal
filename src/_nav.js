@@ -48,11 +48,11 @@ const _nav = [
   {
     component: CNavItem,
     name: "Logout",
-    // to: '/login',
-    icon: <FontAwesomeIcon icon={faSignOut} rotation={180} style={{ paddingLeft:"20px", marginLeft:"16px"}}  />,
-    onClick:'logout'
-  },
-  
+    // to: "/login", // Replace with your desired dummy route
+    icon: <FontAwesomeIcon icon={faSignOut} rotation={180} style={{ paddingLeft:"20px"}} />,
+    onClick: 'logout'
+  }
+
 ]
 
 export default _nav

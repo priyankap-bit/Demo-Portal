@@ -20,11 +20,11 @@ const WidgetsDropdown = () => {
     <>
       <div className='main-box-container'>
         <div className='box1'>
-          <div className='box1-circle'><p style={{ marginTop: '33%' }}>01</p></div>
+          <div className='box1-circle'><p style={{ marginTop: '33%' }}>05</p></div>
           <h4 className='box-title'>Total projects</h4>
         </div>
         <div className='box1'>
-          <div className='box1-circle'><p style={{ marginTop: '33%' }}>10</p></div>
+          <div className='box1-circle'><p style={{ marginTop: '33%' }}>15</p></div>
           <h4 className='box-title'>My Task</h4>
         </div>
         <div className='box1'>

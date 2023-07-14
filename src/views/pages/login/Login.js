@@ -102,67 +102,65 @@ const Login = () => {
   return (
     <>
       <Logincompo className="bg-login d-flex justify-content-center align-items-center ">
-        <div className="login-border p-2">
-          <div className="login-padding p-5 text-center">
-            <div className="content w-75 mx-auto">
-              <img src={Loginlogo} alt="logo" className="mb-5 pb-3 " />
-              <h2 className="login-heading mb-5">Login Page</h2>
+        <div className="login-padding py-3 py-sm-4 px-0 px-sm-5 text-center">
+          <div className="content w-75 mx-auto">
+            <img src={Loginlogo} alt="logo" className=" m-2 m-sm-3 p-2 p-sm-3 img-logo "  />
+            <h2 className="login-heading m-sm-3 m-2">Login Page</h2>
 
-              <Form onSubmit={handleSubmit}>
-                <Form.Group
-                  className=" d-flex align-items-start flex-column"
-                  controlId="formBasicEmail"
-                  onChange={(e) => setEmail(e.target.value)}
-                  name="email"
-                  placeholder="Email Id"
-                >
-                  <Form.Label className="inp-label mt-3">
-                    Email address <span className="text-danger">*</span>
-                  </Form.Label>
-                  <Form.Control type="text" placeholder="Enter email" className="login-input" />
-                </Form.Group>
-                {emailError && <p className="error">{emailError}</p>}
+            <Form onSubmit={handleSubmit}>
+              <Form.Group
+                className=" d-flex align-items-start flex-column"
+                controlId="formBasicEmail"
+                onChange={(e) => setEmail(e.target.value)}
+                name="email"
+                placeholder="Email Id"
+              >
+                <Form.Label className="inp-label mt-3">
+                  Email address <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control type="text" placeholder="Enter email" className="login-input" />
+              </Form.Group>
+              {emailError && <p className="error">{emailError}</p>}
 
-                <Form.Group
-                  className=" d-flex align-items-start flex-column"
-                  controlId="formBasicPassword"
-                  onChange={(e) => setPassword(e.target.value)}
-                  name="password"
-                >
-                  <Form.Label className="inp-label mt-3">
-                    Password <span className="text-danger">*</span>
-                  </Form.Label>
-                  <Form.Control
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder="Enter password"
-                    className="login-input"
-                  />
-                  {showPassword ? (
-                    <i
-                      className="fa-solid fa-eye email-password-icon "
-                      onClick={() => setShowPassword(!showPassword)}
-                    ></i>
-                  ) : (
-                    <i
-                      className="  fa-solid fa-eye-slash email-password-icon"
-                      onClick={() => setShowPassword(!showPassword)}
-                    ></i>
-                  )}
-                </Form.Group>
-                {passwordError && <p className="error">{passwordError}</p>}
+              <Form.Group
+                className=" d-flex align-items-start flex-column"
+                controlId="formBasicPassword"
+                onChange={(e) => setPassword(e.target.value)}
+                name="password"
+              >
+                <Form.Label className="inp-label mt-3">
+                  Password <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Enter password"
+                  className="login-input"
+                />
+                {showPassword ? (
+                  <i
+                    className="fa-solid fa-eye email-password-icon "
+                    onClick={() => setShowPassword(!showPassword)}
+                  ></i>
+                ) : (
+                  <i
+                    className="  fa-solid fa-eye-slash email-password-icon"
+                    onClick={() => setShowPassword(!showPassword)}
+                  ></i>
+                )}
+              </Form.Group>
+              {passwordError && <p className="error">{passwordError}</p>}
 
-                <button className="login-btn mb-3 mt-4">Login</button>
+              <button className="login-btn my-4">Login</button>
 
-                <div className="sign-in-suggetion">
-                  <p>
-                    New to our platform? <Link to="/register">Create an account</Link>
-                  </p>
-                  <p>
-                    <Link>Forgot password?</Link>
-                  </p>
-                </div>
-              </Form>
-            </div>
+              <div className="sign-in-suggetion">
+                <p>
+                  New to our platform? <Link to="/register">Create an account</Link>
+                </p>
+                <p>
+                  <Link>Forgot password?</Link>
+                </p>
+              </div>
+            </Form>
           </div>
         </div>
       </Logincompo>
@@ -174,39 +172,27 @@ const Logincompo = styled.div`
   color: black;
   width: 100%;
   min-height: 100vh;
-  /* background-color: #363639; */
   background-color: #0b699e;
   background-image: linear-gradient(to right top, #0b699e, #1ef08d);
-  .login-border {
-    /* border: 3px solid #9ee7e3;
-    border-radius: 20px; */
-    
+  .img-logo{
+    width: 50%;
   }
   .email-password-icon {
     margin-bottom: -15px;
     position: relative;
     top: -35px;
-    left: 90%;
-    @media (max-width: 576px) {
-      left: 225px;
-    }
+    left: 85%;
   }
   .login-padding {
     background-color: white;
     border: none;
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    min-width: 576px;
-    @media (max-width: 576px) {
-      min-width: auto;
-    }
+    min-width: 450px;
     &:hover {
       box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
       transform: translateY(-2px);
       transition: all 0.2s;
-    }
-    @media (max-width: 576px) {
-      min-width: 450px;
     }
   }
   .login-heading {
@@ -254,6 +240,53 @@ const Logincompo = styled.div`
     margin: 0px;
     text-align: start;
     color: red;
+  }
+  @media (max-width: 768px) {
+    .login-heading {
+      font-size: 32px;
+      line-height: 52px;
+    }
+    .inp-label {
+      font-size: 18px;
+      line-height: 27px;
+    }
+    .login-input {
+      min-height: 58px;
+    }
+    .login-btn {
+      min-height: 58px;
+      width: 100%;
+      font-size: 18px;
+      line-height: 27px;
+    }
+  }
+  @media (max-width: 576px) {
+    .email-password-icon {
+      left: 80%;
+    }
+    .login-padding {
+      min-width: 80%;
+    }
+    .login-heading {
+      font-size: 26px;
+      line-height: 52px;
+    }
+    .inp-label {
+      font-size: 16px;
+      line-height: 27px;
+    }
+    .login-input {
+      min-height: 58px;
+    }
+    .login-btn {
+      min-height: 58px;
+      width: 100%;
+      font-size: 16px;
+      line-height: 27px;
+    }
+    .sign-in-suggetion{
+      font-size: 12px;
+    }
   }
 `
 

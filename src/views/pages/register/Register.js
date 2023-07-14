@@ -116,135 +116,133 @@ const Register = () => {
   return (
     <>
       <Registercompo className="bg-register d-flex justify-content-center align-items-center ">
-        <div className="register-border p-2 my-5">
-          <div className="register-padding p-5 text-center">
-            <div className="content w-75 mx-auto">
-              <img src={Loginlogo} alt="logo" className="mb-5 pb-3 " />
-              <h2 className="register-heading mb-5">Register Page</h2>
+        <div className="register-padding my-4 py-3 py-sm-4 px-0 px-sm-5 text-center">
+          <div className="content w-75 mx-auto">
+            <img src={Loginlogo} alt="logo" className="m-2 m-sm-3 p-2 p-sm-3 img-logo " />
+            <h2 className="register-heading m-sm-3 m-2">Register Page</h2>
 
-              <Form onSubmit={handleSubmit}>
-                <Form.Group
-                  className=" d-flex align-items-start flex-column"
-                  controlId="formBasicEmail"
-                >
-                  <Form.Label className="inp-label mt-3">
-                    Email address <span className="text-danger">*</span>
-                  </Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter email"
-                    className="register-input"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </Form.Group>
-                {emailError && <p className="error">{emailError}</p>}
+            <Form onSubmit={handleSubmit}>
+              <Form.Group
+                className=" d-flex align-items-start flex-column"
+                controlId="formBasicEmail"
+              >
+                <Form.Label className="inp-label mt-3">
+                  Email address <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter email"
+                  className="register-input"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Form.Group>
+              {emailError && <p className="error">{emailError}</p>}
 
-                <Form.Group
-                  className=" d-flex align-items-start flex-column"
-                  controlId="formBasicPassword"
-                >
-                  <Form.Label className="inp-label mt-3">
-                    Password <span className="text-danger">*</span>
-                  </Form.Label>
-                  <Form.Control
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder="Enter password"
-                    className="register-input"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  {showPassword ? (
-                    <i
-                      className="fa-solid fa-eye email-password-icon "
-                      onClick={() => setShowPassword(!showPassword)}
-                    ></i>
-                  ) : (
-                    <i
-                      className="  fa-solid fa-eye-slash email-password-icon"
-                      onClick={() => setShowPassword(!showPassword)}
-                    ></i>
-                  )}
-                </Form.Group>
-                {passwordError && <p className="error">{passwordError}</p>}
+              <Form.Group
+                className=" d-flex align-items-start flex-column"
+                controlId="formBasicPassword"
+              >
+                <Form.Label className="inp-label mt-3">
+                  Password <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Enter password"
+                  className="register-input"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                {showPassword ? (
+                  <i
+                    className="fa-solid fa-eye email-password-icon "
+                    onClick={() => setShowPassword(!showPassword)}
+                  ></i>
+                ) : (
+                  <i
+                    className="  fa-solid fa-eye-slash email-password-icon"
+                    onClick={() => setShowPassword(!showPassword)}
+                  ></i>
+                )}
+              </Form.Group>
+              {passwordError && <p className="error">{passwordError}</p>}
 
-                <Form.Group
-                  className=" d-flex align-items-start flex-column"
-                  controlId="formBasicConfirmPassword"
-                >
-                  <Form.Label className="inp-label mt-3">
-                    Confirm Password <span className="text-danger">*</span>
-                  </Form.Label>
-                  <Form.Control
-                    type={showConfirmPassword ? 'text' : 'password'}
-                    placeholder="Confirm password"
-                    className="register-input"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                  />
-                  {showConfirmPassword ? (
-                    <i
-                      className="fa-solid fa-eye email-password-icon "
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    ></i>
-                  ) : (
-                    <i
-                      className="  fa-solid fa-eye-slash email-password-icon"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    ></i>
-                  )}
-                </Form.Group>
-                {confirmPasswordError && <p className="error">{confirmPasswordError}</p>}
+              <Form.Group
+                className=" d-flex align-items-start flex-column"
+                controlId="formBasicConfirmPassword"
+              >
+                <Form.Label className="inp-label mt-3">
+                  Confirm Password <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  placeholder="Confirm password"
+                  className="register-input"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                {showConfirmPassword ? (
+                  <i
+                    className="fa-solid fa-eye email-password-icon "
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  ></i>
+                ) : (
+                  <i
+                    className="  fa-solid fa-eye-slash email-password-icon"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  ></i>
+                )}
+              </Form.Group>
+              {confirmPasswordError && <p className="error">{confirmPasswordError}</p>}
 
-                <Form.Group
-                  className=" d-flex align-items-start flex-column"
-                  controlId="formBasicPassword"
-                >
-                  <Form.Label className="inp-label mt-3">First Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter First Name"
-                    className="register-input"
-                  />
-                </Form.Group>
+              <Form.Group
+                className=" d-flex align-items-start flex-column"
+                controlId="formBasicPassword"
+              >
+                <Form.Label className="inp-label mt-3">First Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter First Name"
+                  className="register-input"
+                />
+              </Form.Group>
 
-                <Form.Group
-                  className=" d-flex align-items-start flex-column"
-                  controlId="formBasicPassword"
-                >
-                  <Form.Label className="inp-label mt-3">Last Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter Last Name"
-                    className="register-input"
-                  />
-                </Form.Group>
+              <Form.Group
+                className=" d-flex align-items-start flex-column"
+                controlId="formBasicPassword"
+              >
+                <Form.Label className="inp-label mt-3">Last Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Last Name"
+                  className="register-input"
+                />
+              </Form.Group>
 
-                <Form.Group
-                  className=" d-flex align-items-start flex-column"
-                  controlId="formBasicPassword"
-                >
-                  <Form.Label className="inp-label mt-3">Organization Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter Organization Name "
-                    className="register-input"
-                  />
-                </Form.Group>
+              <Form.Group
+                className=" d-flex align-items-start flex-column"
+                controlId="formBasicPassword"
+              >
+                <Form.Label className="inp-label mt-3">Organization Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Organization Name "
+                  className="register-input"
+                />
+              </Form.Group>
 
-                <button className="register-btn mb-3 mt-4">Register</button>
+              <button className="register-btn my-4">Register</button>
 
-                <div className="sign-in-suggetion">
-                  <p>
-                    By signing up, you agree to our <Link>Terms of Service</Link> and the storing of
-                    your data as per our <Link> Privacy Policy.</Link>
-                  </p>
-                  <p>
-                    Already have an account?<Link to="/login"> Sign in instead</Link>
-                  </p>
-                </div>
-              </Form>
-            </div>
+              <div className="sign-in-suggetion">
+                <p>
+                  By signing up, you agree to our <Link>Terms of Service</Link> and the storing of
+                  your data as per our <Link> Privacy Policy.</Link>
+                </p>
+                <p>
+                  Already have an account?<Link to="/login"> Sign in instead</Link>
+                </p>
+              </div>
+            </Form>
           </div>
         </div>
       </Registercompo>
@@ -256,21 +254,16 @@ const Registercompo = styled.div`
   color: black;
   width: 100%;
   min-height: 100vh;
-  /* background-color: #363639; */
   background-color: #0b699e;
   background-image: linear-gradient(to right top, #0b699e, #1ef08d);
-  .register-border {
-    /* border: 3px solid #9ee7e3;
-    border-radius: 20px; */
+  .img-logo {
+    width: 50%;
   }
   .email-password-icon {
     position: relative;
     margin-bottom: -15px;
     top: -35px;
     left: 90%;
-    @media (max-width: 576px) {
-      left: 225px;
-    }
   }
   .register-padding {
     background-color: white;
@@ -282,9 +275,6 @@ const Registercompo = styled.div`
       box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
       transform: translateY(-2px);
       transition: all 0.2s;
-    }
-    @media (max-width: 576px) {
-      min-width: 450px;
     }
   }
   .register-heading {
@@ -333,6 +323,71 @@ const Registercompo = styled.div`
     color: red;
     max-width: 400px;
     margin: 0px;
+  }
+  @media (max-width: 1400px) {
+    .register-padding {
+      max-width: 50%;
+    }
+  }
+  @media (max-width: 992px) {
+    .register-padding {
+      max-width: 70%;
+    }
+  }
+  @media (max-width: 992px) {
+    .register-padding {
+      max-width: 70%;
+    }
+  }
+  @media (max-width: 768px) {
+    .register-heading {
+      font-size: 32px;
+      line-height: 52px;
+    }
+    .register-padding {
+      max-width: 80%;
+    }
+    .inp-label {
+      font-size: 18px;
+      line-height: 27px;
+    }
+    .register-input {
+      min-height: 58px;
+    }
+    .register-btn {
+      min-height: 58px;
+      width: 100%;
+      font-size: 18px;
+      line-height: 27px;
+    }
+  }
+  @media (max-width: 576px) {
+    .email-password-icon {
+      left: 80%;
+    }
+    .register-padding {
+      max-width: 80%;
+    }
+    .register-heading {
+      font-size: 26px;
+      line-height: 52px;
+    }
+    .inp-label {
+      font-size: 16px;
+      line-height: 27px;
+    }
+    .register-input {
+      min-height: 58px;
+    }
+    .register-btn {
+      min-height: 58px;
+      width: 100%;
+      font-size: 16px;
+      line-height: 27px;
+    }
+    .sign-in-suggetion {
+      font-size: 12px;
+    }
   }
 `
 

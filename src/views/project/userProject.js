@@ -34,7 +34,7 @@ function userProject(props) {
     return (
         <>
             <CContainer fluid className="mt-5">
-                {/* <div className="d-flex bd-highlight mb-3">
+                <div className="d-flex bd-highlight flex-column flex-md-row mb-3">
                         <div className="me-auto d-flex p-2 ">
                             <CCol sm="auto" >
                                 <CButton className="add-project-btn">Add Project</CButton>
@@ -50,17 +50,14 @@ function userProject(props) {
                         <div className="p-2 " >
                             <div className="row  d-flex   align-items-center" >
                                 <div className="col-md-6 d-flex" >
-                                    <div className="mt-2 px-3">
-                                        <p>Search:</p>
-                                    </div>
                                     <div className="project-search-bar">                                        
                                         <i className="fa fa-search"></i>
-                                        <input type="text" className="form-control searchbar-input"  />
+                                        <input type="text" className="form-control searchbar-input" placeholder='Search...' />
                                     </div>
                                 </div>
                             </div> 
                         </div>
-                </div> */}
+                </div>
                 <div className='table-scroll'>
                     <div className="project-list-table-div" >
                         <div className="table-container">
@@ -91,10 +88,10 @@ function userProject(props) {
                                             <FontAwesomeIcon icon={faHeart} style={{ cursor: "pointer" }} />
                                         </CTableDataCell>
                                         <CTableDataCell className="tablecell text-center pt-4">
-                                            <FontAwesomeIcon icon={faFolderOpen} style={{ cursor: "pointer" }} />
+                                            <FontAwesomeIcon icon={faFolderOpen} style={{ cursor: "pointer",color:'#0f9299' }} />
                                         </CTableDataCell>
                                         <CTableDataCell className="tablecell pt-4">
-                                            <FontAwesomeIcon onClick={() => setVisible(!visible)} icon={faEdit} style={{ cursor: "pointer" }} />
+                                            <FontAwesomeIcon onClick={() => setVisible(!visible)} icon={faEdit} style={{ cursor: "pointer", color:'#0f9299' }} />
                                         </CTableDataCell>
 
                                     </CTableRow>
@@ -110,10 +107,10 @@ function userProject(props) {
                                             <FontAwesomeIcon icon={faHeart} style={{ cursor: "pointer" }} />
                                         </CTableDataCell>
                                         <CTableDataCell className="tablecell text-center pt-4">
-                                            <FontAwesomeIcon icon={faFolderOpen} style={{ cursor: "pointer" }} />
+                                            <FontAwesomeIcon icon={faFolderOpen} style={{ cursor: "pointer",color:'#0f9299' }} />
                                         </CTableDataCell>
                                         <CTableDataCell className="tablecell pt-4">
-                                            <FontAwesomeIcon onClick={() => setVisible(!visible)} icon={faEdit} style={{ cursor: "pointer" }} />
+                                            <FontAwesomeIcon onClick={() => setVisible(!visible)} icon={faEdit} style={{ cursor: "pointer", color:'#0f9299' }} />
                                         </CTableDataCell>
 
                                     </CTableRow>
@@ -129,10 +126,10 @@ function userProject(props) {
                                             <FontAwesomeIcon icon={faHeart} style={{ cursor: "pointer" }} />
                                         </CTableDataCell>
                                         <CTableDataCell className="tablecell text-center pt-4">
-                                            <FontAwesomeIcon icon={faFolderOpen} style={{ cursor: "pointer" }} />
+                                            <FontAwesomeIcon icon={faFolderOpen} style={{ cursor: "pointer" ,color:'#0f9299'}} />
                                         </CTableDataCell>
                                         <CTableDataCell className="tablecell pt-4">
-                                            <FontAwesomeIcon onClick={() => setVisible(!visible)} icon={faEdit} style={{ cursor: "pointer" }} />
+                                            <FontAwesomeIcon onClick={() => setVisible(!visible)} icon={faEdit} style={{ cursor: "pointer", color:'#0f9299' }} />
                                         </CTableDataCell>
 
                                     </CTableRow>
@@ -148,11 +145,11 @@ function userProject(props) {
                                             <FontAwesomeIcon icon={faHeart} style={{ cursor: "pointer" }} />
                                         </CTableDataCell>
                                         <CTableDataCell className="tablecell text-center pt-4">
-                                            <FontAwesomeIcon icon={faFolderOpen} style={{ cursor: "pointer" }} />
+                                            <FontAwesomeIcon icon={faFolderOpen} style={{ cursor: "pointer",color:'#0f9299' }} />
                                         </CTableDataCell>
                                         <CTableDataCell className="tablecell pt-4">
                                             {/* <CButton className="edit-icon-btn" onClick={() => setVisible(!visible)} > */}
-                                            <FontAwesomeIcon onClick={() => setVisible(!visible)} icon={faEdit} style={{ cursor: "pointer" }} />
+                                            <FontAwesomeIcon onClick={() => setVisible(!visible)} icon={faEdit} style={{ cursor: "pointer" , color:'#0f9299'}} />
                                             {/* </CButton> */}
 
                                         </CTableDataCell>

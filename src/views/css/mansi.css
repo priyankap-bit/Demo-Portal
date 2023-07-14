@@ -31,8 +31,8 @@
     width: 100%;
     text-indent: 33px;
     border-radius: 20px;
-    border: none;
-    background-color: #424244;
+    background-color: white;
+    border: 1px solid #ebedef;
 }
 
 .form-input::placeholder{
@@ -48,7 +48,7 @@
 /* ------------ Project ------------- */
 
 .add-project-btn{
-    background-color: #424244 !important;
+    background-color: #0f9299 !important;
     border: none;
 }
 
@@ -56,7 +56,7 @@
     width: 200px;
     height: 40px;
     text-indent: 33px;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .project-search-bar{
@@ -106,7 +106,7 @@
 }
 
 .edit-btn{
-    background-color: #252628;
+    background-color: #0f9299;
     border: none;
 }
 
@@ -125,9 +125,15 @@
 
 
 
-/* @media (max-width: 767px) {
-    .d-flex {
-        flex-direction: column;
+@media (max-width: 767px) {
+    .p-2 {
+        margin-top: 10px;
     }
-} */
+    .searchbar-input {
+        width: 107%;
+    }
+}
 
+.p-2 {
+    padding: 0 !important;
+}

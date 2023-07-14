@@ -25,7 +25,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Home',
-    to: '/home',
+    to: '/dashboard',
     icon: <FontAwesomeIcon icon={faHome} style={{ paddingRight:"20px"}} /> ,
   },
   {

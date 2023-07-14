@@ -15,7 +15,7 @@ const BarGraph = () => {
       datasets: [
         {
           label: 'Total',
-          data: [10, 15, 5],
+          data: [5, 15, 10],
           backgroundColor: ['#0f9299'], // Bar colors for each label
         },
       ],
@@ -27,6 +27,10 @@ const BarGraph = () => {
         x: {
           grid: {
             display: false,
+          },
+          ticks: {
+            stepSize: 5, // Step count of 5
+            max: 20, // Maximum value on the x-axis
           },
         },
         y: {

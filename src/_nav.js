@@ -2,6 +2,7 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {
+  cilApplications,
   cilBell,
   cilCalculator,
   cilChartPie,
@@ -45,7 +46,19 @@ const _nav = [
     to: '/project',
     icon: <FontAwesomeIcon icon={faFolder} style={{ paddingRight:"20px"}} />,
   },
-  
+  {
+    component: CNavGroup,
+    name: 'My Workspace',
+    to: '/my-workspace',
+    icon: <CIcon icon={cilApplications} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'My Task',
+        to: '/my-workspace/my-task',
+      },
+    ],
+  },
 ]
 
 export default _nav

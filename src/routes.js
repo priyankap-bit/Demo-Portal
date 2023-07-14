@@ -4,6 +4,8 @@ import React from 'react'
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
+//my workspace
+const MyTask = React.lazy(() => import('./views/my-workspace/my-task/MyTask'))
 
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
@@ -100,7 +102,8 @@ const routes = [
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
   { path: '/project', name: 'Project', element: Project },
-
+  { path: '/my-workspace', name: 'My Workspace', element: Cards, exact: true },
+  { path: '/my-workspace/my-task', name: 'My Task', element: MyTask },
 ]
 
 export default routes

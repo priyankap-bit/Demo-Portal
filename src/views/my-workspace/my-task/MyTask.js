@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Pagination } from 'react-bootstrap'
+import { PageItem, Pagination } from 'react-bootstrap'
 import {
   CCol,
   CContainer,
@@ -46,7 +46,8 @@ const MyTask = () => {
   // Update pagination when filter or data changes
   useEffect(() => {
     setCurrentPage(1)
-  }, [filter, data])
+    setItemsPerPage(10) // Set the default number of items per page when the filter changes
+  }, [filter])
 
   // Calculate the index range of the current page
   const indexOfLastItem = currentPage * itemsPerPage
@@ -59,6 +60,7 @@ const MyTask = () => {
   // }
   const handleFilterChange = (e) => {
     setItemsPerPage(parseInt(e.target.value))
+    setCurrentPage(1)
   }
 
   return (
@@ -157,12 +159,39 @@ const MyTask = () => {
               </CTableBody>
             </CTable>
 
-            <Pagination
+            {/* <Pagination
               currentPage={currentPage}
               itemsPerPage={itemsPerPage}
               totalItems={filteredData.length}
               onPageChange={(page) => setCurrentPage(page)}
-            />
+            /> */}
+
+            <Pagination>
+              <Pagination.First onClick={() => setCurrentPage(1)} disabled={currentPage === 1} />
+              <Pagination.Prev
+                onClick={() => setCurrentPage(currentPage - 1)}
+                disabled={currentPage === 1}
+              />
+              {Array.from({ length: Math.ceil(filteredData.length / itemsPerPage) }).map(
+                (_, index) => (
+                  <PageItem
+                    key={index + 1}
+                    active={index + 1 === currentPage}
+                    onClick={() => setCurrentPage(index + 1)}
+                  >
+                    {index + 1}
+                  </PageItem>
+                ),
+              )}
+              <Pagination.Next
+                onClick={() => setCurrentPage(currentPage + 1)}
+                disabled={currentPage === Math.ceil(filteredData.length / itemsPerPage)}
+              />
+              <Pagination.Last
+                onClick={() => setCurrentPage(Math.ceil(filteredData.length / itemsPerPage))}
+                disabled={currentPage === Math.ceil(filteredData.length / itemsPerPage)}
+              />
+            </Pagination>
 
             <CModal
               alignment="center"

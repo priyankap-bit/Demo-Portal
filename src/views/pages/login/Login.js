@@ -175,10 +175,12 @@ const Logincompo = styled.div`
   width: 100%;
   min-height: 100vh;
   /* background-color: #363639; */
-  background-color: #b2d4d0;
+  background-color: #0b699e;
+  background-image: linear-gradient(to right top, #0b699e, #1ef08d);
   .login-border {
     /* border: 3px solid #9ee7e3;
     border-radius: 20px; */
+    
   }
   .email-password-icon {
     margin-bottom: -15px;
@@ -234,7 +236,7 @@ const Logincompo = styled.div`
     min-height: 58px;
     border: none;
     border-radius: 10px;
-    background-color: #9ee7e3;
+    background-color: #0f9299;
     color: black;
     width: 100%;
     font-size: 21px;

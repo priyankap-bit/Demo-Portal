@@ -1,15 +1,3 @@
-// import React from 'react'
-
-// const MyTask = () => {
-//   return (
-//     <>
-//       <h1>my task</h1>
-//     </>
-//   )
-// }
-
-// export default MyTask
-
 import React, { useState, useEffect } from 'react'
 import { Pagination } from 'react-bootstrap'
 import {
@@ -35,11 +23,11 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faFolderOpen, faEdit } from '@fortawesome/free-solid-svg-icons'
 import '../../../views/css/mansi.css'
+import data from './Data.jsx'
 
 const MyTask = () => {
   const [visible, setVisible] = useState(false)
-
-  const [data, setData] = useState([])
+  // const [data, setData] = useState([])
   const [filter, setFilter] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
@@ -50,7 +38,10 @@ const MyTask = () => {
   //   }, [])
 
   // Filter the data based on the filter value
-  const filteredData = data.filter((row) => row.value.toString().includes(filter))
+  // const filteredData = data.filter((row) => row.value.toString().includes(filter))
+  const filteredData = data
+    .filter((row) => row.Title.toString().includes(filter))
+    .slice(0, itemsPerPage * currentPage)
 
   // Update pagination when filter or data changes
   useEffect(() => {
@@ -63,69 +54,47 @@ const MyTask = () => {
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem)
 
   // Handle filter value change
+  // const handleFilterChange = (e) => {
+  //   setFilter(e.target.value)
+  // }
   const handleFilterChange = (e) => {
-    setFilter(e.target.value)
+    setItemsPerPage(parseInt(e.target.value))
   }
 
   return (
-    // <div>
-    //   <input type="text" value={filter} onChange={handleFilterChange} placeholder="Filter..." />
-    //   <table>
-    //     {/* Render your table headers */}
-    //     <thead>
-    //       <tr>
-    //         <th>Column 1</th>
-    //         <th>Column 2</th>
-    //         {/* ... */}
-    //       </tr>
-    //     </thead>
-    //     <tbody>
-    //       {/* Render your table rows */}
-    //       {currentItems.map((row) => (
-    //         <tr key={row.id}>
-    //           <td>{row.value}</td>
-    //           {/* ... */}
-    //         </tr>
-    //       ))}
-    //     </tbody>
-    //   </table>
-
-    //   {/* Render your pagination component */}
-    //   <Pagination
-    //     currentPage={currentPage}
-    //     itemsPerPage={itemsPerPage}
-    //     totalItems={filteredData.length}
-    //     onPageChange={(page) => setCurrentPage(page)}
-    //   />
-    // </div>
     <CContainer fluid className="mt-5">
-      {/* <div className="d-flex bd-highlight mb-3">
-                        <div className="me-auto d-flex p-2 ">
-                            <CCol sm="auto" >
-                                <CButton className="add-project-btn">Add Project</CButton>
-                            </CCol>
-                            <CCol sm="auto" className="px-3">
-                                <CFormSelect className="project-select">
-                                    <option>Week</option>
-                                    <option value="1">Month</option>
-                                    <option value="2">Year</option>
-                                </CFormSelect>
-                            </CCol>                            
-                        </div>
-                        <div className="p-2 " >
-                            <div className="row  d-flex   align-items-center" >
-                                <div className="col-md-6 d-flex" >
-                                    <div className="mt-2 px-3">
-                                        <p>Search:</p>
-                                    </div>
-                                    <div className="project-search-bar">                                        
-                                        <i className="fa fa-search"></i>
-                                        <input type="text" className="form-control searchbar-input"  />
-                                    </div>
-                                </div>
-                            </div> 
-                        </div>
-                </div> */}
+      <div className="d-flex bd-highlight flex-column flex-sm-row mb-3">
+        <div className="me-auto d-flex p-2 align-items-center">
+          <span>show</span>
+          <CCol sm="auto" className="px-3">
+            <CFormSelect
+              className="project-select"
+              value={itemsPerPage}
+              onChange={handleFilterChange}
+            >
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </CFormSelect>
+          </CCol>
+          <span>entries</span>
+        </div>
+        <div className="p-2 ">
+          <div className="row  d-flex   align-items-center">
+            <div className="col-md-6 d-flex">
+              <div className="project-search-bar">
+                <i className="fa fa-search"></i>
+                <input
+                  type="text"
+                  className="form-control searchbar-input"
+                  placeholder="Search..."
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="table-scroll">
         <div className="project-list-table-div">
           <div className="table-container">
@@ -133,23 +102,23 @@ const MyTask = () => {
               <CTableHead>
                 <CTableRow className="project-list-table-header">
                   <CTableHeaderCell className="tableheader " scope="col">
-                    Project Name
+                    Title
                   </CTableHeaderCell>
                   {/* <CTableHeaderCell className="tableheader" scope="col"></CTableHeaderCell> */}
                   <CTableHeaderCell className="tableheader" scope="col">
-                    Description
+                    Project
                   </CTableHeaderCell>
                   <CTableHeaderCell className="tableheader" scope="col">
-                    Manager
+                    Created
                   </CTableHeaderCell>
                   <CTableHeaderCell className="tableheader" scope="col">
-                    Client
+                    Assigned
                   </CTableHeaderCell>
                   <CTableHeaderCell className="tableheader" scope="col">
-                    Last Activity
+                    Status
                   </CTableHeaderCell>
                   <CTableHeaderCell className="tableheader" scope="col">
-                    Unread Count
+                    Priority
                   </CTableHeaderCell>
                   <CTableHeaderCell className="tableheader" scope="col"></CTableHeaderCell>
                   <CTableHeaderCell className="tableheader text-center" scope="col">
@@ -159,105 +128,41 @@ const MyTask = () => {
                 </CTableRow>
               </CTableHead>
               <CTableBody>
-                <CTableRow className="project-list-table-body">
-                  <CTableDataCell className="tablecell pt-4">
-                    Productivity App Development
-                  </CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">IT Company Sample</CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">User</CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">Test Client</CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">3 minutes ago</CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">0</CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">
-                    <FontAwesomeIcon icon={faHeart} style={{ cursor: 'pointer' }} />
-                  </CTableDataCell>
-                  <CTableDataCell className="tablecell text-center pt-4">
-                    <FontAwesomeIcon icon={faFolderOpen} style={{ cursor: 'pointer' }} />
-                  </CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">
-                    <FontAwesomeIcon
-                      onClick={() => setVisible(!visible)}
-                      icon={faEdit}
-                      style={{ cursor: 'pointer' }}
-                    />
-                  </CTableDataCell>
-                </CTableRow>
-
-                <CTableRow className="project-list-table-body">
-                  <CTableDataCell className="tablecell pt-4">
-                    Productivity App Development
-                  </CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">IT Company Sample</CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">User</CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">Test Client</CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">3 minutes ago</CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4 ">0</CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">
-                    <FontAwesomeIcon icon={faHeart} style={{ cursor: 'pointer' }} />
-                  </CTableDataCell>
-                  <CTableDataCell className="tablecell text-center pt-4">
-                    <FontAwesomeIcon icon={faFolderOpen} style={{ cursor: 'pointer' }} />
-                  </CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">
-                    <FontAwesomeIcon
-                      onClick={() => setVisible(!visible)}
-                      icon={faEdit}
-                      style={{ cursor: 'pointer' }}
-                    />
-                  </CTableDataCell>
-                </CTableRow>
-
-                <CTableRow className="vehicle-list-table-body">
-                  <CTableDataCell className="tablecell pt-4">
-                    Productivity App Development
-                  </CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">IT Company Sample</CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">User</CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">Test Client</CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">3 minutes ago</CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">0</CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">
-                    <FontAwesomeIcon icon={faHeart} style={{ cursor: 'pointer' }} />
-                  </CTableDataCell>
-                  <CTableDataCell className="tablecell text-center pt-4">
-                    <FontAwesomeIcon icon={faFolderOpen} style={{ cursor: 'pointer' }} />
-                  </CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">
-                    <FontAwesomeIcon
-                      onClick={() => setVisible(!visible)}
-                      icon={faEdit}
-                      style={{ cursor: 'pointer' }}
-                    />
-                  </CTableDataCell>
-                </CTableRow>
-
-                <CTableRow className="vehicle-list-table-body">
-                  <CTableDataCell className="tablecell pt-4">
-                    Productivity App Development
-                  </CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">IT Company Sample</CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">User</CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">Test Client</CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">3 minutes ago</CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">0</CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">
-                    <FontAwesomeIcon icon={faHeart} style={{ cursor: 'pointer' }} />
-                  </CTableDataCell>
-                  <CTableDataCell className="tablecell text-center pt-4">
-                    <FontAwesomeIcon icon={faFolderOpen} style={{ cursor: 'pointer' }} />
-                  </CTableDataCell>
-                  <CTableDataCell className="tablecell pt-4">
-                    {/* <CButton className="edit-icon-btn" onClick={() => setVisible(!visible)} > */}
-                    <FontAwesomeIcon
-                      onClick={() => setVisible(!visible)}
-                      icon={faEdit}
-                      style={{ cursor: 'pointer' }}
-                    />
-                    {/* </CButton> */}
-                  </CTableDataCell>
-                </CTableRow>
+                {currentItems.map((row, ind) => (
+                  <CTableRow className="project-list-table-body" key={ind}>
+                    <CTableDataCell className="tablecell pt-4">{row.Title}</CTableDataCell>
+                    <CTableDataCell className="tablecell pt-4">{row.Project}</CTableDataCell>
+                    <CTableDataCell className="tablecell pt-4">{row.Created}</CTableDataCell>
+                    <CTableDataCell className="tablecell pt-4">{row.Assigned}</CTableDataCell>
+                    <CTableDataCell className="tablecell pt-4">{row.Status}</CTableDataCell>
+                    <CTableDataCell className="tablecell pt-4">{row.Priority}</CTableDataCell>
+                    <CTableDataCell className="tablecell pt-4">
+                      <FontAwesomeIcon icon={faHeart} style={{ cursor: 'pointer' }} />
+                    </CTableDataCell>
+                    <CTableDataCell className="tablecell text-center pt-4">
+                      <FontAwesomeIcon
+                        icon={faFolderOpen}
+                        style={{ cursor: 'pointer', color: '#0f9299' }}
+                      />
+                    </CTableDataCell>
+                    <CTableDataCell className="tablecell pt-4">
+                      <FontAwesomeIcon
+                        onClick={() => setVisible(!visible)}
+                        icon={faEdit}
+                        style={{ cursor: 'pointer', color: '#0f9299' }}
+                      />
+                    </CTableDataCell>
+                  </CTableRow>
+                ))}
               </CTableBody>
             </CTable>
+
+            <Pagination
+              currentPage={currentPage}
+              itemsPerPage={itemsPerPage}
+              totalItems={filteredData.length}
+              onPageChange={(page) => setCurrentPage(page)}
+            />
 
             <CModal
               alignment="center"

@@ -31,7 +31,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'My Task',
-    to: '/task',
+    to: '/my-task',
     icon: <FontAwesomeIcon icon={faCheckCircle} style={{ paddingRight:"20px"}} />,
   },
   {
@@ -45,19 +45,6 @@ const _nav = [
     name: 'Project',
     to: '/project',
     icon: <FontAwesomeIcon icon={faFolder} style={{ paddingRight:"20px"}} />,
-  },
-  {
-    component: CNavGroup,
-    name: 'My Workspace',
-    to: '/my-workspace',
-    icon: <CIcon icon={cilApplications} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'My Task',
-        to: '/my-workspace/my-task',
-      },
-    ],
   },
 ]
 

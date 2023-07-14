@@ -1,4 +1,5 @@
 import React from 'react'
+import BarGraph from '../dashboard/BarGraph'
 
 import {
   CAvatar,
@@ -184,7 +185,7 @@ const Dashboard = () => {
       <CCard className="mb-4">
         <CCardBody>
           <CRow>
-            <CCol sm={5}>
+            {/* <CCol sm={5}>
               <h4 id="traffic" className="card-title mb-0">
                 Traffic
               </h4>
@@ -206,9 +207,10 @@ const Dashboard = () => {
                   </CButton>
                 ))}
               </CButtonGroup>
-            </CCol>
+            </CCol> */}
           </CRow>
-          <CChartLine
+          <BarGraph />
+          {/* <CChartLine
             style={{ height: '300px', marginTop: '40px' }}
             data={{
               labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -291,9 +293,9 @@ const Dashboard = () => {
                 },
               },
             }}
-          />
+          /> */}
         </CCardBody>
-        <CCardFooter>
+        {/* <CCardFooter>
           <CRow xs={{ cols: 1 }} md={{ cols: 5 }} className="text-center">
             {progressExample.map((item, index) => (
               <CCol className="mb-sm-2 mb-0" key={index}>
@@ -305,12 +307,12 @@ const Dashboard = () => {
               </CCol>
             ))}
           </CRow>
-        </CCardFooter>
+        </CCardFooter> */}
       </CCard>
 
-      <WidgetsBrand withCharts />
+      {/* <WidgetsBrand withCharts /> */}
 
-      <CRow>
+      {/* <CRow>
         <CCol xs>
           <CCard className="mb-4">
             <CCardHeader>Traffic {' & '} Sales</CCardHeader>
@@ -453,7 +455,7 @@ const Dashboard = () => {
             </CCardBody>
           </CCard>
         </CCol>
-      </CRow>
+      </CRow> */}
     </>
   )
 }

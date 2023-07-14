@@ -182,7 +182,7 @@ const Dashboard = () => {
   return (
     <>
       <WidgetsDropdown />
-      <CCard className="mb-4" style={{ width: '500px' }}>
+      <CCard className="mb-4">
         <CCardBody>
           <CRow>
             {/* <CCol sm={5}>

@@ -101,9 +101,8 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', element: Modals },
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
-  { path: '/project', name: 'Project', element: Project },
-  { path: '/my-workspace', name: 'My Workspace', element: Cards, exact: true },
-  { path: '/my-workspace/my-task', name: 'My Task', element: MyTask },
+  { path: '/project', name: 'My Task', element: Project },
+  { path: '/my-task', name: 'Project', element: MyTask },
 ]
 
 export default routes

@@ -104,7 +104,7 @@ function userProject(props) {
                             <CTable className="project-list-table mt-5">
                                 <CTableHead  >
                                     <CTableRow className="project-list-table-header" >
-                                        <CTableHeaderCell  scope="col">Project Name</CTableHeaderCell>
+                                        <CTableHeaderCell scope="col">Project Name</CTableHeaderCell>
                                         {/* <CTableHeaderCell className="tableheader" scope="col"></CTableHeaderCell> */}
                                         <CTableHeaderCell className="tableheader" scope="col">Description</CTableHeaderCell>
                                         <CTableHeaderCell className="tableheader" scope="col">Manager</CTableHeaderCell>
@@ -116,26 +116,47 @@ function userProject(props) {
                                 </CTableHead>
                             </CTable>
 
-                            <CTableBody>
-  {currentUsers.map((user) => (
-    <CTableRow key={user.id}>
-      <CTableDataCell>{user.project_name}</CTableDataCell>
-      <CTableDataCell>{user.project_desc}</CTableDataCell>
-      <CTableDataCell>{user.manager}</CTableDataCell>
-      <CTableDataCell>{user.client}</CTableDataCell>
-      <CTableDataCell>{user.unread_cnt}</CTableDataCell>
-      <CTableDataCell>
-        <FontAwesomeIcon icon={faEye} style={{ cursor: "pointer", color: '#0f9299' }} />
-      </CTableDataCell>
-      <CTableDataCell className="text-center">
-        <FontAwesomeIcon onClick={() => setVisible(!visible)} icon={faEdit} style={{ cursor: "pointer", color: '#0f9299' }} />
-      </CTableDataCell>
-      <CTableDataCell>
-        <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: '#0f9299' }} />
-      </CTableDataCell>
-    </CTableRow>
-  ))}
-</CTableBody>
+
+                            {/* {data dropdown filter} */}
+                            {currentUsers.map((user) => (
+                                <tr key={user.id}>
+                                    <td>{user.project_name}</td>
+                                    <td><span></span>{user.project_desc}</td>
+                                    <td>{user.manager}</td>
+                                    <td>{user.client}</td>
+                                    {/* <td>{user.last_act}</td> */}
+                                    <td>{user.unread_cnt}</td>
+                                    <td>
+                                        <CTableDataCell className="tablecell pt-4">
+                                            <FontAwesomeIcon icon={faEye} style={{ cursor: "pointer", color: '#0f9299' }} />
+                                        </CTableDataCell>
+                                        <CTableDataCell className="tablecell text-center pt-4">
+                                            <FontAwesomeIcon onClick={() => setVisible(!visible)} icon={faEdit} style={{ cursor: "pointer", color: '#0f9299' }} />
+                                        </CTableDataCell>
+                                        <CTableDataCell className="tablecell pt-4">
+                                            <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: '#0f9299' }} />
+                                        </CTableDataCell>
+                                    </td>
+                                    {/* <td>
+                                        <span className="uploadimg">
+                                            <Link
+                                                to={`/editpro?id=${encodeURIComponent(user.id)}&name=${encodeURIComponent(
+                                                    user.name
+                                                )}&category=${encodeURIComponent(user.category)}&price=${encodeURIComponent(
+                                                    user.price
+                                                )}&salePrice=${encodeURIComponent(
+                                                    user.sale_price
+                                                )}&stock=${encodeURIComponent(user.stock)}`}
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={faEdit}
+                                                    style={{ width: '30px', color: 'grey', marginLeft: '5px' }}
+                                                />
+                                            </Link>
+                                        </span>
+                                    </td> */}
+                                </tr>
+                            ))}
 
 
 

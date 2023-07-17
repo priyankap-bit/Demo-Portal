@@ -119,13 +119,14 @@ function userProject(props) {
                     <CTableHeaderCell className="tableheader" scope="col">
                       Client
                     </CTableHeaderCell>
-                    {/* <CTableHeaderCell className="tableheader" scope="col">Last Activity</CTableHeaderCell> */}
                     <CTableHeaderCell className="tableheader" scope="col">
                       Unread Count
                     </CTableHeaderCell>
-                    <CTableHeaderCell className="tableheader text-center" scope="col" colSpan={3}>
+                    <CTableHeaderCell className="tableheader" scope="col"></CTableHeaderCell>
+                    <CTableHeaderCell className="tableheader text-center" scope="col">
                       Action
                     </CTableHeaderCell>
+                    <CTableHeaderCell className="tableheader" scope="col"></CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>

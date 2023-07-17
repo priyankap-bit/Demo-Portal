@@ -1,3 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable prettier/prettier */
+
+
 import React, { useState, useEffect } from 'react'
 import { PageItem, Pagination } from 'react-bootstrap'
 import {
@@ -21,7 +26,7 @@ import {
   CFormCheck,
 } from '@coreui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faFolderOpen, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faEye, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
 import '../../../views/css/mansi.css'
 import data from './Data.jsx'
 
@@ -67,7 +72,7 @@ const MyTask = () => {
     <CContainer fluid className="mt-5">
       <div className="d-flex bd-highlight flex-column flex-sm-row mb-3">
         <div className="me-auto d-flex p-2 align-items-center">
-          <span>show</span>
+          {/* <span>show</span>
           <CCol sm="auto" className="px-3">
             <CFormSelect
               className="project-select"
@@ -80,7 +85,7 @@ const MyTask = () => {
               <option value="100">100</option>
             </CFormSelect>
           </CCol>
-          <span>entries</span>
+          <span>entries</span> */}
         </div>
         <div className="p-2 ">
           <div className="row  d-flex   align-items-center">
@@ -139,18 +144,19 @@ const MyTask = () => {
                     <CTableDataCell className="tablecell pt-4">{row.Status}</CTableDataCell>
                     <CTableDataCell className="tablecell pt-4">{row.Priority}</CTableDataCell>
                     <CTableDataCell className="tablecell pt-4">
-                      <FontAwesomeIcon icon={faHeart} style={{ cursor: 'pointer' }} />
+                      <FontAwesomeIcon icon={faEye} style={{ cursor: 'pointer',color: '#0f9299' }} />
                     </CTableDataCell>
                     <CTableDataCell className="tablecell text-center pt-4">
                       <FontAwesomeIcon
-                        icon={faFolderOpen}
+                       onClick={() => setVisible(!visible)}
+                        icon={faEdit}
                         style={{ cursor: 'pointer', color: '#0f9299' }}
                       />
                     </CTableDataCell>
                     <CTableDataCell className="tablecell pt-4">
                       <FontAwesomeIcon
-                        onClick={() => setVisible(!visible)}
-                        icon={faEdit}
+                       
+                        icon={faTrash}
                         style={{ cursor: 'pointer', color: '#0f9299' }}
                       />
                     </CTableDataCell>
@@ -234,7 +240,7 @@ const MyTask = () => {
                     />
                   </div>
                 </div>
-                <div className="row mt-3 edit-project-input">
+                {/* <div className="row mt-3 edit-project-input">
                   <CFormInput className="edit-input" type="text" label="Client" />
                 </div>
                 <div className="row mt-3 edit-project-input">
@@ -244,7 +250,7 @@ const MyTask = () => {
                     label="Co-Client"
                     style={{ width: '300px' }}
                   />
-                </div>
+                </div> */}
               </CModalBody>
               <CModalFooter>
                 <CButton className="edit-btn">Update</CButton>
@@ -259,5 +265,6 @@ const MyTask = () => {
     </CContainer>
   )
 }
+
 
 export default MyTask

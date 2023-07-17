@@ -26,7 +26,7 @@ const {
 
 // import Authentication 
 const { isAuthenticatedUser, authorizeRoles } = require("./Middleware/auth");
-const { newProducts, getAllProducts } = require("./controllers/productController");
+// const { newProducts, getAllProducts } = require("./controllers/productController");
 
 
 con.connect(function (error) {
@@ -53,9 +53,24 @@ app.get('/user/authenticated', isAuthenticatedUser, (req, res) => {
 });
 
 // Products Routes
-app.post("/product/new",isAuthenticatedUser, authorizeRoles("admin"), newProducts)
+// app.post("/product/new",isAuthenticatedUser, authorizeRoles("admin"), newProducts)
 // app.get("/products",isAuthenticatedUser, authorizeRoles("admin"), getAllProducts)
-app.get("/products", getAllProducts)
+// app.get("/products", getAllProducts)
+
+
+// Fetch data from the database
+app.get('/projectsdetails', (req, res) => {
+  const query = 'SELECT * FROM `projectsdetails`';
+  con.query(query, (error, results) => {
+    if (error) {
+      console.error('Error executing the projectsdetails query:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
  
 app.listen(5000, () => {
   console.log("server is working on http://localhost:5000");  

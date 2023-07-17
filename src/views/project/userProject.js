@@ -21,17 +21,55 @@ import {
     CFormInput,
     CFormCheck
 } from '@coreui/react';
-import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {  faTrash, faEdit, faEye } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
+import { faTrash, faEdit, faEye } from '@fortawesome/free-solid-svg-icons'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../../views/css/mansi.css'
-
+import { Link } from 'react-router-dom';
+// import { useDispatch } from 'react-redux';
 
 
 function userProject(props) {
     const [visible, setVisible] = useState(false)
     const [visibleaddpro, setVisibleaddpro] = useState(false)
+    const [users, setUsers] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    // const [selectedType, setSelectedType] = useState('');
+    // const [dropdownLabel, setDropdownLabel] = useState('CATEGORY');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [usersPerPage] = useState(10);
+    // const dispatch = useDispatch();
+
+
+    // fetch data from database..
+    useEffect(() => {
+        fetchData();
+    }, []);
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/projectsdetails');
+            setUsers(response.data);
+        } catch (error) {
+            console.error('Error retrieving user data:', error);
+        }
+    };
+
+
+    // Pagination
+    const indexOfLastUser = currentPage * usersPerPage;
+    const indexOfFirstUser = indexOfLastUser - usersPerPage;
+    const filteredUsers = users.filter((user) =>
+        user.project_name && user.project_name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+    const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+
     return (
         <>
             <CContainer fluid className="mt-5">
@@ -53,7 +91,8 @@ function userProject(props) {
                             <div className="col-md-6 d-flex" >
                                 <div className="project-search-bar">
                                     <i className="fa fa-search"></i>
-                                    <input type="text" className="form-control searchbar-input" placeholder='Search...' />
+                                    <input type="text" className="form-control searchbar-input" placeholder='Search...' value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)} />
                                 </div>
                             </div>
                         </div>
@@ -65,99 +104,70 @@ function userProject(props) {
                             <CTable className="project-list-table mt-5">
                                 <CTableHead  >
                                     <CTableRow className="project-list-table-header" >
-                                        <CTableHeaderCell className="tableheader " scope="col">Project Name</CTableHeaderCell>
+                                        <CTableHeaderCell  scope="col">Project Name</CTableHeaderCell>
                                         {/* <CTableHeaderCell className="tableheader" scope="col"></CTableHeaderCell> */}
                                         <CTableHeaderCell className="tableheader" scope="col">Description</CTableHeaderCell>
                                         <CTableHeaderCell className="tableheader" scope="col">Manager</CTableHeaderCell>
                                         <CTableHeaderCell className="tableheader" scope="col">Client</CTableHeaderCell>
-                                        <CTableHeaderCell className="tableheader" scope="col">Last Activity</CTableHeaderCell>
+                                        {/* <CTableHeaderCell className="tableheader" scope="col">Last Activity</CTableHeaderCell> */}
                                         <CTableHeaderCell className="tableheader" scope="col">Unread Count</CTableHeaderCell>
-                                        <CTableHeaderCell className="tableheader" scope="col"></CTableHeaderCell>
                                         <CTableHeaderCell className="tableheader text-center" scope="col">Action</CTableHeaderCell>
-                                        <CTableHeaderCell className="tableheader" scope="col"></CTableHeaderCell>
                                     </CTableRow>
                                 </CTableHead>
-                                <CTableBody >
-                                    <CTableRow className="project-list-table-body" >
-                                        <CTableDataCell className="tablecell pt-4" >Productivity App Development</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">IT Company Sample</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">User</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">Test Client</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">3 minutes ago</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">0</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">
-                                            <FontAwesomeIcon icon={faEye} style={{ cursor: "pointer", color: '#0f9299' }} />
-                                        </CTableDataCell>
-                                        <CTableDataCell className="tablecell text-center pt-4">
-                                            <FontAwesomeIcon onClick={() => setVisible(!visible)} icon={faEdit} style={{ cursor: "pointer", color: '#0f9299' }} />
-                                        </CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">
-                                            <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: '#0f9299' }} />
-                                        </CTableDataCell>
-
-                                    </CTableRow>
-
-                                    <CTableRow className="project-list-table-body" >
-                                        <CTableDataCell className="tablecell pt-4" >Productivity App Development</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">IT Company Sample</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">User</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">Test Client</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">3 minutes ago</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4 ">0</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">
-                                            <FontAwesomeIcon icon={faEye} style={{ cursor: "pointer", color: '#0f9299' }} />
-                                        </CTableDataCell>
-                                        <CTableDataCell className="tablecell text-center pt-4">
-                                            <FontAwesomeIcon onClick={() => setVisible(!visible)} icon={faEdit} style={{ cursor: "pointer", color: '#0f9299' }} />
-                                        </CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">
-                                            <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: '#0f9299' }} />
-                                        </CTableDataCell>
-
-                                    </CTableRow>
-
-                                    <CTableRow className="vehicle-list-table-body" >
-                                        <CTableDataCell className="tablecell pt-4" >Productivity App Development</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">IT Company Sample</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">User</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">Test Client</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">3 minutes ago</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">0</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">
-                                            <FontAwesomeIcon icon={faEye} style={{ cursor: "pointer", color: '#0f9299' }} />
-                                        </CTableDataCell>
-                                        <CTableDataCell className="tablecell text-center pt-4">
-                                            <FontAwesomeIcon onClick={() => setVisible(!visible)} icon={faEdit} style={{ cursor: "pointer", color: '#0f9299' }} />
-                                        </CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">
-                                            <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: '#0f9299' }} />
-                                        </CTableDataCell>
-
-                                    </CTableRow>
-
-                                    <CTableRow className="vehicle-list-table-body" >
-                                        <CTableDataCell className="tablecell pt-4" >Productivity App Development</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">IT Company Sample</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">User</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">Test Client</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">3 minutes ago</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">0</CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4" >
-                                            <FontAwesomeIcon icon={faEye} style={{ cursor: "pointer", color: '#0f9299' }} />
-                                        </CTableDataCell>
-                                        <CTableDataCell className="tablecell text-center pt-4">
-                                            <FontAwesomeIcon onClick={() => setVisible(!visible)} icon={faEdit} style={{ cursor: "pointer", color: '#0f9299' }} />
-                                        </CTableDataCell>
-                                        <CTableDataCell className="tablecell pt-4">
-                                            {/* <CButton className="edit-icon-btn" onClick={() => setVisible(!visible)} > */}
-                                            <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: '#0f9299' }} />
-                                            {/* </CButton> */}
-
-                                        </CTableDataCell>
-
-                                    </CTableRow>
-                                </CTableBody>
                             </CTable>
+
+                            <CTableBody>
+  {currentUsers.map((user) => (
+    <CTableRow key={user.id}>
+      <CTableDataCell>{user.project_name}</CTableDataCell>
+      <CTableDataCell>{user.project_desc}</CTableDataCell>
+      <CTableDataCell>{user.manager}</CTableDataCell>
+      <CTableDataCell>{user.client}</CTableDataCell>
+      <CTableDataCell>{user.unread_cnt}</CTableDataCell>
+      <CTableDataCell>
+        <FontAwesomeIcon icon={faEye} style={{ cursor: "pointer", color: '#0f9299' }} />
+      </CTableDataCell>
+      <CTableDataCell className="text-center">
+        <FontAwesomeIcon onClick={() => setVisible(!visible)} icon={faEdit} style={{ cursor: "pointer", color: '#0f9299' }} />
+      </CTableDataCell>
+      <CTableDataCell>
+        <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer", color: '#0f9299' }} />
+      </CTableDataCell>
+    </CTableRow>
+  ))}
+</CTableBody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                             <CModal alignment="center" className="edit-modal" scrollable visible={visible} onClose={() => setVisible(false)}>
@@ -194,13 +204,13 @@ function userProject(props) {
                                         </div> */}
                                 </CModalBody>
                                 <CModalFooter>
-                                   
+
 
                                     <CButton className="edit-btn" >Update</CButton>
                                     <CButton className="edit-btn" onClick={() => setVisible(false)}>
                                         Close
                                     </CButton>
-                                   
+
                                 </CModalFooter>
                             </CModal>
 
@@ -239,17 +249,42 @@ function userProject(props) {
                                         </div> */}
                                 </CModalBody>
                                 <CModalFooter>
-                                <div className='wrapper d-flex justify-content-center'>
-                                    <CButton className="edit-btn " >Add</CButton>
-                                    <CButton className="edit-btn ms-3" onClick={() =>  setVisibleaddpro(false)}>
-                                        Close
-                                    </CButton>
+                                    <div className='wrapper d-flex justify-content-center'>
+                                        <CButton className="edit-btn " >Add</CButton>
+                                        <CButton className="edit-btn ms-3" onClick={() => setVisibleaddpro(false)}>
+                                            Close
+                                        </CButton>
                                     </div>
                                 </CModalFooter>
                             </CModal>
                         </div>
                     </div>
                 </div>
+                {/* Pagination */}
+                <nav>
+                    <ul className="pagination">
+                        <li className={currentPage === 1 ? 'page-item disabled' : 'page-item'}>
+                            <button className="page-link" onClick={() => paginate(currentPage - 1)}>
+                                Previous
+                            </button>
+                        </li>
+                        {Array.from({ length: totalPages }, (_, i) => (
+                            <li
+                                key={i}
+                                className={currentPage === i + 1 ? 'page-item active' : 'page-item'}
+                            >
+                                <button className="page-link" onClick={() => paginate(i + 1)}>
+                                    {i + 1}
+                                </button>
+                            </li>
+                        ))}
+                        <li className={currentPage === totalPages ? 'page-item disabled' : 'page-item'}>
+                            <button className="page-link" onClick={() => paginate(currentPage + 1)}>
+                                Next
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
             </CContainer>
         </>
     );

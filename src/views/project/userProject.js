@@ -109,7 +109,6 @@ function userProject(props) {
                 <CTableHead>
                   <CTableRow className="project-list-table-header">
                     <CTableHeaderCell scope="col">Project Name</CTableHeaderCell>
-                    {/* <CTableHeaderCell className="tableheader" scope="col"></CTableHeaderCell> */}
                     <CTableHeaderCell className="tableheader" scope="col">
                       Description
                     </CTableHeaderCell>
@@ -122,11 +121,9 @@ function userProject(props) {
                     <CTableHeaderCell className="tableheader" scope="col">
                       Unread Count
                     </CTableHeaderCell>
-                    <CTableHeaderCell className="tableheader" scope="col"></CTableHeaderCell>
-                    <CTableHeaderCell className="tableheader text-center" scope="col">
+                    <CTableHeaderCell className="tableheader " scope="col">
                       Action
                     </CTableHeaderCell>
-                    <CTableHeaderCell className="tableheader" scope="col"></CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
@@ -141,21 +138,17 @@ function userProject(props) {
                       <CTableDataCell className="tablecell pt-4">{user.manager}</CTableDataCell>
                       <CTableDataCell className="tablecell pt-4">{user.client}</CTableDataCell>
                       <CTableDataCell className="tablecell pt-4">{user.unread_cnt}</CTableDataCell>
-                      <CTableDataCell className="tablecell pt-4">
-                        <FontAwesomeIcon
+                      <CTableDataCell className="tablecell pt-4 ">
+                        <FontAwesomeIcon className='pe-4'
                           icon={faEye}
                           style={{ cursor: 'pointer', color: '#0f9299' }}
                         />
-                      </CTableDataCell>
-                      <CTableDataCell className="tablecell text-center pt-4">
-                        <FontAwesomeIcon
+                        <FontAwesomeIcon className='pe-4'
                           onClick={() => setVisible(!visible)}
                           icon={faEdit}
                           style={{ cursor: 'pointer', color: '#0f9299' }}
                         />
-                      </CTableDataCell>
-                      <CTableDataCell className="tablecell pt-4">
-                        <FontAwesomeIcon
+                        <FontAwesomeIcon className='pe-4'
                           icon={faTrash}
                           style={{ cursor: 'pointer', color: '#0f9299' }}
                         />

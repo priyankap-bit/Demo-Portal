@@ -162,9 +162,9 @@ function userProject(props) {
 
                             <CModal alignment="center" className="edit-modal" scrollable visible={visible} onClose={() => setVisible(false)}>
                                 <CModalHeader>
-                                    <CModalTitle>Edit Project</CModalTitle>
+                                    <CModalTitle className='fs-2 px-3'>Edit Project</CModalTitle>
                                 </CModalHeader>
-                                <CModalBody>
+                                <CModalBody className='px-5'>
                                     <div className="row edit-project-input">
                                         <CFormInput className="edit-input" type="text" label="Name" />
                                     </div>
@@ -193,7 +193,7 @@ function userProject(props) {
                                             <CFormInput className="edit-input" type="text" label="Co-Client" style={{ width: "300px" }} />
                                         </div> */}
                                 </CModalBody>
-                                <CModalFooter>
+                                <CModalFooter >
                                    
 
                                     <CButton className="edit-btn" >Update</CButton>
@@ -205,11 +205,11 @@ function userProject(props) {
                             </CModal>
 
 
-                            <CModal alignment="center" className="edit-modal" scrollable visible={visibleaddpro} onClose={() => setVisibleaddpro(false)}>
+                            <CModal alignment="center" className="edit-modal"  scrollable visible={visibleaddpro} onClose={() => setVisibleaddpro(false)}>
                                 <CModalHeader>
-                                    <CModalTitle>Add New Project</CModalTitle>
+                                    <CModalTitle className='fs-2 px-3'>Add New Project</CModalTitle>
                                 </CModalHeader>
-                                <CModalBody>
+                                <CModalBody className='px-5'>
                                     <div className="row edit-project-input">
                                         <CFormInput className="edit-input" type="text" label="Project Name" />
                                     </div>
@@ -238,14 +238,12 @@ function userProject(props) {
                                             <CFormInput className="edit-input" type="text" label="Co-Client" style={{ width: "300px" }} />
                                         </div> */}
                                 </CModalBody>
-                                <CModalFooter>
-                                <div className='wrapper d-flex justify-content-center'>
-                                    <CButton className="edit-btn " >Add</CButton>
-                                    <CButton className="edit-btn ms-3" onClick={() =>  setVisibleaddpro(false)}>
-                                        Close
-                                    </CButton>
-                                    </div>
-                                </CModalFooter>
+                                <CModalFooter className='d-flex justify-content-center'>
+                <CButton className="edit-btn">Update</CButton>
+                <CButton className="edit-btn" onClick={() => setVisible(false)}>
+                  Close
+                </CButton>
+              </CModalFooter>
                             </CModal>
                         </div>
                     </div>

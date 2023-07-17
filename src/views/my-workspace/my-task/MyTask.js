@@ -32,10 +32,15 @@ import data from './Data.jsx'
 
 const MyTask = () => {
   const [visible, setVisible] = useState(false)
+  const [visibleaddpro, setVisibleaddpro] = useState(false)
   // const [data, setData] = useState([])
   const [filter, setFilter] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
+
+  const handleChange =()=>{
+
+  }
 
   // Fetch your table data from an API or other source
   //   useEffect(() => {
@@ -72,6 +77,9 @@ const MyTask = () => {
     <CContainer fluid className="mt-5">
       <div className="d-flex bd-highlight flex-column flex-sm-row mb-3">
         <div className="me-auto d-flex p-2 align-items-center">
+          <CCol sm="auto" >
+            <CButton onClick={() => setVisibleaddpro(!visibleaddpro)} className="add-project-btn">Add Project</CButton>
+          </CCol>
           {/* <span>show</span>
           <CCol sm="auto" className="px-3">
             <CFormSelect
@@ -144,18 +152,18 @@ const MyTask = () => {
                     <CTableDataCell className="tablecell pt-4">{row.Status}</CTableDataCell>
                     <CTableDataCell className="tablecell pt-4">{row.Priority}</CTableDataCell>
                     <CTableDataCell className="tablecell pt-4">
-                      <FontAwesomeIcon icon={faEye} style={{ cursor: 'pointer',color: '#0f9299' }} />
+                      <FontAwesomeIcon icon={faEye} style={{ cursor: 'pointer', color: '#0f9299' }} />
                     </CTableDataCell>
                     <CTableDataCell className="tablecell text-center pt-4">
                       <FontAwesomeIcon
-                       onClick={() => setVisible(!visible)}
+                        onClick={() => setVisible(!visible)}
                         icon={faEdit}
                         style={{ cursor: 'pointer', color: '#0f9299' }}
                       />
                     </CTableDataCell>
                     <CTableDataCell className="tablecell pt-4">
                       <FontAwesomeIcon
-                       
+
                         icon={faTrash}
                         style={{ cursor: 'pointer', color: '#0f9299' }}
                       />
@@ -199,6 +207,49 @@ const MyTask = () => {
               />
             </Pagination>
 
+            <CModal alignment="center" className="Add-modal" scrollable visible={visibleaddpro} onClose={() => setVisibleaddpro(false)}>
+              <CModalHeader>
+                <CModalTitle className='px-3 fs-2'>Add New Project</CModalTitle>
+              </CModalHeader>
+              <CModalBody className='px-5'>
+                <div className="row edit-project-input ">
+                  <CFormInput className="edit-input  "  onChange={{handleChange}} type="text" label="Project Name" />
+                </div>
+                <div className="row mt-3 edit-project-input">
+                  <CFormInput className="edit-input"  onChange={{handleChange}} type="text" label="Description" />
+                </div>
+                <div className="row mt-3 edit-project-input">
+                  <CFormInput className="edit-input"  onChange={{handleChange}} type="text" label="Manager" />
+                </div>
+                <div className="row mt-3">
+                  <div>
+                    <p>Team Members</p>
+                  </div>
+                  <div className="col-6 edit-checkbox" >
+                    <CFormCheck type="radio" name="flexRadioDefault" id="flexRadioDefault1" label="Add All Team Members" />
+                  </div>
+                  <div className="col-6 edit-checkbox">
+                    <CFormCheck type="radio" name="flexRadioDefault" id="flexRadioDefault2" label="Select Specific Team Members" />
+                  </div>
+
+                </div>
+                {/* <div className="row mt-3 edit-project-input">
+                                            <CFormInput className="edit-input" type="text" label="Client" />
+                                        </div>
+                                        <div className="row mt-3 edit-project-input">
+                                            <CFormInput className="edit-input" type="text" label="Co-Client" style={{ width: "300px" }} />
+                                        </div> */}
+              </CModalBody>
+              <CModalFooter>
+                <div className='wrapper d-flex justify-content-center'>
+                  <CButton className="edit-btn "  >Add</CButton>
+                  <CButton className="edit-btn ms-3" onClick={() => setVisibleaddpro(false)}>
+                    Close
+                  </CButton>
+                </div>
+              </CModalFooter>
+            </CModal>
+
             <CModal
               alignment="center"
               className="edit-modal"
@@ -207,9 +258,9 @@ const MyTask = () => {
               onClose={() => setVisible(false)}
             >
               <CModalHeader>
-                <CModalTitle>Edit Project</CModalTitle>
+                <CModalTitle className='px-3 fs-2'  >Edit Project</CModalTitle>
               </CModalHeader>
-              <CModalBody>
+              <CModalBody className='px-5'>
                 <div className="row edit-project-input">
                   <CFormInput className="edit-input" type="text" label="Name" />
                 </div>
@@ -252,14 +303,18 @@ const MyTask = () => {
                   />
                 </div> */}
               </CModalBody>
-              <CModalFooter>
+              <CModalFooter className='d-flex justify-content-center'>
                 <CButton className="edit-btn">Update</CButton>
                 <CButton className="edit-btn" onClick={() => setVisible(false)}>
                   Close
                 </CButton>
               </CModalFooter>
             </CModal>
+
+
+
           </div>
+
         </div>
       </div>
     </CContainer>

@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
+import ChatBot from './views/chatbot/ChatBot'
 
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
@@ -60,6 +61,7 @@ const Project = React.lazy(() => import('./views/project/userProject'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
+  { path: '/chatbot', name: 'Chat', element: ChatBot },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },

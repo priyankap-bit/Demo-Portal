@@ -46,6 +46,12 @@ const _nav = [
     to: '/project',
     icon: <FontAwesomeIcon icon={faFolder} style={{ paddingRight:"20px"}} />,
   },
+  {
+    component: CNavItem,
+    name: 'ChatBot',
+    to: '/chatbot',
+    icon: <FontAwesomeIcon icon={faFolder} style={{ paddingRight:"20px"}} />,
+  },
 ]
 
 export default _nav

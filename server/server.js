@@ -71,6 +71,73 @@ app.get('/projectsdetails', (req, res) => {
   });
 });
 
+
+// Update project route
+app.put('/projectsdetails/:projectId', (req, res) => {
+  const projectId = req.params.projectId;
+  const { project_name, project_desc, manager } = req.body;
+
+  const query = `
+    UPDATE projectsdetails
+    SET project_name = ?, project_desc = ?, manager = ?
+    WHERE projectId = ?
+  `;
+  const values = [project_name, project_desc, manager, projectId];
+
+  con.query(query, values, (err, results) => {
+    if (err) {
+      console.error('Error updating project:', err);
+      res.status(500).json({ error: 'Failed to update project' });
+      return;
+    }
+
+    res.json({ message: 'Project updated successfully' });
+  });
+});
+
+// Delete project route
+app.delete('/projectsdetails/:projectId', (req, res) => {
+  const projectId = req.params.projectId;
+
+  const query = `
+    DELETE FROM projectsdetails
+    WHERE projectId = ?
+  `;
+  const values = [projectId];
+
+  con.query(query, values, (err, results) => {
+    if (err) {
+      console.error('Error deleting project:', err);
+      res.status(500).json({ error: 'Failed to delete project' });
+      return;
+    }
+
+    res.json({ message: 'Project deleted successfully' });
+  });
+});
+
+// Add new project route
+app.post('/projectsdetails', (req, res) => {
+  const { project_name, project_desc, manager } = req.body;
+
+  const query = `
+    INSERT INTO projectsdetails (project_name, project_desc, manager)
+    VALUES (?, ?, ?)
+  `;
+  const values = [project_name, project_desc, manager];
+
+  con.query(query, values, (err, results) => {
+    if (err) {
+      console.error('Error adding project:', err);
+      res.status(500).json({ error: 'Failed to add project' });
+      return;
+    }
+
+    res.json({ message: 'Project added successfully' });
+  });
+});
+
+
  
 app.listen(5000, () => {
   console.log("server is working on http://localhost:5000");  

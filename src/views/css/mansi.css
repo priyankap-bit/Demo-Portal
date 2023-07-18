@@ -49,7 +49,7 @@
 
 .add-project-btn{
     background-color: #0f9299 !important;
-    border: none;
+    border: none !important;
 }
 
 .searchbar-input{

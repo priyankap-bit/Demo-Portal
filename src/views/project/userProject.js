@@ -73,7 +73,8 @@ function userProject(props) {
         <div className="d-flex bd-highlight flex-column flex-md-row mb-3">
           <div className="me-auto d-flex p-2 ">
             <CCol sm="auto">
-              <CButton onClick={() => setVisibleaddpro(!visibleaddpro)} type="button"
+              <CButton onClick={() => setVisibleaddpro(!visibleaddpro)} 
+              type="button"
                 className='add-project-btn'
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
@@ -289,7 +290,7 @@ function userProject(props) {
         </form>
       </div>
       <div className="modal-footer mb-3 border-0 text-center justify-content-center">
-        <CButton className="edit-btn">Update</CButton>
+        <CButton className="edit-btn">Add</CButton>
         <CButton className="edit-btn" data-bs-dismiss="modal" onClick={() => setVisible(false)}>
           Close
         </CButton>

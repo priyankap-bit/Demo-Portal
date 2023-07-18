@@ -17,7 +17,7 @@ import {
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBell, faCheckCircle, faCircle, faFolder, faHome, faSignOut } from '@fortawesome/free-solid-svg-icons'
+import { faBell, faCheckCircle, faUsers, faFolder, faHome, faSignOut } from '@fortawesome/free-solid-svg-icons'
 // import { faCircleTrash } from '@fortawesome/free-solid-svg-icons'
 
 
@@ -27,6 +27,12 @@ const _nav = [
     name: 'Home',
     to: '/dashboard',
     icon: <FontAwesomeIcon icon={faHome} style={{ paddingRight:"20px"}} /> ,
+  },
+  {
+    component: CNavItem,
+    name: 'Users',
+    to: '/users',
+    icon: <FontAwesomeIcon icon={faUsers} style={{ paddingRight:"20px"}} /> ,
   },
   {
     component: CNavItem,

@@ -1,3 +1,7 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable prettier/prettier */
+
 const TableData = [
   {
     Title: 'Classroom Instructions',
@@ -520,5 +524,7 @@ const TableData = [
     Priority: 'Low',
   },
 ]
+
+
 
 export default TableData

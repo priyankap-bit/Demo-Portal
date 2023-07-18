@@ -29,9 +29,7 @@ const User = () => {
         }
     }
 
-    const indexOfLastUser = currentPage * usersPerPage;
-    const indexOfFirstUser = indexOfLastUser - usersPerPage;
-    const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+   
 
     const filteredUsers = users.filter(
         (user) =>
@@ -42,6 +40,9 @@ const User = () => {
           user.phone.toLowerCase().includes(searchTerm.toLowerCase())
       );
    
+      const indexOfLastUser = currentPage * usersPerPage;
+      const indexOfFirstUser = indexOfLastUser - usersPerPage;
+      const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
        // ...
 
 
@@ -90,7 +91,7 @@ const User = () => {
                     </CTableRow>
                 </CTableHead>
                 <CTableBody>
-                    {filteredUsers.map((user) => (
+                    {currentUsers.map((user) => (
                         <CTableRow className="project-list-table-body" key={user.id}>
                             <CTableDataCell className="tablecell pt-4">
                                 {user.firstName}
@@ -123,7 +124,7 @@ const User = () => {
                 <div className="wrapper d-flex justify-content-end">
                     <Pagination
                         activePage={currentPage}
-                        itemsCountPerPage={usersPerPage}
+                        itemsCountPerPage={10}
                         totalItemsCount={filteredUsers.length}
                         pageRangeDisplayed={5} // Number of page links to display
                         onChange={handlePageChange}

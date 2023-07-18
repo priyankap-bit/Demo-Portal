@@ -20,42 +20,26 @@ import {
   CModalBody,
   CFormInput,
   CFormCheck,
-} from '@coreui/react'
+}
+ from '@coreui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEdit, faEye } from '@fortawesome/free-solid-svg-icons'
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import '../../views/css/mansi.css'
-
-
+import { Link } from 'react-router-dom'
+// import { useDispatch } from 'react-redux';
 
 function userProject(props) {
   const [visible, setVisible] = useState(false)
   const [visibleaddpro, setVisibleaddpro] = useState(false)
   const [users, setUsers] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
+  // const [selectedType, setSelectedType] = useState('');
+  // const [dropdownLabel, setDropdownLabel] = useState('CATEGORY');
   const [currentPage, setCurrentPage] = useState(1)
   const [usersPerPage] = useState(10)
-  const [projectName, setProjectName] = useState('')
-  const [projectDescription, setProjectDescription] = useState('')
-  const [projectManager, setProjectManager] = useState('')
-  const [projectId, setProjectId] = useState('');
-  const [newProjectName, setNewProjectName] = useState('');
-  const [newProjectDescription, setNewProjectDescription] = useState('');
-  const [newProjectManager, setNewProjectManager] = useState('');
-
-
-
-
-
-
-
-
-
-
-
-
-
+  // const dispatch = useDispatch();
 
   // fetch data from database..
   useEffect(() => {
@@ -70,81 +54,6 @@ function userProject(props) {
     }
   }
 
-
-
-
-  const updateProject = async () => {
-    try {
-      const updatedProject = {
-        project_name: projectName,
-        project_desc: projectDescription,
-        manager: projectManager,
-      };
-
-      // Make an API request to update the project
-      await axios.put(`http://localhost:5000/projectsdetails/${projectId}`, updatedProject);
-
-      // Handle the response and any necessary actions
-      console.log('Project updated successfully');
-
-      // Clear the input fields and close the modal
-      setProjectName('');
-      setProjectDescription('');
-      setProjectManager('');
-      setVisible(false);
-
-      // Fetch the updated data
-      fetchData();
-    } catch (error) {
-      console.error('Error updating project:', error);
-    }
-  };
-
-  const deleteProject = async (projectId) => {
-    try {
-      // Make an API request to delete the project
-      await axios.delete(`http://localhost:5000/projectsdetails/${projectId}`);
-
-      // Handle the response and any necessary actions
-      console.log('Project deleted successfully');
-
-      // Fetch the updated data
-      fetchData();
-    } catch (error) {
-      console.error('Error deleting project:', error);
-    }
-  };
-
-  const addProject = async () => {
-    try {
-      const newProject = {
-        project_name: newProjectName,
-        project_desc: newProjectDescription,
-        manager: newProjectManager,
-      };
-
-      // Make an API request to add the project
-      await axios.post('http://localhost:5000/projectsdetails', newProject);
-
-      // Handle the response and any necessary actions
-      console.log('Project added successfully');
-
-      // Clear the input fields and close the modal
-      setNewProjectName('');
-      setNewProjectDescription('');
-      setNewProjectManager('');
-      setVisibleaddpro(false);
-
-      // Fetch the updated data
-      fetchData();
-    } catch (error) {
-      console.error('Error adding project:', error);
-    }
-  };
-
-
-
-
   // Pagination
   const indexOfLastUser = currentPage * usersPerPage
   const indexOfFirstUser = indexOfLastUser - usersPerPage
@@ -158,9 +67,6 @@ function userProject(props) {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
-
-
-
 
   return (
     <>
@@ -227,7 +133,7 @@ function userProject(props) {
                 </CTableHead>
                 <CTableBody>
                   {currentUsers.map((user) => (
-                    <CTableRow className="project-list-table-body" key={user.projectId}>
+                    <CTableRow className="project-list-table-body" key={user.id}>
                       <CTableDataCell className="tablecell pt-4">
                         {user.project_name}
                       </CTableDataCell>
@@ -242,23 +148,12 @@ function userProject(props) {
                           icon={faEye}
                           style={{ cursor: 'pointer', color: '#0f9299' }}
                         />
-                        <FontAwesomeIcon
-                          className='pe-4'
-                          onClick={() => {
-                            setVisible(!visible)
-                            setProjectName(user.project_name)
-                            setProjectDescription(user.project_desc)
-                            setProjectManager(user.manager)
-                            setProjectId(user.projectId); // Pass the projectId value
-                          }}
+                        <FontAwesomeIcon className='pe-4'
+                          onClick={() => setVisible(!visible)}
                           icon={faEdit}
                           style={{ cursor: 'pointer', color: '#0f9299' }}
                         />
-                        <FontAwesomeIcon
-                          className='pe-4'
-                          onClick={() => {
-                            deleteProject(user.projectId); // Call the deleteProject function with the projectId
-                          }}
+                        <FontAwesomeIcon className='pe-4'
                           icon={faTrash}
                           style={{ cursor: 'pointer', color: '#0f9299' }}
                         />
@@ -267,13 +162,6 @@ function userProject(props) {
                   ))}
                 </CTableBody>
               </CTable>
-
-
-
-
-
-
-
 
               <CModal
                 alignment="center"
@@ -287,31 +175,13 @@ function userProject(props) {
                 </CModalHeader>
                 <CModalBody>
                   <div className="row edit-project-input">
-                    <CFormInput
-                      className="edit-input"
-                      type="text"
-                      label="Name"
-                      value={projectName}
-                      onChange={(e) => setProjectName(e.target.value)}
-                    />
+                    <CFormInput className="edit-input" type="text" label="Name" />
                   </div>
                   <div className="row mt-3 edit-project-input">
-                    <CFormInput
-                      className="edit-input"
-                      type="text"
-                      label="Description"
-                      value={projectDescription}
-                      onChange={(e) => setProjectDescription(e.target.value)}
-                    />
+                    <CFormInput className="edit-input" type="text" label="Description" />
                   </div>
                   <div className="row mt-3 edit-project-input">
-                    <CFormInput
-                      className="edit-input"
-                      type="text"
-                      label="Manager"
-                      value={projectManager}
-                      onChange={(e) => setProjectManager(e.target.value)}
-                    />
+                    <CFormInput className="edit-input" type="text" label="Manager" />
                   </div>
                   <div className="row mt-3">
                     <div>
@@ -337,9 +207,7 @@ function userProject(props) {
                  
                 </CModalBody>
                 <CModalFooter>
-                  <CButton className="edit-btn" onClick={updateProject}>
-                    Update
-                  </CButton>
+                  <CButton className="edit-btn">Update</CButton>
                   <CButton className="edit-btn" onClick={() => setVisible(false)}>
                     Close
                   </CButton>
@@ -437,24 +305,6 @@ function userProject(props) {
             </div>
           </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         {/* Pagination  */}
         <nav>
           <ul className="pagination">

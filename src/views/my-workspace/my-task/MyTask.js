@@ -344,10 +344,10 @@ const MyTask = () => {
                           </select>
                         </div>
 
-                        {/* <div className="form-group mt-3">
+                        <div className="form-group mt-3">
                           <label htmlFor="attachFile">Attach File</label>
                           <input type="file" className="form-control form-control-lg mt-2" id="attachFile" />
-                        </div> */}
+                        </div>
                       </div>
                     </form>
                   </div>

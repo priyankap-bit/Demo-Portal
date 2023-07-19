@@ -39,6 +39,78 @@ function userProject(props) {
   // const [dropdownLabel, setDropdownLabel] = useState('CATEGORY');
   const [currentPage, setCurrentPage] = useState(1)
   const [usersPerPage] = useState(10)
+
+
+  const [formData, setFormData] = useState({
+    projectName: '',
+    projectDescription: '',
+    projectLanguage: '',
+    projectCategory: '',
+    projectPriority: '',
+    projectCategoryBy: '',
+    startDate: '',
+    deadline: '',
+    // attachFile: null,
+  });
+
+  // Event handler for handling form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      console.log(formData)
+      // // Send the form data to the backend server using Axios
+      const response = await axios.post('http://localhost:5000/projectsdetails', formData)
+
+     
+      setFormData({
+        projectName: '',
+        projectDescription: '',
+        projectLanguage: '',
+        projectPriority: '',
+        projectCreatedBy: '',
+        startDate: '',
+        deadline: '',
+        // attachFile: null,
+      });
+
+
+
+
+      // Optionally, handle the response from the server here (e.g., show a success message)
+      // console.log('Response from server:', response.data);
+
+      // Reset the form fields after successful submission
+
+
+      // Optionally, update the user interface (e.g., refresh the data or show a success message)
+      // fetchData();
+      setVisible(false)
+    } catch (error) {
+      // Handle any error that might occur during form submission
+      console.error('Error submitting form:', error);
+    }
+  };
+
+  // Event handler for updating form data as the user types
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+
+
+  // Event handler for updating the 'attachFile' state when a file is selected
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      attachFile: e.target.files[0],
+    });
+  };
+
   // const dispatch = useDispatch();
 
   // fetch data from database..
@@ -227,14 +299,18 @@ function userProject(props) {
                       <button type="button" className="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body px-5">
-                      <form>
+                      <form onSubmit={handleSubmit}>
                         <div className="mb-4">
                           <label htmlFor="projectName">Project Name</label>
-                          <input type="text" className="form-control form-control-lg mt-2" id="projectName" required />
+                          <input name='projectName' value={formData.projectName}
+                            onChange={handleChange} type="text" className="form-control form-control-lg mt-2" id="projectName" required />
                         </div>
                         <div className="mt-3">
                           <label htmlFor="projectDescription">Project Description</label>
                           <textarea
+                            name='projectDescription'
+                            value={formData.projectDescription}
+                            onChange={handleChange}
                             className="form-control form-control-lg mt-2"
                             id="projectDescription"
                             required
@@ -245,7 +321,9 @@ function userProject(props) {
                         <div className="row mt-3">
                           <div className="form-group col-lg-6">
                             <label htmlFor="projectLanguage">Language</label>
-                            <select className="form-control form-select form-control-lg mt-2" id="projectLanguage" required>
+                            <select value={formData.projectLanguage}
+                              name='projectLanguage'
+                              onChange={handleChange} className="form-control form-select form-control-lg mt-2" id="projectLanguage" required>
                               <option value="">Select Language</option>
                               <option>React Js</option>
                               <option>Node Js</option>
@@ -254,11 +332,12 @@ function userProject(props) {
                           </div>
                           <div className="form-group col-lg-6">
                             <label htmlFor="projectCategory">Created by</label>
-                            <select className="form-control form-select form-control-lg mt-2" id="projectCategory" required>
+                            <select value={formData.projectCreatedBy}
+                              onChange={handleChange} name='projectCreatedBy' className="form-control form-select form-control-lg mt-2" id="projectCategory" required>
                               <option value="">Created by</option>
-                              <option>React Js</option>
-                              <option>Node Js</option>
-                              <option>Mern Stack</option>
+                              <option>Manager</option>
+                              <option>Team Leader</option>
+                              <option>P.O.</option>
                             </select>
                           </div>
                         </div>
@@ -268,7 +347,8 @@ function userProject(props) {
                         <div className="row mt-3">
                           <div className="form-group col-lg-6">
                             <label htmlFor="projectPriority">Priority</label>
-                            <select className="form-control form-select form-control-lg mt-2" id="projectPriority" required>
+                            <select value={formData.projectPriority} name='projectPriority'
+                              onChange={handleChange} className="form-control form-select form-control-lg mt-2" id="projectPriority" required>
                               <option value="">Select Priority</option>
                               <option>High</option>
                               <option>Medium</option>
@@ -277,11 +357,12 @@ function userProject(props) {
                           </div>
                           <div className="form-group col-lg-6">
                             <label htmlFor="projectCategoryBy">Member</label>
-                            <select className="form-control form-select form-control-lg mt-2" id="projectCategoryBy" required>
+                            <select value={formData.projectCategoryBy}
+                              onChange={handleChange} name='projectCategoryBy' className="form-control form-select form-control-lg mt-2" id="projectCategoryBy" required>
                               <option value="">Select Member  </option>
-                              <option>React Js</option>
-                              <option>Node Js</option>
-                              <option>Mern Stack</option>
+                              <option>Manager</option>
+                              <option>Team Leader</option>
+                              <option>P.O.</option>
                             </select>
                           </div>
 
@@ -289,6 +370,9 @@ function userProject(props) {
                             <div className="form-group col-lg-6">
                               <label htmlFor="estimateTime">Start Date</label>
                               <input
+                                name='startDate'
+                                value={formData.startDate}
+                                onChange={handleChange}
                                 type="date"
                                 className="form-control form-control-lg mt-2"
                                 id="estimateTime"
@@ -296,30 +380,34 @@ function userProject(props) {
                               />
                             </div>
                             <div className="form-group col-lg-6">
-                            <label htmlFor="estimateTime">Deadline</label>
+                              <label htmlFor="estimateTime">Deadline</label>
                               <input
+                                name='deadline'
+                                value={formData.deadline}
+                                onChange={handleChange}
                                 type="date"
                                 className="form-control form-control-lg mt-2"
                                 id="estimateTime"
                                 required
                               />
                             </div>
-                            </div>
-
-
-
-                            <div className="form-group mt-3">
-                              <label htmlFor="attachFile">Attach File</label>
-                              <input type="file" className="form-control form-control-lg mt-2" id="attachFile" />
-                            </div>
                           </div>
-                      </form>
-                    </div>
+
+
+
+                          <div className="form-group mt-3">
+                            <label htmlFor="attachFile">Attach File</label>
+                            <input name="attachFile"
+                              onChange={handleFileChange} type="file" className="form-control form-control-lg mt-2" id="attachFile" />
+                          </div>
+                        </div>
                     <div className="modal-footer mb-3 border-0 text-center justify-content-center">
-                      <CButton className="edit-btn">Add</CButton>
+                      <CButton type='submit'  data-bs-dismiss="modal" className="edit-btn">Add</CButton>
                       <CButton className="edit-btn" data-bs-dismiss="modal" onClick={() => setVisible(false)}>
                         Close
                       </CButton>
+                    </div>
+                      </form>
                     </div>
                   </div>
                 </div>

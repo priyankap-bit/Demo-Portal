@@ -36,10 +36,10 @@ class App extends Component {
             <Route path="/404" element={<Page404 />} />
             <Route path="/500" element={<Page500 />} />
             {/* <Route element={<ProtectedRoute />}> */}
-              {/* <Route element={<Auth />}> */}
+              <Route element={<Auth />}>
                 <Route path="/*" element={<DefaultLayout />} />
                 <Route path="/*" element={<Navigate to="/*" replace />} />
-              {/* </Route> */}
+              </Route>
             {/* </Route> */}
           </Routes>
         </Suspense>

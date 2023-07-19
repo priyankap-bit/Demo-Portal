@@ -156,9 +156,9 @@ const Login = () => {
                 <p>
                   New to our platform? <Link to="/register">Create an account</Link>
                 </p>
-                <p>
+                {/* <p>
                   <Link>Forgot password?</Link>
-                </p>
+                </p> */}
               </div>
             </Form>
           </div>
@@ -188,7 +188,8 @@ const Logincompo = styled.div`
     border: none;
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    min-width: 450px;
+    /* min-width: 450px; */
+    min-width: 576px;
     &:hover {
       box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
       transform: translateY(-2px);

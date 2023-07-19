@@ -78,8 +78,7 @@ function userProject(props) {
                 type="button"
                 className='add-project-btn'
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-              >
+                data-bs-target="#exampleModal">
                 Add Project
               </CButton>
             </CCol>
@@ -122,19 +121,25 @@ function userProject(props) {
                       Language
                     </CTableHeaderCell>
                     <CTableHeaderCell className="tableheader" scope="col">
-                      created by
+                      Created by
                     </CTableHeaderCell>
                     <CTableHeaderCell className="tableheader" scope="col">
                       Members
                     </CTableHeaderCell>
-                    <CTableHeaderCell className="tableheader " scope="col">
+                    <CTableHeaderCell className="tableheader" scope="col">
                       Priority
                     </CTableHeaderCell>
-                    <CTableHeaderCell className="tableheader " scope="col">
-                      Estimate Time
+                    <CTableHeaderCell className="tableheader" scope="col">
+                      Start Date
+                    </CTableHeaderCell>
+                    <CTableHeaderCell className="tableheader" scope="col">
+                      Deadline
+                    </CTableHeaderCell>
+                    <CTableHeaderCell className="tableheader" scope="col">
+                      Documents
                     </CTableHeaderCell>
                     <CTableHeaderCell className="tableheader " scope="col">
-                      Spend Time
+                      Action
                     </CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
@@ -147,23 +152,24 @@ function userProject(props) {
                       <CTableDataCell className="tablecell pt-4">
                         {user.project_desc}
                       </CTableDataCell>
-                      <CTableDataCell className="tablecell pt-4">{user.manager}</CTableDataCell>
-                      <CTableDataCell className="tablecell pt-4">{user.client}</CTableDataCell>
-                      <CTableDataCell className="tablecell pt-4">{user.unread_cnt}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.language}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.created_by}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.members}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.priority}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.start_date}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.deadline}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.documents}</CTableDataCell>
                       <CTableDataCell className="tablecell pt-4 ">
-                        <FontAwesomeIcon
-                          className="pe-4"
+                        <FontAwesomeIcon className='pe-4'
                           icon={faEye}
                           style={{ cursor: 'pointer', color: '#0f9299' }}
                         />
-                        <FontAwesomeIcon
-                          className="pe-4"
+                        <FontAwesomeIcon className='pe-4'
                           onClick={() => setVisible(!visible)}
                           icon={faEdit}
                           style={{ cursor: 'pointer', color: '#0f9299' }}
                         />
-                        <FontAwesomeIcon
-                          className="pe-4"
+                        <FontAwesomeIcon className='pe-4'
                           icon={faTrash}
                           style={{ cursor: 'pointer', color: '#0f9299' }}
                         />
@@ -223,86 +229,6 @@ function userProject(props) {
                 </CModalFooter>
               </CModal>
 
-              <div
-                className="modal fade"
-                id="exampleModal"
-                tabIndex="-1"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
-              >
-                <div className="modal-dialog modal-xl modal-dialog-centered">
-                  <div className="modal-content">
-                    <div className="modal-header border-0 pb-0 px-4">
-                      <h3 className="modal-title text-secondary" id="exampleModalLabel">
-                        <b>Add New Project</b>
-                      </h3>
-                      <button
-                        type="button"
-                        className="btn-close bg-white"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      ></button>
-                    </div>
-                    <div className="modal-body px-5">
-                      <form>
-                        <div className="mb-4">
-                          <label htmlFor="projectName">Project Name</label>
-                          <input
-                            type="text"
-                            className="form-control form-control-lg mt-2"
-                            id="projectName"
-                            required
-                          />
-                        </div>
-                        <div className="mt-3">
-                          <label htmlFor="projectDescription">Project Description</label>
-                          <input
-                            type="text"
-                            className="form-control  form-control-lg mt-2"
-                            id="projectDescription"
-                            required
-                          />
-                        </div>
-
-                        <div className="row mt-3">
-                          <div className="form-group col-lg-6">
-                            <label htmlFor="projectLanguage">Language</label>
-                            <select
-                              className="form-control form-select form-control-lg mt-2"
-                              id="projectLanguage"
-                              required
-                            >
-                              <option value="">Select Language</option>
-                              <option>React Js</option>
-                              <option>Node Js</option>
-                              <option>Mern Stack</option>
-                            </select>
-                          </div>
-                          <div className="form-group col-lg-6">
-                            <label htmlFor="projectCategory">Created by</label>
-                            <select
-                              className="form-control form-select form-control-lg mt-2"
-                              id="projectCategory"
-                              required
-                            >
-                              <option value="">Created by</option>
-                              <option>React Js</option>
-                              <option>Node Js</option>
-                              <option>Mern Stack</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div className="mt-3">
-                          <label htmlFor="referenceLink">Reference Link</label>
-                          <input
-                            type="text"
-                            className="form-control form-control-lg mt-2"
-                            id="referenceLink"
-                            required
-                          />
-                        </div>
-
               <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-xl modal-dialog-centered">
                   <div className="modal-content">
@@ -327,7 +253,6 @@ function userProject(props) {
                             rows="5"
                           />
                         </div>
-
                         <div className="row mt-3">
                           <div className="form-group col-lg-6">
                             <label htmlFor="projectLanguage">Language</label>
@@ -348,9 +273,6 @@ function userProject(props) {
                             </select>
                           </div>
                         </div>
-
-
-
                         <div className="row mt-3">
                           <div className="form-group col-lg-6">
                             <label htmlFor="projectPriority">Priority</label>
@@ -382,7 +304,7 @@ function userProject(props) {
                               />
                             </div>
                             <div className="form-group col-lg-6">
-                            <label htmlFor="estimateTime">Deadline</label>
+                              <label htmlFor="estimateTime">Deadline</label>
                               <input
                                 type="date"
                                 className="form-control form-control-lg mt-2"
@@ -390,47 +312,17 @@ function userProject(props) {
                                 required
                               />
                             </div>
-                            </div>
-
-
-
-                            <div className="form-group mt-3">
-                              <label htmlFor="attachFile">Attach File</label>
-                              <input type="file" className="form-control form-control-lg mt-2" id="attachFile" />
-                            </div>
                           </div>
-                      </form>
-                    </div>
-                    <div className="modal-footer mb-3 border-0 text-center justify-content-center">
-                      <CButton className="edit-btn">Add</CButton>
-                      <CButton className="edit-btn" data-bs-dismiss="modal" onClick={() => setVisible(false)}>
-                        Close
-                      </CButton>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-
                           <div className="form-group mt-3">
                             <label htmlFor="attachFile">Attach File</label>
-                            <input
-                              type="file"
-                              className="form-control form-control-lg mt-2"
-                              id="attachFile"
-                            />
+                            <input type="file" className="form-control form-control-lg mt-2" id="attachFile" />
                           </div>
                         </div>
                       </form>
                     </div>
                     <div className="modal-footer mb-3 border-0 text-center justify-content-center">
                       <CButton className="edit-btn">Add</CButton>
-                      <CButton
-                        className="edit-btn"
-                        data-bs-dismiss="modal"
-                        onClick={() => setVisible(false)}
-                      >
+                      <CButton className="edit-btn" data-bs-dismiss="modal" onClick={() => setVisible(false)}>
                         Close
                       </CButton>
                     </div>

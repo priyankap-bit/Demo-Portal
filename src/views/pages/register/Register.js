@@ -429,10 +429,10 @@ const Register = () => {
               <button className="register-btn my-4">Register</button>
 
               <div className="sign-in-suggetion">
-                <p>
+                {/* <p>
                   By signing up, you agree to our <Link>Terms of Service</Link> and the storing of
                   your data as per our <Link> Privacy Policy.</Link>
-                </p>
+                </p> */}
                 <p>
                   Already have an account?<Link to="/login"> Sign in instead</Link>
                 </p>
@@ -468,6 +468,8 @@ const Registercompo = styled.div`
     border: none;
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    min-width: 576px;
+
     &:hover {
       box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
       transform: translateY(-2px);

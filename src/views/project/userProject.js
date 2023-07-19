@@ -62,7 +62,7 @@ function userProject(props) {
       // // Send the form data to the backend server using Axios
       const response = await axios.post('http://localhost:5000/projectsdetails', formData)
 
-     
+
       setFormData({
         projectName: '',
         projectDescription: '',
@@ -190,13 +190,25 @@ function userProject(props) {
                       Description
                     </CTableHeaderCell>
                     <CTableHeaderCell className="tableheader" scope="col">
-                      Manager
+                      Language
                     </CTableHeaderCell>
                     <CTableHeaderCell className="tableheader" scope="col">
-                      Client
+                      Created by
                     </CTableHeaderCell>
                     <CTableHeaderCell className="tableheader" scope="col">
-                      Unread Count
+                      Members
+                    </CTableHeaderCell>
+                    <CTableHeaderCell className="tableheader" scope="col">
+                      Priority
+                    </CTableHeaderCell>
+                    <CTableHeaderCell className="tableheader" scope="col">
+                      Start Date
+                    </CTableHeaderCell>
+                    <CTableHeaderCell className="tableheader" scope="col">
+                      Deadline
+                    </CTableHeaderCell>
+                    <CTableHeaderCell className="tableheader" scope="col">
+                      Documents
                     </CTableHeaderCell>
                     <CTableHeaderCell className="tableheader " scope="col">
                       Action
@@ -212,9 +224,13 @@ function userProject(props) {
                       <CTableDataCell className="tablecell pt-4">
                         {user.project_desc}
                       </CTableDataCell>
-                      <CTableDataCell className="tablecell pt-4">{user.manager}</CTableDataCell>
-                      <CTableDataCell className="tablecell pt-4">{user.client}</CTableDataCell>
-                      <CTableDataCell className="tablecell pt-4">{user.unread_cnt}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.language}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.created_by}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.members}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.priority}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.start_date}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.deadline}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.documents}</CTableDataCell>
                       <CTableDataCell className="tablecell pt-4 ">
                         <FontAwesomeIcon className='pe-4'
                           icon={faEye}
@@ -276,7 +292,6 @@ function userProject(props) {
                       />
                     </div>
                   </div>
-
                 </CModalBody>
                 <CModalFooter>
                   <CButton className="edit-btn">Update</CButton>
@@ -285,9 +300,6 @@ function userProject(props) {
                   </CButton>
                 </CModalFooter>
               </CModal>
-
-
-
 
               <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-xl modal-dialog-centered">
@@ -302,8 +314,15 @@ function userProject(props) {
                       <form onSubmit={handleSubmit}>
                         <div className="mb-4">
                           <label htmlFor="projectName">Project Name</label>
-                          <input name='projectName' value={formData.projectName}
-                            onChange={handleChange} type="text" className="form-control form-control-lg mt-2" id="projectName" required />
+                          <input
+                            name='projectName'
+                            value={formData.projectName}
+                            onChange={handleChange}
+                            type="text"
+                            className="form-control form-control-lg mt-2"
+                            id="projectName"
+                            required
+                          />
                         </div>
                         <div className="mt-3">
                           <label htmlFor="projectDescription">Project Description</label>
@@ -317,13 +336,17 @@ function userProject(props) {
                             rows="5"
                           />
                         </div>
-
                         <div className="row mt-3">
                           <div className="form-group col-lg-6">
                             <label htmlFor="projectLanguage">Language</label>
-                            <select value={formData.projectLanguage}
+                            <select
+                              value={formData.projectLanguage}
                               name='projectLanguage'
-                              onChange={handleChange} className="form-control form-select form-control-lg mt-2" id="projectLanguage" required>
+                              onChange={handleChange}
+                              className="form-control form-select form-control-lg mt-2"
+                              id="projectLanguage"
+                              required
+                            >
                               <option value="">Select Language</option>
                               <option>React Js</option>
                               <option>Node Js</option>
@@ -332,8 +355,14 @@ function userProject(props) {
                           </div>
                           <div className="form-group col-lg-6">
                             <label htmlFor="projectCategory">Created by</label>
-                            <select value={formData.projectCreatedBy}
-                              onChange={handleChange} name='projectCreatedBy' className="form-control form-select form-control-lg mt-2" id="projectCategory" required>
+                            <select
+                              value={formData.projectCreatedBy}
+                              onChange={handleChange}
+                              name='projectCreatedBy'
+                              className="form-control form-select form-control-lg mt-2"
+                              id="projectCategory"
+                              required
+                            >
                               <option value="">Created by</option>
                               <option>Manager</option>
                               <option>Team Leader</option>
@@ -341,14 +370,17 @@ function userProject(props) {
                             </select>
                           </div>
                         </div>
-
-
-
                         <div className="row mt-3">
                           <div className="form-group col-lg-6">
                             <label htmlFor="projectPriority">Priority</label>
-                            <select value={formData.projectPriority} name='projectPriority'
-                              onChange={handleChange} className="form-control form-select form-control-lg mt-2" id="projectPriority" required>
+                            <select
+                              value={formData.projectPriority}
+                              name='projectPriority'
+                              onChange={handleChange}
+                              className="form-control form-select form-control-lg mt-2"
+                              id="projectPriority"
+                              required
+                            >
                               <option value="">Select Priority</option>
                               <option>High</option>
                               <option>Medium</option>
@@ -357,63 +389,68 @@ function userProject(props) {
                           </div>
                           <div className="form-group col-lg-6">
                             <label htmlFor="projectCategoryBy">Member</label>
-                            <select value={formData.projectCategoryBy}
-                              onChange={handleChange} name='projectCategoryBy' className="form-control form-select form-control-lg mt-2" id="projectCategoryBy" required>
-                              <option value="">Select Member  </option>
+                            <select
+                              value={formData.projectCategoryBy}
+                              onChange={handleChange}
+                              name='projectCategoryBy'
+                              className="form-control form-select form-control-lg mt-2"
+                              id="projectCategoryBy"
+                              required
+                            >
+                              <option value="">Select Member</option>
                               <option>Manager</option>
                               <option>Team Leader</option>
                               <option>P.O.</option>
                             </select>
                           </div>
-
-                          <div className="row mt-3">
-                            <div className="form-group col-lg-6">
-                              <label htmlFor="estimateTime">Start Date</label>
-                              <input
-                                name='startDate'
-                                value={formData.startDate}
-                                onChange={handleChange}
-                                type="date"
-                                className="form-control form-control-lg mt-2"
-                                id="estimateTime"
-                                required
-                              />
-                            </div>
-                            <div className="form-group col-lg-6">
-                              <label htmlFor="estimateTime">Deadline</label>
-                              <input
-                                name='deadline'
-                                value={formData.deadline}
-                                onChange={handleChange}
-                                type="date"
-                                className="form-control form-control-lg mt-2"
-                                id="estimateTime"
-                                required
-                              />
-                            </div>
+                        </div>
+                        <div className="row mt-3">
+                          <div className="form-group col-lg-6">
+                            <label htmlFor="startDate">Start Date</label>
+                            <input
+                              name='startDate'
+                              value={formData.startDate}
+                              onChange={handleChange}
+                              type="date"
+                              className="form-control form-control-lg mt-2"
+                              id="startDate"
+                              required
+                            />
                           </div>
-
-
-
-                          <div className="form-group mt-3">
-                            <label htmlFor="attachFile">Attach File</label>
-                            <input name="attachFile"
-                              onChange={handleFileChange} type="file" className="form-control form-control-lg mt-2" id="attachFile" />
+                          <div className="form-group col-lg-6">
+                            <label htmlFor="endDate">End Date</label>
+                            <input
+                              name='endDate'
+                              value={formData.endDate}
+                              onChange={handleChange}
+                              type="date"
+                              className="form-control form-control-lg mt-2"
+                              id="endDate"
+                              required
+                            />
                           </div>
                         </div>
-                    <div className="modal-footer mb-3 border-0 text-center justify-content-center">
-                      <CButton type='submit'  data-bs-dismiss="modal" className="edit-btn">Add</CButton>
-                      <CButton className="edit-btn" data-bs-dismiss="modal" onClick={() => setVisible(false)}>
-                        Close
-                      </CButton>
-                    </div>
+                        <div className="form-group mt-3">
+                          <label htmlFor="attachFile">Attach File</label>
+                          <input
+                            name="attachFile"
+                            onChange={handleFileChange}
+                            type="file"
+                            className="form-control form-control-lg mt-2"
+                            id="attachFile"
+                          />
+                        </div>
+                        <div className="modal-footer mb-3 border-0 text-center justify-content-center">
+                          <CButton type='submit' data-bs-dismiss="modal" className="edit-btn">Add</CButton>
+                          <CButton className="edit-btn" data-bs-dismiss="modal" onClick={() => setVisible(false)}>
+                            Close
+                          </CButton>
+                        </div>
                       </form>
                     </div>
                   </div>
                 </div>
               </div>
-
-
 
             </div>
           </div>

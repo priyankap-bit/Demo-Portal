@@ -38,15 +38,15 @@ con.connect(function (error) {
 app.post("/user/register", registerUser); 
 app.post("/user/login", loginUser);
 app.get("/user/logout",isAuthenticatedUser,logoutUser);   
-app.post("/user/add", addUser)
+// app.post("/user/add", addUser)
+app.get("/users",getAllUsers); // Only Admin
 // app.get("/users",isAuthenticatedUser, authorizeRoles("admin"),getAllUsers); // Only Admin
 // app.post("/user/new",addUser )
-app.post("/user/add", addUser)
-app.get("/users",getAllUsers); // Only Admin
-app.get("/user/me",isAuthenticatedUser, getMe); // Current login User details     
-app.get("/admin/user/:id",isAuthenticatedUser,authorizeRoles("admin"),getsingleUser) // Admin 
-app.put("/user/update/:id",isAuthenticatedUser,authorizeRoles("admin","masteradmin"), updateUser); // both Admin & MasterAdmin      
-app.delete("/user/delete/:id",isAuthenticatedUser,authorizeRoles("admin"), deleteUser); //only Admin   
+// app.post("/user/add", addUser)
+// app.get("/user/me",isAuthenticatedUser, getMe); // Current login User details     
+// app.get("/admin/user/:id",isAuthenticatedUser,authorizeRoles("admin"),getsingleUser) // Admin 
+// app.put("/user/update/:id",isAuthenticatedUser,authorizeRoles("admin","masteradmin"), updateUser); // both Admin & MasterAdmin      
+// app.delete("/user/delete/:id",isAuthenticatedUser,authorizeRoles("admin"), deleteUser); //only Admin   
 
 app.get('/user/authenticated', isAuthenticatedUser, (req, res) => {
   res.json({ authenticated: true });

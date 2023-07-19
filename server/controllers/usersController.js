@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 
 //Register User
 exports.registerUser = async (req, res, next) => {
-  const { name, email, password, role } = req.body;
+  const { username, contact, email, password, department, position, status, role, creationtime } = req.body;
 
   // Password validation
   if (password.length < 8 || !/[A-Z]/.test(password)) {
@@ -13,9 +13,15 @@ exports.registerUser = async (req, res, next) => {
     });
   }
 
-  const createquery = "INSERT INTO users(name,email,password,role) VALUES ?";
+  // Perform server-side validation
+  // if (!email || !password || !username || !contact || !department || !position) {
+  //   return res.status(401).json({ error: 'All fields are required' });
+  // }
+  console.log(email ,password ,username ,contact ,department ,position)
 
-  const values = [[name, email, password, role]];
+  const createquery = "INSERT INTO userdetails(username, contact, email, password, department, position) VALUES ?";
+
+  const values = [[username, contact, email, password, department, position]];
 
   con.query(createquery, [values], async (error, user) => {
     if (error) {
@@ -58,7 +64,7 @@ exports.loginUser = async (req, res, next) => {
   //   });
   // }
 
-  const loginquery = "SELECT * from login where email=? AND password=?";
+  const loginquery = "SELECT * from userdetails where email=? AND password=?";
 
   con.query(loginquery, [email, password], (error, user) => {
     if (error) {
@@ -76,7 +82,7 @@ exports.loginUser = async (req, res, next) => {
     }
 
     const userId = user[0].id;
-    const status = user[0].status;
+    const role = user[0].role;
    
     const Token = jwt.sign({ id: userId }, "Tarun1234", {
       expiresIn: "5d",
@@ -94,7 +100,7 @@ exports.loginUser = async (req, res, next) => {
       user,
       Token ,
       isAuthenticated: true, 
-      status
+      role
     });
   });
 };
@@ -115,111 +121,56 @@ exports.logoutUser =  (req, res, next) => {
 };
 
 //add new users
-exports.addUser = async (req, res, next) => {
-  const { firstName, lastName, userName, contactNo, email, password, address } = req.body;
+// exports.addUser = async (req, res, next) => {
+//   const { username, contact, email, password, department, position, status, role, creationtime } = req.body;
 
   // Check for empty fields
-  if (!firstName || !lastName || !userName || !contactNo || !email || !password || !address) {
-    return res.status(400).json({
-      success: false,
-      message: "Please fill all the required fields.",
-    });
-  }
+  // if (!username || !contact || !email || !password || !department || !position || !status || !role || !creationtime) {
+  //   return res.status(400).json({
+  //     success: false,
+  //     message: "Please fill all the required fields.",
+  //   });
+  // }
 
   // Password validation
-  if (password.length < 8 || !/[A-Z]/.test(password)) {
-    return res.status(400).json({
-      success: false,
-      message: "Password must be at least 8 characters long and contain one uppercase letter.",
-    });
-  }
+  // if (password.length < 8 || !/[A-Z]/.test(password)) {
+  //   return res.status(400).json({
+  //     success: false,
+  //     message: "Password must be at least 8 characters long and contain one uppercase letter.",
+  //   });
+  // }
 
   // Contact number validation
-  const contactNoRegex = /^\d{7,10}$/;
-  if (!contactNoRegex.test(contactNo)) {
-    return res.status(400).json({
-      success: false,
-      message: "Contact number must be between 7 to 10 digits.",
-    });
-  }
+  // const contactNoRegex = /^\d{7,10}$/;
+  // if (!contactNoRegex.test(contact)) {
+  //   return res.status(400).json({
+  //     success: false,
+  //     message: "Contact number must be between 7 to 10 digits.",
+  //   });
+  // }
 
-  const name = firstName + " " + lastName;
+  // const name = firstName + " " + lastName;
 
-  const createquery = "INSERT INTO users(name, userName, contactNo, email, password, address) VALUES ?";
+//   const createquery = "INSERT INTO users(username, contactNo, email, password, department, position, status, role, creationtime) VALUES ?";
 
-  const values = [[name, userName, contactNo, email, password, address]];
+//   const values = [[username, contact, email, password, department, position, status, role, creationtime]];
 
-  con.query(createquery, [values], async (error, user) => {
-    if (error) {
-      console.error(error);
-      return res.status(500).json({
-        success: false,
-        message: "Error creating user.",
-      });
-    }
+//   con.query(createquery, [values], async (error, user) => {
+//     if (error) {
+//       console.error(error);
+//       return res.status(500).json({
+//         success: false,
+//         message: "Error creating user.",
+//       });
+//     }
 
-    res.status(201).json({
-      success: true,
-      message: "Successfully created new user.",
-      user,
-    });
-  });
-};
-
-// Add new user 
-exports.addUser = async (req, res, next) => {
-  const { firstName, lastName, userName, contactNo, email, password, address } = req.body;
-
-  // Check for empty fields
-  if (!firstName || !lastName || !userName || !contactNo || !email || !password || !address) {
-    return res.status(400).json({
-      success: false,
-      message: "Please fill all the required fields.",
-    });
-  }
-
-  // Password validation
-  if (password.length < 8 || !/[A-Z]/.test(password)) {
-    return res.status(400).json({
-      success: false,
-      message: "Password must be at least 8 characters long and contain one uppercase letter.",
-    });
-  }
-
-  // Contact number validation
-  const contactNoRegex = /^\d{7,10}$/;
-  if (!contactNoRegex.test(contactNo)) {
-    return res.status(400).json({
-      success: false,
-      message: "Contact number must be between 7 to 10 digits.",
-    });
-  }
-
-  const name = firstName + " " + lastName;
-
-  const createquery = "INSERT INTO users(name, userName, contactNo, email, password, address) VALUES ?";
-
-  const values = [[name, userName, contactNo, email, password, address]];
-
-  con.query(createquery, [values], async (error, user) => {
-    if (error) {
-      console.error(error);
-      return res.status(500).json({
-        success: false,
-        message: "Error creating user.",
-      });
-    }
-
-    res.status(201).json({
-      success: true,
-      message: "Successfully created new user.",
-      user,
-    });
-  });
-};
-
-
-
+//     res.status(201).json({
+//       success: true,
+//       message: "Successfully created new user.",
+//       user,
+//     });
+//   });
+// };
 
 
 // Get all Users -- Admin
@@ -245,103 +196,159 @@ exports.getAllUsers =  (req, res, next) => {
 
 
 
-//current login user deatil
-exports.getMe = async (req, res, next) => {
-  const getMeQuery = "SELECT * FROM users WHERE id = ?";
-  con.query(getMeQuery, [req.user.id], (error, user) => {
-    if (error) {
-      console.error(error);
-      return res.status(500).json({
-        success: false,
-        message: "Error retrieving user",
-      });
-    }
-    // req.user = user;
-    // console.log(user);
-    // next();
 
-    res.status(200).json({
-      success: true,
-      user,
-      isAuthenticated: true, 
-    });
-  });
-};
+
+// Add new user 
+// exports.addUser = async (req, res, next) => {
+//   const { firstName, lastName, userName, contactNo, email, password, address } = req.body;
+
+//   // Check for empty fields
+//   if (!firstName || !lastName || !userName || !contactNo || !email || !password || !address) {
+//     return res.status(400).json({
+//       success: false,
+//       message: "Please fill all the required fields.",
+//     });
+//   }
+
+//   // Password validation
+//   if (password.length < 8 || !/[A-Z]/.test(password)) {
+//     return res.status(400).json({
+//       success: false,
+//       message: "Password must be at least 8 characters long and contain one uppercase letter.",
+//     });
+//   }
+
+//   // Contact number validation
+//   const contactNoRegex = /^\d{7,10}$/;
+//   if (!contactNoRegex.test(contactNo)) {
+//     return res.status(400).json({
+//       success: false,
+//       message: "Contact number must be between 7 to 10 digits.",
+//     });
+//   }
+
+//   const name = firstName + " " + lastName;
+
+//   const createquery = "INSERT INTO users(name, userName, contactNo, email, password, address) VALUES ?";
+
+//   const values = [[name, userName, contactNo, email, password, address]];
+
+//   con.query(createquery, [values], async (error, user) => {
+//     if (error) {
+//       console.error(error);
+//       return res.status(500).json({
+//         success: false,
+//         message: "Error creating user.",
+//       });
+//     }
+
+//     res.status(201).json({
+//       success: true,
+//       message: "Successfully created new user.",
+//       user,
+//     });
+//   });
+// };
+
+
+
+//current login user deatil
+// exports.getMe = async (req, res, next) => {
+//   const getMeQuery = "SELECT * FROM users WHERE id = ?";
+//   con.query(getMeQuery, [req.user.id], (error, user) => {
+//     if (error) {
+//       console.error(error);
+//       return res.status(500).json({
+//         success: false,
+//         message: "Error retrieving user",
+//       });
+//     }
+//     // req.user = user;
+//     // console.log(user);
+//     // next();
+
+//     res.status(200).json({
+//       success: true,
+//       user,
+//       isAuthenticated: true, 
+//     });
+//   });
+// };
 
 //get singel user  -- Admin
-exports.getsingleUser = async (req, res, next) => {
-  const getMequery = "SELECT * FROM users where id=?";
+// exports.getsingleUser = async (req, res, next) => {
+//   const getMequery = "SELECT * FROM users where id=?";
 
-  con.query(getMequery, req.params.id, (error, user) => {
-    if (error) {
-      console.error(error);
-      return res.status(500).json({
-        success: false,
-        message: "Error create user",
-      });
-    }
-    if (user.length === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found",
-      });
-    }
+//   con.query(getMequery, req.params.id, (error, user) => {
+//     if (error) {
+//       console.error(error);
+//       return res.status(500).json({
+//         success: false,
+//         message: "Error create user",
+//       });
+//     }
+//     if (user.length === 0) {
+//       return res.status(404).json({
+//         success: false,
+//         message: "User not found",
+//       });
+//     }
 
-    res.status(201).json({
-      success: true,
-      error,
-      user,
-    });
-  });
-};
+//     res.status(201).json({
+//       success: true,
+//       error,
+//       user,
+//     });
+//   });
+// };
 
 // Update User -- Admin -- masterAdmin
-exports.updateUser = async (req, res, next) => {
-  const { name, email, role } = req.body;
+// exports.updateUser = async (req, res, next) => {
+//   const { name, email, role } = req.body;
 
-  const updatequery = "UPDATE users SET name=?, email=?,  role=? WHERE id=?";
+//   const updatequery = "UPDATE users SET name=?, email=?,  role=? WHERE id=?";
 
-  con.query(updatequery, [name, email, role, req.params.id], (error, user) => {
-    if (error) {
-      console.error(error);
-      return res.status(500).json({
-        success: false,
-        message: "Error updating user",
-      });
-    }
-    if (user.affectedRows === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found",
-      });
-    }
-    res.status(200).json({
-      success: true,
-      message: "Successfully updated user",
-    });
-  });
-};
+//   con.query(updatequery, [name, email, role, req.params.id], (error, user) => {
+//     if (error) {
+//       console.error(error);
+//       return res.status(500).json({
+//         success: false,
+//         message: "Error updating user",
+//       });
+//     }
+//     if (user.affectedRows === 0) {
+//       return res.status(404).json({
+//         success: false,
+//         message: "User not found",
+//       });
+//     }
+//     res.status(200).json({
+//       success: true,
+//       message: "Successfully updated user",
+//     });
+//   });
+// };
 
 // Delete User --Admin
-exports.deleteUser = async (req, res) => {
-  const deletequery = " DELETE FROM users WHERE id=?";
-  con.query(deletequery, [req.params.id], (error, user) => {
-    if (error) {
-      console.error(error);
-      return res.status(500).json({
-        success: false,
-        message: "Error deleting user",
-      });
-    }
-    if (user.affectedRows === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found",
-      });
-    }
-    res.status(200).json({
-      success: true,
-      message: "Successfully deleted user",
-    });
-  });
-};
+// exports.deleteUser = async (req, res) => {
+//   const deletequery = " DELETE FROM users WHERE id=?";
+//   con.query(deletequery, [req.params.id], (error, user) => {
+//     if (error) {
+//       console.error(error);
+//       return res.status(500).json({
+//         success: false,
+//         message: "Error deleting user",
+//       });
+//     }
+//     if (user.affectedRows === 0) {
+//       return res.status(404).json({
+//         success: false,
+//         message: "User not found",
+//       });
+//     }
+//     res.status(200).json({
+//       success: true,
+//       message: "Successfully deleted user",
+//     });
+//   });
+// };

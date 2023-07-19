@@ -224,7 +224,7 @@ exports.addUser = async (req, res, next) => {
 
 // Get all Users -- Admin
 exports.getAllUsers =  (req, res, next) => {
-  const getquery = "SELECT * FROM users";
+  const getquery = "SELECT * FROM userdetails";
 
   con.query(getquery, (error, user) => {
     if (error) {

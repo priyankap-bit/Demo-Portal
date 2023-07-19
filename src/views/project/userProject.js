@@ -190,13 +190,25 @@ function userProject(props) {
                       Description
                     </CTableHeaderCell>
                     <CTableHeaderCell className="tableheader" scope="col">
-                      Manager
+                      Language
                     </CTableHeaderCell>
                     <CTableHeaderCell className="tableheader" scope="col">
-                      Client
+                      Created by
                     </CTableHeaderCell>
                     <CTableHeaderCell className="tableheader" scope="col">
-                      Unread Count
+                      Members
+                    </CTableHeaderCell>
+                    <CTableHeaderCell className="tableheader" scope="col">
+                      Priority
+                    </CTableHeaderCell>
+                    <CTableHeaderCell className="tableheader" scope="col">
+                      Start Date
+                    </CTableHeaderCell>
+                    <CTableHeaderCell className="tableheader" scope="col">
+                      Deadline
+                    </CTableHeaderCell>
+                    <CTableHeaderCell className="tableheader" scope="col">
+                      Documents
                     </CTableHeaderCell>
                     <CTableHeaderCell className="tableheader " scope="col">
                       Action
@@ -212,9 +224,13 @@ function userProject(props) {
                       <CTableDataCell className="tablecell pt-4">
                         {user.project_desc}
                       </CTableDataCell>
-                      <CTableDataCell className="tablecell pt-4">{user.manager}</CTableDataCell>
-                      <CTableDataCell className="tablecell pt-4">{user.client}</CTableDataCell>
-                      <CTableDataCell className="tablecell pt-4">{user.unread_cnt}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.language}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.created_by}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.members}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.priority}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.start_date}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.deadline}</CTableDataCell>
+                      <CTableDataCell className="tablecell pt-4">{user.documents}</CTableDataCell>
                       <CTableDataCell className="tablecell pt-4 ">
                         <FontAwesomeIcon className='pe-4'
                           icon={faEye}
@@ -276,7 +292,6 @@ function userProject(props) {
                       />
                     </div>
                   </div>
-
                 </CModalBody>
                 <CModalFooter>
                   <CButton className="edit-btn">Update</CButton>
@@ -285,9 +300,6 @@ function userProject(props) {
                   </CButton>
                 </CModalFooter>
               </CModal>
-
-
-
 
               <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-xl modal-dialog-centered">
@@ -317,7 +329,6 @@ function userProject(props) {
                             rows="5"
                           />
                         </div>
-
                         <div className="row mt-3">
                           <div className="form-group col-lg-6">
                             <label htmlFor="projectLanguage">Language</label>
@@ -341,9 +352,6 @@ function userProject(props) {
                             </select>
                           </div>
                         </div>
-
-
-
                         <div className="row mt-3">
                           <div className="form-group col-lg-6">
                             <label htmlFor="projectPriority">Priority</label>
@@ -412,9 +420,6 @@ function userProject(props) {
                   </div>
                 </div>
               </div>
-
-
-
             </div>
           </div>
         </div>

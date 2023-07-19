@@ -55,24 +55,24 @@ const Login = () => {
             },
           },
         )
-        const { status } = response.data
-        console.log(response.data.status)
-        localStorage.setItem('status', status)
+        const { role } = response.data
+        console.log(response.data.role)
+        localStorage.setItem('role', role)
 
-        if (status === 0) {
+        if (role === 0) {
           console.log('user logged in')
           // navigate('/login')
           navigate('/dashboard')
           toast.success('Successfully Login!', {
             // position: toast.POSITION.TOP_CENTER,
           })
-        } else if (status === 1) {
+        } else if (role === 1) {
           console.log('Admin logged in')
           navigate('/dashboard')
           toast.success('Successfully Login!', {
             // position: toast.POSITION.TOP_CENTER,
           })
-        } else if (status === 2) {
+        } else if (role === 2) {
           console.log('Master Admin logged in')
           navigate('/dashboard')
           toast.success('Successfully Login!', {
@@ -156,9 +156,9 @@ const Login = () => {
                 <p>
                   New to our platform? <Link to="/register">Create an account</Link>
                 </p>
-                <p>
+                {/* <p>
                   <Link>Forgot password?</Link>
-                </p>
+                </p> */}
               </div>
             </Form>
           </div>
@@ -188,7 +188,8 @@ const Logincompo = styled.div`
     border: none;
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    min-width: 450px;
+    /* min-width: 450px; */
+    min-width: 576px;
     &:hover {
       box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
       transform: translateY(-2px);

@@ -19,7 +19,7 @@ exports.isAuthenticatedUser = async (req, res, next) => {
     const userId = decodedData.id;
     console.log(userId);
 
-    const getMeQuery = "SELECT * FROM users WHERE id = ?";
+    const getMeQuery = "SELECT * FROM userdetails WHERE id = ?";
 
     const user = await new Promise((resolve, reject) => {
       con.query(getMeQuery, [userId], (error, users) => {

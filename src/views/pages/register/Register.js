@@ -1,69 +1,4 @@
-// eslint-disable
-// import React, { useState } from 'react'
-// import { styled } from 'styled-components'
-// import Loginlogo from '../../../assets/images/login/dummy-logo.webp'
-// import Form from 'react-bootstrap/Form'
-// import { Link, useNavigate } from 'react-router-dom'
-// import axios from 'axios'
-// import { ToastContainer, toast } from 'react-toastify'
-// import 'react-toastify/dist/ReactToastify.css'
-
-// const Register = () => {
-//   const navigate = useNavigate()
-//   const [username, setUsername] = useState('')
-//   const [email, setEmail] = useState('')
-//   const [password, setPassword] = useState('')
-//   const [confirmPassword, setConfirmPassword] = useState('')
-//   const [showPassword, setShowPassword] = useState(false)
-//   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-//   const [mobileNumber, setMobileNumber] = useState('')
-//   const [Department, setDepartment] = useState('')
-//   const [Position, setPosition] = useState('')
-//   const [emailError, setEmailError] = useState('')
-//   const [passwordError, setPasswordError] = useState('')
-//   const [confirmPasswordError, setConfirmPasswordError] = useState('')
-
-//   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-//   const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/
-
-//   const validateForm = () => {
-//     let valid = true
-
-//     if (!email) {
-//       setEmailError('Please enter an email')
-//       valid = false
-//     } else if (!emailRegex.test(email)) {
-//       setEmailError('Please enter a valid email')
-//       valid = false
-//     } else {
-//       setEmailError('')
-//     }
-
-//     if (!password) {
-//       setPasswordError('Please enter a password')
-//       valid = false
-//     } else if (!passwordRegex.test(password)) {
-//       setPasswordError(
-//         'Password must contain at least one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long',
-//       )
-//       valid = false
-//     } else {
-//       setPasswordError('')
-//     }
-
-//     if (!confirmPassword) {
-//       setConfirmPasswordError('Please confirm the password')
-//       valid = false
-//     } else if (password !== confirmPassword) {
-//       setConfirmPasswordError('Passwords do not match')
-//       valid = false
-//     } else {
-//       setConfirmPasswordError('')
-//     }
-
-//     return valid
-//   }
-
+/*eslint-disable */
 import React, { useState } from 'react'
 import { styled } from 'styled-components'
 import Loginlogo from '../../../assets/images/login/dummy-logo.webp'
@@ -75,26 +10,26 @@ import 'react-toastify/dist/ReactToastify.css'
 
 const Register = () => {
   const navigate = useNavigate()
-  const [username, setUsername] = useState('')
+  const [username, setusername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-  const [mobileNumber, setMobileNumber] = useState('')
-  const [Department, setDepartment] = useState('')
-  const [Position, setPosition] = useState('')
+  const [contact, setcontact] = useState('')
+  const [department, setdepartment] = useState('')
+  const [position, setposition] = useState('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
   const [confirmPasswordError, setConfirmPasswordError] = useState('')
-  const [usernameError, setUsernameError] = useState('')
-  const [mobileNumberError, setMobileNumberError] = useState('')
-  const [departmentError, setDepartmentError] = useState('')
-  const [positionError, setPositionError] = useState('')
+  const [usernameError, setusernameError] = useState('')
+  const [contactError, setcontactError] = useState('')
+  const [departmentError, setdepartmentError] = useState('')
+  const [positionError, setpositionError] = useState('')
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/
-  const mobileNumberRegex = /^\d{0,10}$/
+  const contactRegex = /^\d{0,10}$/
 
   const validateForm = () => {
     let valid = true
@@ -132,37 +67,37 @@ const Register = () => {
     }
 
     if (!username) {
-      setUsernameError('Please enter a username')
+      setusernameError('Please enter a username')
       valid = false
     } else {
-      setUsernameError('')
+      setusernameError('')
     }
 
-    if (!mobileNumber) {
-      setMobileNumberError('Please enter a Mobile Number')
+    if (!contact) {
+      setcontactError('Please enter a Mobile Number')
       valid = false
-    } else if (mobileNumber.length !== 10) {
-      setMobileNumberError('Mobile number must be 10 digits')
+    } else if (contact.length !== 10) {
+      setcontactError('Mobile number must be 10 digits')
       valid = false
     } else {
-      setMobileNumberError('')
+      setcontactError('')
     }
 
-    if (Department === '') {
-      setDepartmentError('Please select a department')
+    if (department === '') {
+      setdepartmentError('Please select a department')
       valid = false
-    } else if (Department === 'default') {
-      setDepartmentError('Please select a valid department')
+    } else if (department === 'default') {
+      setdepartmentError('Please select a valid department')
       valid = false
     } else {
-      setDepartmentError('')
+      setdepartmentError('')
     }
 
-    if (!Position) {
-      setPositionError('Please select a position')
+    if (!position) {
+      setpositionError('Please select a position')
       valid = false
     } else {
-      setPositionError('')
+      setpositionError('')
     }
 
     return valid
@@ -176,7 +111,7 @@ const Register = () => {
         // Send the registration request
         const response = await axios.post(
           'http://localhost:5000/user/register',
-          { email, password },
+          { email, password,username ,contact ,department ,position},
           {
             withCredentials: true,
             headers: {
@@ -187,26 +122,26 @@ const Register = () => {
 
         // Process the response
         const { status } = response.data
-        console.log(response.data.status)
+        console.log(response)
         localStorage.setItem('status', status)
 
         if (status === 0) {
           console.log('user registered')
           navigate('/dashboard')
           toast.success('Successfully registered!', {
-            // position: toast.POSITION.TOP_CENTER,
+            // position: toast.position.TOP_CENTER,
           })
           // } else if (status === 1) {
           //   console.log('Admin registered')
           //   navigate('/dashboard')
           //   toast.success('Successfully registered!', {
-          //     // position: toast.POSITION.TOP_CENTER,
+          //     // position: toast.position.TOP_CENTER,
           //   })
           // } else if (status === 2) {
           //   console.log('Master Admin registered')
           //   navigate('/dashboard')
           //   toast.success('Successfully registered!', {
-          //     // position: toast.POSITION.TOP_CENTER,
+          //     // position: toast.position.TOP_CENTER,
           //   })
         }
 
@@ -215,7 +150,7 @@ const Register = () => {
         localStorage.setItem('token', userdata.Token)
       } catch (error) {
         toast.error('Registration failed!', {
-          // position: toast.POSITION.TOP_CENTER,
+          // position: toast.position.TOP_CENTER,
         })
       }
     }
@@ -237,14 +172,14 @@ const Register = () => {
                     controlId="formBasicEmail"
                   >
                     <Form.Label className="inp-label mt-3">
-                      Username <span className="text-danger">*</span>
+                      username <span className="text-danger">*</span>
                     </Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Enter Username"
+                      placeholder="Enter username"
                       className={`register-input ${usernameError && 'borderred'}`}
                       value={username}
-                      onChange={(e) => setUsername(e.target.value)}
+                      onChange={(e) => setusername(e.target.value)}
                     />
                   </Form.Group>
                   {usernameError && (
@@ -355,18 +290,18 @@ const Register = () => {
                       type="number"
                       placeholder="Enter Mobile Number"
                       className={`register-input ${usernameError && 'borderred'}`}
-                      value={mobileNumber}
+                      value={contact}
                       onChange={(e) => {
                         const input = e.target.value
                         const truncatedInput = input.slice(0, 10) // Truncate input to 10 digits
-                        setMobileNumber(truncatedInput)
+                        setcontact(truncatedInput)
                       }}
                     />
                   </Form.Group>
-                  {mobileNumberError && (
+                  {contactError && (
                     <p className="error">
                       <i className="fa-solid fa-triangle-exclamation"></i>
-                      {mobileNumberError}
+                      {contactError}
                     </p>
                   )}
 
@@ -375,13 +310,13 @@ const Register = () => {
                     controlId="formBasicEmail"
                   >
                     <Form.Label className="inp-label mt-3">
-                      Department <span className="text-danger">*</span>
+                      department <span className="text-danger">*</span>
                     </Form.Label>
                     <Form.Select
                       aria-label="Default select example"
                       className={`register-input ${usernameError && 'borderred'}`}
-                      value={Department}
-                      onChange={(e) => setDepartment(e.target.value)}
+                      value={department}
+                      onChange={(e) => setdepartment(e.target.value)}
                     >
                       <option>Open this select menu</option>
                       <option value="hr">HR</option>
@@ -403,13 +338,13 @@ const Register = () => {
                     controlId="formBasicEmail"
                   >
                     <Form.Label className="inp-label mt-3">
-                      Position <span className="text-danger">*</span>
+                      position <span className="text-danger">*</span>
                     </Form.Label>
                     <Form.Select
                       aria-label="Default select example"
                       className={`register-input ${usernameError && 'borderred'}`}
-                      value={Position}
-                      onChange={(e) => setPosition(e.target.value)}
+                      value={position}
+                      onChange={(e) => setposition(e.target.value)}
                     >
                       <option>Open this select menu</option>
                       <option value="tl">Team Leader</option>
@@ -429,10 +364,10 @@ const Register = () => {
               <button className="register-btn my-4">Register</button>
 
               <div className="sign-in-suggetion">
-                <p>
+                {/* <p>
                   By signing up, you agree to our <Link>Terms of Service</Link> and the storing of
                   your data as per our <Link> Privacy Policy.</Link>
-                </p>
+                </p> */}
                 <p>
                   Already have an account?<Link to="/login"> Sign in instead</Link>
                 </p>
@@ -468,6 +403,8 @@ const Registercompo = styled.div`
     border: none;
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    min-width: 576px;
+
     &:hover {
       box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
       transform: translateY(-2px);

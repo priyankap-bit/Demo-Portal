@@ -55,24 +55,24 @@ const Login = () => {
             },
           },
         )
-        const { status } = response.data
-        console.log(response.data.status)
-        localStorage.setItem('status', status)
+        const { role } = response.data
+        console.log(response.data.role)
+        localStorage.setItem('role', role)
 
-        if (status === 0) {
+        if (role === 0) {
           console.log('user logged in')
           // navigate('/login')
           navigate('/dashboard')
           toast.success('Successfully Login!', {
             // position: toast.POSITION.TOP_CENTER,
           })
-        } else if (status === 1) {
+        } else if (role === 1) {
           console.log('Admin logged in')
           navigate('/dashboard')
           toast.success('Successfully Login!', {
             // position: toast.POSITION.TOP_CENTER,
           })
-        } else if (status === 2) {
+        } else if (role === 2) {
           console.log('Master Admin logged in')
           navigate('/dashboard')
           toast.success('Successfully Login!', {

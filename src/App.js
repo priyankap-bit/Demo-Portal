@@ -40,7 +40,7 @@ class App extends Component {
                 <Route path="/*" element={<DefaultLayout />} />
                 <Route path="/*" element={<Navigate to="/*" replace />} />
               </Route>
-            {/* </Route> */}
+            {/* </Route> */}  
           </Routes>
         </Suspense>
         <ToastContainer

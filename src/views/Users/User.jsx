@@ -21,87 +21,110 @@ const User = () => {
     }, [])
     const fetchData = async () => {
         try {
-            const response = await axios.get('https://dummyjson.com/users')
-            setUsers(response.data.users)
-            console.log(response.data)
+            const response = await axios.get('http://localhost:5000/users')
+            setUsers(response.data.user)
+            console.log(response.data.user) 
         } catch (error) {
             console.error('Error retrieving user data:', error)
         }
     }
 
-   
+
 
     const filteredUsers = users.filter(
         (user) =>
-          user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          user.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          user.maidenName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          user.gender.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          user.phone.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-   
-      const indexOfLastUser = currentPage * usersPerPage;
-      const indexOfFirstUser = indexOfLastUser - usersPerPage;
-      const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
-       // ...
+            user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.password.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.contact.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.department.toLowerCase().includes(searchTerm.toLowerCase())||
+            user.position.toLowerCase().includes(searchTerm.toLowerCase())||
+            user.status.toLowerCase().includes(searchTerm.toLowerCase())||
+            user.role.toLowerCase().includes(searchTerm.toLowerCase())||
+            user.creationtime.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    const indexOfLastUser = currentPage * usersPerPage;
+    const indexOfFirstUser = indexOfLastUser - usersPerPage;
+    const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+    // ...
 
 
-  
-  // ...
-  
+
+    // ...
+
     // Change page
     const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
     return (
         <>
-<div className="p-2 ">
-            <div className="row  d-flex   align-items-center">
-              <div className="col-md-6 d-flex">
-                <div className="project-search-bar">
-                  <i className="fa fa-search"></i>
-                  <input
-                    type="text"
-                    className="form-control searchbar-input"
-                    placeholder="Search..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                  />
+            <div className="p-2   d-flex justify-content-end ">
+                <div className="row  d-flex  mt-3  align-items-center">
+                    <div className="project-search-bar ">
+                        <i className="fa fa-search"></i>
+                        <input
+                            type="text"
+                            className="form-control searchbar-input"
+                            placeholder="Search..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
+
                 </div>
-              </div>
             </div>
-          </div>
             <CTable className="project-list-table mt-5">
                 <CTableHead>
                     <CTableRow className="project-list-table-header">
-                        <CTableHeaderCell scope="col">First Name</CTableHeaderCell>
+                        {/* <CTableHeaderCell scope="col">Username</CTableHeaderCell> */}
                         <CTableHeaderCell className="tableheader" scope="col">
-                            Last Name
+                      Username
                         </CTableHeaderCell>
                         <CTableHeaderCell className="tableheader" scope="col">
-                            Midean Name
+                        Email
                         </CTableHeaderCell>
                         <CTableHeaderCell className="tableheader" scope="col">
-                            Gender
+                      Password 
                         </CTableHeaderCell>
                         <CTableHeaderCell className="tableheader" scope="col">
-                            Phone
+                            Mobile No
                         </CTableHeaderCell>
                         <CTableHeaderCell className="tableheader " scope="col">
-                            Action
+                            Department
                         </CTableHeaderCell>
+                        <CTableHeaderCell className="tableheader " scope="col">
+                            Position
+                        </CTableHeaderCell>
+                        <CTableHeaderCell className="tableheader " scope="col">
+                            Status
+                        </CTableHeaderCell>
+                        <CTableHeaderCell className="tableheader " scope="col">
+                            Role
+                        </CTableHeaderCell>
+                        <CTableHeaderCell className="tableheader " scope="col">
+                            Creation Time
+                        </CTableHeaderCell>
+                        <CTableHeaderCell className="tableheader " scope="col">
+                           Action
+                        </CTableHeaderCell>
+                        
                     </CTableRow>
                 </CTableHead>
                 <CTableBody>
                     {currentUsers.map((user) => (
                         <CTableRow className="project-list-table-body" key={user.id}>
                             <CTableDataCell className="tablecell pt-4">
-                                {user.firstName}
+                                {user.username}
                             </CTableDataCell>
                             <CTableDataCell className="tablecell pt-4">
-                                {user.lastName}
+                                {user.email}
                             </CTableDataCell>
-                            <CTableDataCell className="tablecell pt-4">{user.maidenName}</CTableDataCell>
-                            <CTableDataCell className="tablecell pt-4">{user.gender}</CTableDataCell>
-                            <CTableDataCell className="tablecell pt-4">{user.phone}</CTableDataCell>
+                            <CTableDataCell className="tablecell pt-4">{user.password}</CTableDataCell>
+                            <CTableDataCell className="tablecell pt-4">{user.contact}</CTableDataCell>
+                            <CTableDataCell className="tablecell pt-4">{user.department}</CTableDataCell>
+                            <CTableDataCell className="tablecell pt-4">{user.position}</CTableDataCell>
+                            <CTableDataCell className="tablecell pt-4">{user.status}</CTableDataCell>
+                            <CTableDataCell className="tablecell pt-4">{user.role}</CTableDataCell>
+                            <CTableDataCell className="tablecell pt-4">{user.creationtime}</CTableDataCell>
                             <CTableDataCell className="tablecell pt-4 ">
 
                                 <FontAwesomeIcon className='pe-4'

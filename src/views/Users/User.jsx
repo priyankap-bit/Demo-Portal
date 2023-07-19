@@ -40,7 +40,7 @@ const User = () => {
             user.department.toLowerCase().includes(searchTerm.toLowerCase())||
             user.position.toLowerCase().includes(searchTerm.toLowerCase())||
             user.status.toLowerCase().includes(searchTerm.toLowerCase())||
-            user.role.toLowerCase().includes(searchTerm.toLowerCase())||
+            // user.role.toLowerCase().includes(searchTerm.toLowerCase())|| 
             user.creationtime.toLowerCase().includes(searchTerm.toLowerCase())
     );
 

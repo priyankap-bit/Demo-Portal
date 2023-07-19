@@ -154,7 +154,7 @@ function userProject(props) {
                 Add Project
               </CButton>
             </CCol>
-            <CCol sm="auto" className="px-3">
+            <CCol sm="auto" className="mx-3">
               <CFormSelect className="project-select">
                 <option>Week</option>
                 <option value="1">Month</option>

@@ -53,16 +53,25 @@ function userProject(props) {
     // attachFile: null,
   });
 
+  const [selectedProject, setSelectedProject] = useState({
+    project_name: '',
+    project_desc: '',
+    created_by: '',
+    // Add other project fields as needed
+  });
+
   // Event handler for handling form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+
 
     try {
       console.log(formData)
       // // Send the form data to the backend server using Axios
       const response = await axios.post('http://localhost:5000/projectsdetails', formData)
 
-     
+
       setFormData({
         projectName: '',
         projectDescription: '',
@@ -139,6 +148,46 @@ function userProject(props) {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
+
+  const handleEditClick = (project) => {
+    setSelectedProject(project); // Set the selected project data
+    setVisible(true); // Show the modal
+  };
+
+  const handleUpdate = async () => {
+    try {
+      // Send the updated project data to the backend server using Axios
+      const response = await axios.put(`http://localhost:5000/projectsdetails/${selectedProject.id}`, selectedProject);
+
+      // Optionally, handle the response from the server here (e.g., show a success message)
+      console.log('Response from server:', response.data);
+
+      // Refresh the data after successful update
+      fetchData();
+
+      // Close the modal
+      setVisible(false);
+    } catch (error) {
+      // Handle any error that might occur during the update process
+      console.error('Error updating project:', error);
+    }
+  };
+
+  const handleDelete = async (projectId) => {
+    try {
+      // Send a DELETE request to the backend server to delete the project with the given ID
+      const response = await axios.delete(`http://localhost:5000/projectsdetails/${projectId}`);
+  
+      // Optionally, handle the response from the server here (e.g., show a success message)
+      console.log('Response from server:', response.data);
+  
+      // Refresh the data after successful deletion
+      fetchData();
+    } catch (error) {
+      // Handle any error that might occur during the deletion process
+      console.error('Error deleting project:', error);
+    }
+  };
 
   return (
     <>
@@ -236,14 +285,17 @@ function userProject(props) {
                           icon={faEye}
                           style={{ cursor: 'pointer', color: '#0f9299' }}
                         />
-                        <FontAwesomeIcon className='pe-4'
-                          onClick={() => setVisible(!visible)}
+                        <FontAwesomeIcon
+                          className="pe-4"
                           icon={faEdit}
                           style={{ cursor: 'pointer', color: '#0f9299' }}
+                          onClick={() => handleEditClick(user)} // Call handleEditClick with the current project data
                         />
-                        <FontAwesomeIcon className='pe-4'
+                        <FontAwesomeIcon
+                          className='pe-4'
                           icon={faTrash}
                           style={{ cursor: 'pointer', color: '#0f9299' }}
+                          onClick={() => handleDelete(user.id)} // Call handleDelete with the project ID to be deleted
                         />
                       </CTableDataCell>
                     </CTableRow>
@@ -263,38 +315,41 @@ function userProject(props) {
                 </CModalHeader>
                 <CModalBody>
                   <div className="row edit-project-input">
-                    <CFormInput className="edit-input" type="text" label="Name" />
+                    <CFormInput
+                      className="edit-input"
+                      type="text"
+                      label="Name"
+                      value={selectedProject.project_name}
+                      onChange={(e) =>
+                        setSelectedProject({ ...selectedProject, project_name: e.target.value })
+                      }
+                    />
                   </div>
                   <div className="row mt-3 edit-project-input">
-                    <CFormInput className="edit-input" type="text" label="Description" />
+                    <CFormInput
+                      className="edit-input"
+                      type="text"
+                      label="Description"
+                      value={selectedProject.project_desc}
+                      onChange={(e) =>
+                        setSelectedProject({ ...selectedProject, project_desc: e.target.value })
+                      }
+                    />
                   </div>
                   <div className="row mt-3 edit-project-input">
-                    <CFormInput className="edit-input" type="text" label="Manager" />
-                  </div>
-                  <div className="row mt-3">
-                    <div>
-                      <p>Team Members</p>
-                    </div>
-                    <div className="col-6 edit-checkbox">
-                      <CFormCheck
-                        type="radio"
-                        name="flexRadioDefault"
-                        id="flexRadioDefault1"
-                        label="Add All Team Members"
-                      />
-                    </div>
-                    <div className="col-6 edit-checkbox">
-                      <CFormCheck
-                        type="radio"
-                        name="flexRadioDefault"
-                        id="flexRadioDefault2"
-                        label="Select Specific Team Members"
-                      />
-                    </div>
+                    <CFormInput
+                      className="edit-input"
+                      type="text"
+                      label="Manager"
+                      value={selectedProject.created_by}
+                      onChange={(e) =>
+                        setSelectedProject({ ...selectedProject, created_by: e.target.value })
+                      }
+                    />
                   </div>
                 </CModalBody>
                 <CModalFooter>
-                  <CButton className="edit-btn">Update</CButton>
+                  <CButton className="edit-btn" onClick={handleUpdate}>Update</CButton>
                   <CButton className="edit-btn" onClick={() => setVisible(false)}>
                     Close
                   </CButton>
@@ -409,12 +464,12 @@ function userProject(props) {
                               onChange={handleFileChange} type="file" className="form-control form-control-lg mt-2" id="attachFile" />
                           </div>
                         </div>
-                    <div className="modal-footer mb-3 border-0 text-center justify-content-center">
-                      <CButton type='submit'  data-bs-dismiss="modal" className="edit-btn">Add</CButton>
-                      <CButton className="edit-btn" data-bs-dismiss="modal" onClick={() => setVisible(false)}>
-                        Close
-                      </CButton>
-                    </div>
+                        <div className="modal-footer mb-3 border-0 text-center justify-content-center">
+                          <CButton type='submit' data-bs-dismiss="modal" className="edit-btn">Add</CButton>
+                          <CButton className="edit-btn" data-bs-dismiss="modal" onClick={() => setVisible(false)}>
+                            Close
+                          </CButton>
+                        </div>
                       </form>
                     </div>
                   </div>
@@ -445,7 +500,7 @@ function userProject(props) {
             </li>
           </ul>
         </nav>
-      </CContainer>
+      </CContainer >
     </>
   )
 }

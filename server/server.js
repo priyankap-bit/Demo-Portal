@@ -75,23 +75,22 @@ app.get('/projectsdetails', (req, res) => {
 // Update project route
 app.put('/projectsdetails/:projectId', (req, res) => {
   const projectId = req.params.projectId;
-  const { project_name, project_desc, manager } = req.body;
+  const { project_name, project_desc, created_by } = req.body;
 
   const query = `
     UPDATE projectsdetails
-    SET project_name = ?, project_desc = ?, manager = ?
-    WHERE projectId = ?
+    SET project_name = ?, project_desc = ?, created_by = ?
+    WHERE id = ?
   `;
-  const values = [project_name, project_desc, manager, projectId];
+  const values = [project_name, project_desc, created_by, projectId];
 
   con.query(query, values, (err, results) => {
     if (err) {
       console.error('Error updating project:', err);
       res.status(500).json({ error: 'Failed to update project' });
-      return;
+    } else {
+      res.json({ message: 'Project updated successfully' });
     }
-
-    res.json({ message: 'Project updated successfully' });
   });
 });
 
@@ -101,7 +100,7 @@ app.delete('/projectsdetails/:projectId', (req, res) => {
 
   const query = `
     DELETE FROM projectsdetails
-    WHERE projectId = ?
+    WHERE id = ?
   `;
   const values = [projectId];
 

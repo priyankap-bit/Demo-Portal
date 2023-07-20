@@ -13,44 +13,79 @@ exports.registerUser = async (req, res, next) => {
     });
   }
 
-  // Perform server-side validation
-  // if (!email || !password || !username || !contact || !department || !position) {
-  //   return res.status(401).json({ error: 'All fields are required' });
-  // }
-  console.log(email ,password ,username ,contact ,department ,position)
-
-  const createquery = "INSERT INTO userdetails(username, contact, email, password, department, position) VALUES ?";
-
-  const values = [[username, contact, email, password, department, position]];
-
-  con.query(createquery, [values], async (error, user) => {
+  // Check if the username, email, or contact already exists in the database
+  const checkQuery = "SELECT * FROM userdetails WHERE username = ? OR email = ? OR contact = ?";
+  con.query(checkQuery, [username, email, contact], async (error, existingUsers) => {
     if (error) {
       console.error(error);
-      return res.status(500).json({ 
+      return res.status(500).json({
         success: false,
-        message: "Error create user",
+        message: "Error checking user existence.",
       });
     }
-    const userId = user.insertId;
-    const Token = jwt.sign({ id: userId }, "Tarun1234", {
-      expiresIn: "5d",
-    });
-    console.log(userId, "controller");
 
-    res.cookie("Token", Token, {
-      expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // Expires in 5 days
-      httpOnly: true,
-      secure: true,
-    });
+    if (existingUsers.length > 0) {
+      // If the username, email, or contact exists, return an error response
+      let errorMessage = "Username, email, or contact already exists.";
 
-    res.status(201).json({
-      success: true,
-      message: "successfully created new User",
-      user,
-      Token,
-    });
+      // Determine which field(s) already exist
+      existingUsers.forEach(existingUser => {
+        if (existingUser.username === username) {
+          errorMessage = "Username already exists.";
+          console.log(errorMessage);
+        }
+        if (existingUser.email === email) {
+          errorMessage = "Email already exists.";
+          console.log(errorMessage);
+        }
+        if (existingUser.contact === contact) {
+          errorMessage = "Contact already exists.";
+          console.log(errorMessage);
+        }
+      });
+
+      return res.status(409).json({
+        success: false,
+        message: errorMessage,
+      });
+    } else {
+      // If the username, email, and contact are unique, proceed with user registration
+      const createQuery = "INSERT INTO userdetails (username, contact, email, password, department, position) VALUES ?";
+      const values = [[username, contact, email, password, department, position]];
+
+      con.query(createQuery, [values], async (error, user) => {
+        if (error) {
+          console.error(error);
+          return res.status(500).json({
+            success: false,
+            message: "Error creating user",
+          });
+        }
+        const userId = user.insertId;
+        const Token = jwt.sign({ id: userId }, "Tarun1234", {
+          expiresIn: "5d",
+        });
+
+        res.cookie("Token", Token, {
+          expires: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // Expires in 5 days
+          httpOnly: true,
+          secure: true,
+        });
+
+        res.status(201).json({
+          success: true,
+          message: "Successfully created new user",
+          user,
+          Token,
+        });
+      });
+    }
   });
 };
+
+
+
+
 
 // Login User
 // Login User

@@ -126,7 +126,7 @@ const Register = () => {
 
         console.log('user registered')
         navigate('/login')
-        toast.success('Successfully registered! ,please Login via', {
+        toast.success('Successfully registered', {
           // position: toast.position.TOP_CENTER,
         })
 

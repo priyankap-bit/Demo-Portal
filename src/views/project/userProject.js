@@ -322,7 +322,7 @@ function userProject(props) {
                 </CTableBody>
               </CTable>
 
-              <CModal
+              {/* <CModal
                 alignment="center"
                 className="edit-modal"
                 scrollable
@@ -373,7 +373,7 @@ function userProject(props) {
                     Close
                   </CButton>
                 </CModalFooter>
-              </CModal>
+              </CModal> */}
 
             
 

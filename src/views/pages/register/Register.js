@@ -26,7 +26,6 @@ const Register = () => {
   const [contactError, setcontactError] = useState('')
   const [departmentError, setdepartmentError] = useState('')
   const [positionError, setpositionError] = useState('')
-
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/
   const contactRegex = /^\d{0,10}$/
@@ -111,7 +110,7 @@ const Register = () => {
         // Send the registration request
         const response = await axios.post(
           'http://localhost:5000/user/register',
-          { email, password,username ,contact ,department ,position},
+          { email, password, username, contact, department, position },
           {
             withCredentials: true,
             headers: {
@@ -120,34 +119,21 @@ const Register = () => {
           },
         )
 
-        // Process the response
-        const { status } = response.data
-        console.log(response)
-        localStorage.setItem('status', status)
+        console.log('user registered')
+        navigate('/login')
+        toast.success('Successfully registered! ,please Login via', {
+          // position: toast.position.TOP_CENTER,
+        })
 
-        if (status === 0) {
-          console.log('user registered')
-          navigate('/dashboard')
-          toast.success('Successfully registered!', {
-            // position: toast.position.TOP_CENTER,
-          })
-          // } else if (status === 1) {
-          //   console.log('Admin registered')
-          //   navigate('/dashboard')
-          //   toast.success('Successfully registered!', {
-          //     // position: toast.position.TOP_CENTER,
-          //   })
-          // } else if (status === 2) {
-          //   console.log('Master Admin registered')
-          //   navigate('/dashboard')
-          //   toast.success('Successfully registered!', {
-          //     // position: toast.position.TOP_CENTER,
-          //   })
-        }
+        // Clear the form fields after successful registration (optional)
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+        setusername('');
+        setcontact('');
+        setdepartment('');
+        setposition('');
 
-        const userdata = response.data
-
-        localStorage.setItem('token', userdata.Token)
       } catch (error) {
         toast.error('Registration failed!', {
           // position: toast.position.TOP_CENTER,
@@ -320,9 +306,9 @@ const Register = () => {
                     >
                       <option>Open this select menu</option>
                       <option value="hr">HR</option>
-                      <option value="ui/ux">UI/UX</option>
-                      <option value="web-development">Web Development</option>
-                      <option value="app-development">App Development</option>
+                      <option value="ui_ux">UI/UX</option>
+                      <option value="web_development">Web Development</option>
+                      <option value="app_development">App Development</option>
                       <option value="seo">SEO</option>
                     </Form.Select>
                   </Form.Group>
@@ -347,9 +333,9 @@ const Register = () => {
                       onChange={(e) => setposition(e.target.value)}
                     >
                       <option>Open this select menu</option>
-                      <option value="tl">Team Leader</option>
-                      <option value="sd">Senior Developer</option>
-                      <option value="jd">Junior Developer</option>
+                      <option value="team_leader">Team Leader</option>
+                      <option value="senior_developer">Senior Developer</option>
+                      <option value="junior_developer">Junior Developer</option>
                       <option value="trainee">Trainee</option>
                     </Form.Select>
                   </Form.Group>

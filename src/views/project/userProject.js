@@ -29,6 +29,7 @@ import axios from 'axios'
 import '../../views/css/mansi.css'
 import { Link } from 'react-router-dom'
 // import { useDispatch } from 'react-redux';
+import "../../views/css/pagiantion.css"
 
 function userProject(props) {
   const [visible, setVisible] = useState(false)
@@ -222,13 +223,13 @@ function userProject(props) {
                 Add Project
               </CButton>
             </CCol>
-            <CCol sm="auto" className="mx-3">
+            {/* <CCol sm="auto" className="mx-3">
               <CFormSelect className="project-select">
                 <option>Week</option>
                 <option value="1">Month</option>
                 <option value="2">Year</option>
               </CFormSelect>
-            </CCol>
+            </CCol> */}
           </div>
           <div className="p-2 ">
             <div className="row  d-flex   align-items-center">
@@ -538,7 +539,7 @@ function userProject(props) {
         </div>
         {/* Pagination  */}
         <nav>
-          <ul className="pagination">
+          <ul className="pagination pagination-new">
             <li className={currentPage === 1 ? 'page-item disabled' : 'page-item'}>
               <button className="page-link" onClick={() => paginate(currentPage - 1)}>
                 Previous
@@ -562,5 +563,7 @@ function userProject(props) {
     </>
   )
 }
+
+
 
 export default userProject

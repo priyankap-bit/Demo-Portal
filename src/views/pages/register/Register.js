@@ -26,6 +26,10 @@ const Register = () => {
   const [contactError, setcontactError] = useState('')
   const [departmentError, setdepartmentError] = useState('')
   const [positionError, setpositionError] = useState('')
+  // const [serverError, setServerError] = useState('');
+  const [emailExistsError, setEmailExistsError] = useState('');
+  const [usernameExistsError, setUsernameExistsError] = useState('');
+  const [contactExistsError, setContactExistsError] = useState('');
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/
@@ -104,57 +108,61 @@ const Register = () => {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (validateForm()) {
       try {
         // Send the registration request
         const response = await axios.post(
           'http://localhost:5000/user/register',
-          { email, password,username ,contact ,department ,position},
+          { email, password, username, contact, department, position },
           {
             withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
             },
-          },
-        )
+          }
+        );
 
         // Process the response
-        const { status } = response.data
-        console.log(response)
-        localStorage.setItem('status', status)
+        const { status } = response.data;
+        console.log(response);
+        localStorage.setItem('status', status);
 
         if (status === 0) {
-          console.log('user registered')
-          navigate('/dashboard')
+          console.log('user registered');
+          navigate('/dashboard');
           toast.success('Successfully registered!', {
             // position: toast.position.TOP_CENTER,
-          })
-          // } else if (status === 1) {
-          //   console.log('Admin registered')
-          //   navigate('/dashboard')
-          //   toast.success('Successfully registered!', {
-          //     // position: toast.position.TOP_CENTER,
-          //   })
-          // } else if (status === 2) {
-          //   console.log('Master Admin registered')
-          //   navigate('/dashboard')
-          //   toast.success('Successfully registered!', {
-          //     // position: toast.position.TOP_CENTER,
-          //   })
+          });
         }
 
-        const userdata = response.data
+        const userdata = response.data;
 
-        localStorage.setItem('token', userdata.Token)
+        localStorage.setItem('token', userdata.Token);
       } catch (error) {
+        // Handle the error responses from the server
+        if (error.response) {
+          const { message } = error.response.data;
+          if (message.includes('Email')) {
+            setEmailExistsError('Email already exists.');
+          }
+          if (message.includes('Username')) {
+            setUsernameExistsError('Username already exists.');
+          }
+          if (message.includes('Contact')) {
+            setContactExistsError('Contact already exists.');
+          }
+          // setServerError(message);
+        } else {
+          setServerError('Registration failed. Please try again later.');
+        }
         toast.error('Registration failed!', {
           // position: toast.position.TOP_CENTER,
-        })
+        });
       }
     }
-  }
+  };
 
   return (
     <>
@@ -188,6 +196,7 @@ const Register = () => {
                       {usernameError}
                     </p>
                   )}
+                  {usernameExistsError && <p className="error">{usernameExistsError}</p>}
 
                   <Form.Group
                     className=" d-flex align-items-start flex-column"
@@ -208,8 +217,10 @@ const Register = () => {
                     <p className="error">
                       <i className="fa-solid fa-triangle-exclamation"></i>
                       {emailError}
+                      
                     </p>
                   )}
+                  {emailExistsError && <p className="error">{emailExistsError}</p>}
 
                   <Form.Group
                     className=" d-flex align-items-start flex-column"
@@ -297,6 +308,7 @@ const Register = () => {
                         setcontact(truncatedInput)
                       }}
                     />
+                    {contactExistsError && <p className="error">{contactExistsError}</p>}
                   </Form.Group>
                   {contactError && (
                     <p className="error">
@@ -361,6 +373,7 @@ const Register = () => {
                   )}
                 </div>
               </div>
+              {/* {serverError && <p className="error">{serverError}</p>} */}
               <button className="register-btn my-4">Register</button>
 
               <div className="sign-in-suggetion">

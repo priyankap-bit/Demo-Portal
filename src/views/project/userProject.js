@@ -192,7 +192,7 @@ function userProject(props) {
 
   return (
     <>
-      <CContainer fluid className="mt-2">
+      <CContainer fluid className="mt-5">
         <div className="d-flex bd-highlight flex-column flex-md-row mb-3">
           <div className="me-auto d-flex p-2 ">
             <CCol sm="auto">

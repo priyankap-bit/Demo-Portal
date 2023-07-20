@@ -177,10 +177,10 @@ function userProject(props) {
     try {
       // Send a DELETE request to the backend server to delete the project with the given ID
       const response = await axios.delete(`http://localhost:5000/projectsdetails/${projectId}`);
-  
+
       // Optionally, handle the response from the server here (e.g., show a success message)
       console.log('Response from server:', response.data);
-  
+
       // Refresh the data after successful deletion
       fetchData();
     } catch (error) {

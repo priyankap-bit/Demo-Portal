@@ -52,13 +52,20 @@ function userProject(props) {
     priority: '',
     start_date: '',
     deadline: '',
+    Document:'',
     // attachFile: null,
   });
 
   const [selectedProject, setSelectedProject] = useState({
     project_name: '',
     project_desc: '',
+    language: '',
     created_by: '',
+    members: '',
+    priority: '',
+    start_date: '',
+    deadline: '',
+    Document:'',
     // Add other project fields as needed
   });
 
@@ -210,28 +217,30 @@ function userProject(props) {
 
   return (
     <>
-      <CContainer fluid className="mt-5">
+      <div className="container-fluid mt-5">
         <div className="d-flex bd-highlight flex-column flex-md-row mb-3">
-          <div className="me-auto d-flex p-2 ">
-            <CCol sm="auto">
-              <CButton onClick={() => setVisibleaddpro(!visibleaddpro)}
+          <div className="me-auto d-flex p-2">
+            <div className="col-sm-auto">
+              <button
+                onClick={() => setVisibleaddpro(!visibleaddpro)}
                 type="button"
-                className='add-project-btn'
+                className="btn btn-primary add-project-btn"
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
+                data-bs-target="#exampleModal"
+              >
                 Add Project
-              </CButton>
-            </CCol>
-            <CCol sm="auto" className="mx-3">
-              <CFormSelect className="project-select">
+              </button>
+            </div>
+            <div className="col-sm-auto mx-3">
+              <select className="form-select project-select">
                 <option>Week</option>
                 <option value="1">Month</option>
                 <option value="2">Year</option>
-              </CFormSelect>
-            </CCol>
+              </select>
+            </div>
           </div>
-          <div className="p-2 ">
-            <div className="row  d-flex   align-items-center">
+          <div className="p-2">
+            <div className="row d-flex align-items-center">
               <div className="col-md-6 d-flex">
                 <div className="project-search-bar">
                   <i className="fa fa-search"></i>
@@ -250,62 +259,42 @@ function userProject(props) {
         <div className="table-scroll">
           <div className="project-list-table-div">
             <div className="table-container">
-              <CTable className="project-list-table mt-5">
-                <CTableHead>
-                  <CTableRow className="project-list-table-header">
-                    <CTableHeaderCell scope="col">Project Name</CTableHeaderCell>
-                    <CTableHeaderCell className="tableheader" scope="col">
-                      Description
-                    </CTableHeaderCell>
-                    <CTableHeaderCell className="tableheader" scope="col">
-                      Language
-                    </CTableHeaderCell>
-                    <CTableHeaderCell className="tableheader" scope="col">
-                      Created by
-                    </CTableHeaderCell>
-                    <CTableHeaderCell className="tableheader" scope="col">
-                      Members
-                    </CTableHeaderCell>
-                    <CTableHeaderCell className="tableheader" scope="col">
-                      Priority
-                    </CTableHeaderCell>
-                    <CTableHeaderCell className="tableheader" scope="col">
-                      Start Date
-                    </CTableHeaderCell>
-                    <CTableHeaderCell className="tableheader" scope="col">
-                      Deadline
-                    </CTableHeaderCell>
-                    <CTableHeaderCell className="tableheader" scope="col">
-                      Documents
-                    </CTableHeaderCell>
-                    <CTableHeaderCell className="tableheader " scope="col">
-                      Action
-                    </CTableHeaderCell>
-                  </CTableRow>
-                </CTableHead>
-                <CTableBody>
+              {/* Simple Bootstrap Table */}
+              <table className="table project-list-table mt-5">
+                <thead>
+                  <tr className="project-list-table-header">
+                    <th scope="col">Project Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Language</th>
+                    <th scope="col">Created by</th>
+                    <th scope="col">Members</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">Deadline</th>
+                    <th scope="col">Document</th>
+
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
                   {currentUsers.map((user) => (
-                    <CTableRow className="project-list-table-body" key={user.id}>
-                      <CTableDataCell className="tablecell pt-4">
-                        {user.project_name}
-                      </CTableDataCell>
-                      <CTableDataCell className="tablecell pt-4">
-                        {user.project_desc}
-                      </CTableDataCell>
-                      <CTableDataCell className="tablecell pt-4">{user.language}</CTableDataCell>
-                      <CTableDataCell className="tablecell pt-4">{user.created_by}</CTableDataCell>
-                      <CTableDataCell className="tablecell pt-4">{user.members}</CTableDataCell>
-                      <CTableDataCell className="tablecell pt-4">{user.priority}</CTableDataCell>
-                      <CTableDataCell className="tablecell pt-4">{user.start_date}</CTableDataCell>
-                      <CTableDataCell className="tablecell pt-4">{user.deadline}</CTableDataCell>
-                      <CTableDataCell className="tablecell pt-4">{user.documents}</CTableDataCell>
-                      <CTableDataCell className="tablecell pt-4 ">
-                        <FontAwesomeIcon className='pe-4'
-                          icon={faEye}
-                          style={{ cursor: 'pointer', color: '#0f9299' }}
-                        />
+                    <tr className="project-list-table-body" key={user.id}>
+                      <td className="tablecell pt-4">{user.project_name}</td>
+                      <td className="tablecell pt-4">{user.project_desc}</td>
+                      <td className="tablecell pt-4">{user.language}</td>
+                      <td className="tablecell pt-4">{user.created_by}</td>
+                      <td className="tablecell pt-4">{user.members}</td>
+                      <td className="tablecell pt-4">{user.priority}</td>
+                      <td className="tablecell pt-4">{user.start_date}</td>
+                      <td className="tablecell pt-4">{user.deadline}</td>
+                      <td className="tablecell pt-4">{user.document}</td>
+
+                      <td className="tablecell pt-4">
+                        <FontAwesomeIcon className='pe-4' icon={faEye} style={{ cursor: 'pointer', color: '#0f9299' }} />
                         <FontAwesomeIcon
                           className="pe-4"
+                          data-bs-toggle="modal"
+                          data-bs-target="#exampleModal1"
                           icon={faEdit}
                           style={{ cursor: 'pointer', color: '#0f9299' }}
                           onClick={() => handleEditClick(user)} // Call handleEditClick with the current project data
@@ -316,66 +305,190 @@ function userProject(props) {
                           style={{ cursor: 'pointer', color: '#0f9299' }}
                           onClick={() => handleDelete(user.id)} // Call handleDelete with the project ID to be deleted
                         />
-                      </CTableDataCell>
-                    </CTableRow>
+                      </td>
+                    </tr>
                   ))}
-                </CTableBody>
-              </CTable>
+                </tbody>
+              </table>
 
-              {/* <CModal
-                alignment="center"
-                className="edit-modal"
-                scrollable
-                visible={visible}
-                onClose={() => setVisible(false)}
-              >
-                <CModalHeader>
-                  <CModalTitle>Edit Project</CModalTitle>
-                </CModalHeader>
-                <CModalBody>
-                  <div className="row edit-project-input">
-                    <CFormInput
-                      className="edit-input"
-                      type="text"
-                      label="Name"
-                      value={selectedProject.project_name}
-                      onChange={(e) =>
-                        setSelectedProject({ ...selectedProject, project_name: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="row mt-3 edit-project-input">
-                    <CFormInput
-                      className="edit-input"
-                      type="text"
-                      label="Description"
-                      value={selectedProject.project_desc}
-                      onChange={(e) =>
-                        setSelectedProject({ ...selectedProject, project_desc: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="row mt-3 edit-project-input">
-                    <CFormInput
-                      className="edit-input"
-                      type="text"
-                      label="Manager"
-                      value={selectedProject.created_by}
-                      onChange={(e) =>
-                        setSelectedProject({ ...selectedProject, created_by: e.target.value })
-                      }
-                    />
-                  </div>
-                </CModalBody>
-                <CModalFooter>
-                  <CButton className="edit-btn" onClick={handleUpdate}>Update</CButton>
-                  <CButton className="edit-btn" onClick={() => setVisible(false)}>
-                    Close
-                  </CButton>
-                </CModalFooter>
-              </CModal> */}
 
-            
+
+
+              <div className="modal fade" id="exampleModal1" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-xl modal-dialog-centered">
+                  <div className="modal-content">
+                    <div className="modal-header border-0 pb-0 px-4">
+                      <h3 className="modal-title text-secondary" id="exampleModalLabel">
+                        <b>Edit  Project</b>
+                      </h3>
+                      <button type="button" className="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div className="modal-body px-5">
+                      <form onSubmit={handleSubmit}>
+                        <div className="mb-4">
+                          <label htmlFor="project_name">Project Name</label>
+                          <input
+                            name='project_name'
+                            value={selectedProject.project_name}
+                            onChange={(e) =>
+                              setSelectedProject({ ...selectedProject, project_name: e.target.value })
+                            }
+                            type="text"
+                            className="form-control form-control-lg mt-2"
+                            id="project_name"
+                            required
+                          />
+                        </div>
+                        <div className="mt-3">
+                          <label htmlFor="project_desc">Project Description</label>
+                          <textarea
+                            name='project_desc'
+                            value={selectedProject.project_desc}
+                            onChange={(e) =>
+                              setSelectedProject({ ...selectedProject, project_desc: e.target.value })
+                            }
+                            className="form-control form-control-lg mt-2"
+                            id="project_desc"
+                            required
+                            rows="5"
+                          />
+                        </div>
+                        <div className="row mt-3">
+                          <div className="form-group col-lg-6">
+                            <label htmlFor="language">Language</label>
+                            <select
+                              name='language'
+                              value={selectedProject.language}
+                              onChange={(e) =>
+                                setSelectedProject({ ...selectedProject, language: e.target.value })
+                              }
+                              className="form-control form-select form-control-lg mt-2"
+                              id="language"
+                              required
+                            >
+                              <option>{selectedProject.language}</option>
+                              <option>React Js</option>
+                              <option>Node Js</option>
+                              <option>Mern Stack</option>
+                            </select>
+                          </div>
+
+                          <div className="form-group col-lg-6">
+                            <label htmlFor="priority">Priority</label>
+                            <select
+                              name='priority'
+                              value={selectedProject.language}
+                              onChange={(e) =>
+                                setSelectedProject({ ...selectedProject, language: e.target.value })
+                              }
+                              className="form-control form-select form-control-lg mt-2"
+                              id="priority"
+                              required
+                            >
+                              <option value="">{selectedProject.priority}</option>
+                              <option>High</option>
+                              <option>Medium</option>
+                              <option>Low</option>
+                            </select>
+                          </div>
+                          {/* <div className="form-group col-lg-6">
+                              <label htmlFor="created_by">Created by</label>
+                              <select
+                                value={selectedProject.language}
+                                onChange={(e) =>
+                                  setSelectedProject({ ...selectedProject, language: e.target.value })
+                                }
+                                name='created_by'
+                                className="form-control form-select form-control-lg mt-2"
+                                id="created_by"
+                                required
+                              >
+                                <option value="">{selectedProject.language}</option>
+                                <option>Manager</option>
+                                <option>Team Leader</option>
+                                <option>P.O.</option>
+                              </select>
+                            </div> */}
+                        </div>
+                        <div className="row mt-3">
+
+                          <div className="form-group col-lg-6">
+                            <label htmlFor="members">Member</label>
+                            <select
+                              value={selectedProject.language}
+                              onChange={(e) =>
+                                setSelectedProject({ ...selectedProject, language: e.target.value })
+                              }
+                              name="members"
+                              className="form-control form-select form-control-lg mt-2"
+                              id="members"
+                              required
+                              multiple // Add the multiple attribute
+                            >
+                              <option value="">{selectedProject.language}</option>
+                              {member.map((mem) => (
+                                <option key={mem.id} value={mem.username}>
+                                  {mem.username}
+                                </option>
+                              ))}
+                            </select>
+
+
+                          </div>
+
+                          <div className="form-group col-lg-6">
+                            <label htmlFor="endDate">deadline</label>
+                            <input
+                              name='deadline'
+                              value={selectedProject.start_date}
+                              onChange={(e) =>
+                                setSelectedProject({ ...selectedProject, start_date: e.target.value })}
+                              type="date"
+                              className="form-control form-control-lg mt-2"
+                              id="deadline"
+                              required
+                            />
+                          </div>
+                        </div>
+                        {/* <div className="row mt-3">
+                          <div className="form-group col-lg-6">
+                            <label htmlFor="start_date">Start Date</label>
+                            <input
+                              name='start_date'
+                              value={selectedProject.start_date}
+                              onChange={(e) =>
+                                setSelectedProject({ ...selectedProject, start_date: e.target.value })}
+                              type="date"
+                              className="form-control form-control-lg mt-2"
+                              id="start_date"
+                              required
+                            />
+                          </div>
+                         
+                        </div> */}
+                        {/* <div className="form-group mt-3">
+                            <label htmlFor="attachFile">Attach File</label>
+                            <input
+                              name="attachFile"
+                              onChange={handleFileChange}
+                              type="file"
+                              className="form-control form-control-lg mt-2"
+                              id="attachFile"
+                            />
+                          </div> */}
+                        <div className="modal-footer mb-3 pt-5 border-0 text-center justify-content-center">
+                          <CButton type='submit' onClick={handleUpdate} data-bs-dismiss="modal" className="edit-btn">Update</CButton>
+                          <CButton className="edit-btn" data-bs-dismiss="modal" onClick={() => setVisible(false)}>
+                            Close
+                          </CButton>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
 
 
               <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -491,7 +604,7 @@ function userProject(props) {
                             <label htmlFor="start_date">Start Date</label>
                             <input
                               name='start_date'
-                              value={formData.startDate}
+                              value={formData.start_date}
                               onChange={handleChange}
                               type="date"
                               className="form-control form-control-lg mt-2"
@@ -503,7 +616,7 @@ function userProject(props) {
                             <label htmlFor="endDate">deadline</label>
                             <input
                               name='deadline'
-                              value={formData.endDate}
+                              value={formData.deadline}
                               onChange={handleChange}
                               type="date"
                               className="form-control form-control-lg mt-2"
@@ -558,7 +671,7 @@ function userProject(props) {
             </li>
           </ul>
         </nav>
-      </CContainer >
+      </div>
     </>
   )
 }

@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../assets/widgets.css'
 import {
   CRow,
@@ -14,13 +14,32 @@ import { getStyle } from '@coreui/utils'
 import { CChartBar, CChartLine } from '@coreui/react-chartjs'
 import CIcon from '@coreui/icons-react'
 import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons'
+import axios from 'axios'
+
 
 const WidgetsDropdown = () => {
+
+  const [projects, setProjects] = useState([])
+
+  // fetch data from database..
+  useEffect(() => {
+    fetchData()
+  }, [])
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/projectsdetails')
+      setProjects(response.data)
+    } catch (error) {
+      console.error('Error retrieving user data:', error)
+    }
+  }
+
+
   return (
     <>
       <div className='main-box-container'>
         <div className='box1'>
-          <div className='box1-circle'><p style={{ marginTop: '33%' }}>05</p></div>
+          <div className='box1-circle'><p style={{ marginTop: '33%' }}>{projects.length}</p></div>
           <h4 className='box-title'>Total projects</h4>
         </div>
         <div className='box1'>

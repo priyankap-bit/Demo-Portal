@@ -129,7 +129,7 @@ const User = () => {
                                             <CTableDataCell className="tablecell pt-4">{user.contact}</CTableDataCell>
                                             <CTableDataCell className="tablecell pt-4">{user.department}</CTableDataCell>
                                             <CTableDataCell className="tablecell pt-4">{user.position}</CTableDataCell>
-                                            <CTableDataCell className="tablecell pt-4">{user.status}</CTableDataCell>
+                                            <CTableDataCell className="tablecell pt-4">{(user.status === "true") ? (<button className='text-bg-success btn text-white'>Active</button>) : (<button className='text-bg-danger btn text-white'>Deactive</button>)} </CTableDataCell>
                                             <CTableDataCell className="tablecell pt-4">{user.role}</CTableDataCell>
                                             <CTableDataCell className="tablecell pt-4">{user.creationtime}</CTableDataCell>
                                             <CTableDataCell className="tablecell pt-4 ">

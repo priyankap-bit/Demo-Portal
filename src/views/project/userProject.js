@@ -34,6 +34,8 @@ function userProject(props) {
   const [visible, setVisible] = useState(false)
   const [visibleaddpro, setVisibleaddpro] = useState(false)
   const [users, setUsers] = useState([])
+  const [selectedMembers, setSelectedMembers] = useState([]);
+  const [member, setmember] = useState([]);
   const [searchTerm, setSearchTerm] = useState('')
   // const [selectedType, setSelectedType] = useState('');
   // const [dropdownLabel, setDropdownLabel] = useState('CATEGORY');
@@ -42,13 +44,13 @@ function userProject(props) {
 
 
   const [formData, setFormData] = useState({
-    projectName: '',
-    projectDescription: '',
-    projectLanguage: '',
-    projectCategory: '',
-    projectPriority: '',
-    projectCategoryBy: '',
-    startDate: '',
+    project_name: '',
+    project_desc: '',
+    language: '',
+    created_by: '',
+    members: '',
+    priority: '',
+    start_date: '',
     deadline: '',
     // attachFile: null,
   });
@@ -67,18 +69,20 @@ function userProject(props) {
 
 
     try {
-      console.log(formData)
+      const updatedFormData = { ...formData, members: selectedMembers };
+      console.log(updatedFormData);
       // // Send the form data to the backend server using Axios
-      const response = await axios.post('http://localhost:5000/projectsdetails', formData)
+      const response = await axios.post('http://localhost:5000/projectsdetails', updatedFormData)
 
 
       setFormData({
-        projectName: '',
-        projectDescription: '',
-        projectLanguage: '',
-        projectPriority: '',
-        projectCreatedBy: '',
-        startDate: '',
+        project_name: '',
+        project_desc: '',
+        language: '',
+        created_by: '',
+        members: '',
+        priority: '',
+        start_date: '',
         deadline: '',
         // attachFile: null,
       });
@@ -86,6 +90,7 @@ function userProject(props) {
 
 
 
+      setSelectedMembers([]);
       // Optionally, handle the response from the server here (e.g., show a success message)
       // console.log('Response from server:', response.data);
 
@@ -99,6 +104,18 @@ function userProject(props) {
       // Handle any error that might occur during form submission
       console.error('Error submitting form:', error);
     }
+  };
+
+
+  const handleMemberChange = (e) => {
+    const selectedOptions = e.target.options;
+    const selectedMembersArray = [];
+    for (let i = 0; i < selectedOptions.length; i++) {
+      if (selectedOptions[i].selected) {
+        selectedMembersArray.push(selectedOptions[i].value);
+      }
+    }
+    setSelectedMembers(selectedMembersArray);
   };
 
   // Event handler for updating form data as the user types
@@ -129,6 +146,8 @@ function userProject(props) {
   const fetchData = async () => {
     try {
       const response = await axios.get('http://localhost:5000/projectsdetails')
+      const member = await axios.get('http://localhost:5000/users')
+      setmember(member.data.user)
       setUsers(response.data)
     } catch (error) {
       console.error('Error retrieving user data:', error)
@@ -177,10 +196,10 @@ function userProject(props) {
     try {
       // Send a DELETE request to the backend server to delete the project with the given ID
       const response = await axios.delete(`http://localhost:5000/projectsdetails/${projectId}`);
-  
+
       // Optionally, handle the response from the server here (e.g., show a success message)
       console.log('Response from server:', response.data);
-  
+
       // Refresh the data after successful deletion
       fetchData();
     } catch (error) {
@@ -356,6 +375,9 @@ function userProject(props) {
                 </CModalFooter>
               </CModal>
 
+            
+
+
               <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-xl modal-dialog-centered">
                   <div className="modal-content">
@@ -368,38 +390,38 @@ function userProject(props) {
                     <div className="modal-body px-5">
                       <form onSubmit={handleSubmit}>
                         <div className="mb-4">
-                          <label htmlFor="projectName">Project Name</label>
+                          <label htmlFor="project_name">Project Name</label>
                           <input
-                            name='projectName'
+                            name='project_name'
                             value={formData.projectName}
                             onChange={handleChange}
                             type="text"
                             className="form-control form-control-lg mt-2"
-                            id="projectName"
+                            id="project_name"
                             required
                           />
                         </div>
                         <div className="mt-3">
-                          <label htmlFor="projectDescription">Project Description</label>
+                          <label htmlFor="project_desc">Project Description</label>
                           <textarea
-                            name='projectDescription'
+                            name='project_desc'
                             value={formData.projectDescription}
                             onChange={handleChange}
                             className="form-control form-control-lg mt-2"
-                            id="projectDescription"
+                            id="project_desc"
                             required
                             rows="5"
                           />
                         </div>
                         <div className="row mt-3">
                           <div className="form-group col-lg-6">
-                            <label htmlFor="projectLanguage">Language</label>
+                            <label htmlFor="language">Language</label>
                             <select
                               value={formData.projectLanguage}
-                              name='projectLanguage'
+                              name='language'
                               onChange={handleChange}
                               className="form-control form-select form-control-lg mt-2"
-                              id="projectLanguage"
+                              id="language"
                               required
                             >
                               <option value="">Select Language</option>
@@ -409,13 +431,13 @@ function userProject(props) {
                             </select>
                           </div>
                           <div className="form-group col-lg-6">
-                            <label htmlFor="projectCategory">Created by</label>
+                            <label htmlFor="created_by">Created by</label>
                             <select
                               value={formData.projectCreatedBy}
                               onChange={handleChange}
-                              name='projectCreatedBy'
+                              name='created_by'
                               className="form-control form-select form-control-lg mt-2"
-                              id="projectCategory"
+                              id="created_by"
                               required
                             >
                               <option value="">Created by</option>
@@ -427,13 +449,13 @@ function userProject(props) {
                         </div>
                         <div className="row mt-3">
                           <div className="form-group col-lg-6">
-                            <label htmlFor="projectPriority">Priority</label>
+                            <label htmlFor="priority">Priority</label>
                             <select
                               value={formData.projectPriority}
-                              name='projectPriority'
+                              name='priority'
                               onChange={handleChange}
                               className="form-control form-select form-control-lg mt-2"
-                              id="projectPriority"
+                              id="priority"
                               required
                             >
                               <option value="">Select Priority</option>
@@ -443,44 +465,49 @@ function userProject(props) {
                             </select>
                           </div>
                           <div className="form-group col-lg-6">
-                            <label htmlFor="projectCategoryBy">Member</label>
+                            <label htmlFor="members">Member</label>
                             <select
-                              value={formData.projectCategoryBy}
-                              onChange={handleChange}
-                              name='projectCategoryBy'
+                              value={selectedMembers}
+                              onChange={handleMemberChange}
+                              name="members"
                               className="form-control form-select form-control-lg mt-2"
-                              id="projectCategoryBy"
+                              id="members"
                               required
+                              multiple // Add the multiple attribute
                             >
-                              <option value="">Select Member</option>
-                              <option>Manager</option>
-                              <option>Team Leader</option>
-                              <option>P.O.</option>
+                              <option value="">Select Members</option>
+                              {member.map((mem) => (
+                                <option key={mem.id} value={mem.username}>
+                                  {mem.username}
+                                </option>
+                              ))}
                             </select>
+
+
                           </div>
                         </div>
                         <div className="row mt-3">
                           <div className="form-group col-lg-6">
-                            <label htmlFor="startDate">Start Date</label>
+                            <label htmlFor="start_date">Start Date</label>
                             <input
-                              name='startDate'
+                              name='start_date'
                               value={formData.startDate}
                               onChange={handleChange}
                               type="date"
                               className="form-control form-control-lg mt-2"
-                              id="startDate"
+                              id="start_date"
                               required
                             />
                           </div>
                           <div className="form-group col-lg-6">
-                            <label htmlFor="endDate">End Date</label>
+                            <label htmlFor="endDate">deadline</label>
                             <input
-                              name='endDate'
+                              name='deadline'
                               value={formData.endDate}
                               onChange={handleChange}
                               type="date"
                               className="form-control form-control-lg mt-2"
-                              id="endDate"
+                              id="deadline"
                               required
                             />
                           </div>

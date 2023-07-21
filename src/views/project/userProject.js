@@ -41,7 +41,7 @@ function userProject(props) {
   // const [dropdownLabel, setDropdownLabel] = useState('CATEGORY');
   const [currentPage, setCurrentPage] = useState(1)
   const [usersPerPage] = useState(10)
-
+  const [file, setFile] = useState(null);
 
   const [formData, setFormData] = useState({
     project_name: '',
@@ -52,7 +52,9 @@ function userProject(props) {
     priority: '',
     start_date: '',
     deadline: '',
-    // attachFile: null,
+    file_name: '',
+    file_path: '',
+     attachFile: null,
   });
 
   const [selectedProject, setSelectedProject] = useState({
@@ -84,11 +86,10 @@ function userProject(props) {
         priority: '',
         start_date: '',
         deadline: '',
-        // attachFile: null,
+        file_name: '',
+        file_path: '',
+        attachFile: null,
       });
-
-
-
 
       setSelectedMembers([]);
       // Optionally, handle the response from the server here (e.g., show a success message)
@@ -130,11 +131,8 @@ function userProject(props) {
 
 
   // Event handler for updating the 'attachFile' state when a file is selected
-  const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      attachFile: e.target.files[0],
-    });
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
   };
 
   // const dispatch = useDispatch();
@@ -375,7 +373,7 @@ function userProject(props) {
                 </CModalFooter>
               </CModal>
 
-            
+
 
 
               <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

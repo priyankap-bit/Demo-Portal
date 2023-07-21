@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import '../../assets/widgets.css'
 import {
   CRow,
@@ -16,11 +16,27 @@ import CIcon from '@coreui/icons-react'
 import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons'
 
 const WidgetsDropdown = () => {
+  const [totalProjects, setTotalProjects] = useState(0);
+
+  useEffect(() => {
+    fetchTotalProjects();
+  }, []);
+
+  const fetchTotalProjects = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/projectCount');
+      const data = await response.json();
+      console.log(data)
+      setTotalProjects(data.totalProjects);
+    } catch (error) {
+      console.error('Error fetching total projects:', error);
+    }
+  };
   return (
     <>
       <div className='main-box-container'>
         <div className='box1'>
-          <div className='box1-circle'><p style={{ marginTop: '33%' }}>05</p></div>
+          <div className='box1-circle'><p style={{ marginTop: '33%' }}>{totalProjects}</p></div>
           <h4 className='box-title'>Total projects</h4>
         </div>
         <div className='box1'>

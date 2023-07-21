@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require('cors');
-
+const multer = require('multer');
 const app = express();
 const cookieparser = require("cookie-parser")
 const bodyparser = require("body-parser");
@@ -10,6 +10,19 @@ app.use(cookieparser())
 
 
 app.use(cors({origin:' http://localhost:3000',credentials:true}));
+
+// Configure multer to handle file uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads'); // Upload files to the 'uploads' directory
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    const extension = path.extname(file.originalname);
+    cb(null, file.fieldname + '-' + uniqueSuffix + extension);
+  },
+});
+const upload = multer({ storage });
 
 const con = require("./config/db");
 const {
@@ -115,26 +128,81 @@ app.delete('/projectsdetails/:projectId', (req, res) => {
   });
 });
 
-// Add new project route
-app.post('/projectsdetails', (req, res) => {
-  const { project_name, project_desc, manager } = req.body;
+// Endpoint to fetch the total number of unique project names
+app.get('/projectCount', (req, res) => {
+  const query = 'SELECT COUNT(DISTINCT id) AS totalProjects FROM projectsdetails';
 
-  const query = `
-    INSERT INTO projectsdetails (project_name, project_desc, manager)
-    VALUES (?, ?, ?)
-  `;
-  const values = [project_name, project_desc, manager];
-
-  con.query(query, values, (err, results) => {
+  con.query(query, (err, results) => {
     if (err) {
-      console.error('Error adding project:', err);
-      res.status(500).json({ error: 'Failed to add project' });
-      return;
+      console.error('Error retrieving project count:', err);
+      res.status(500).json({ error: 'Error retrieving project count' });
+    } else {
+      const totalProjects = results[0].totalProjects;
+      console.log('Total number of unique project names:', totalProjects); // <-- Console.log here
+      res.json({ totalProjects });
     }
-
-    res.json({ message: 'Project added successfully' });
   });
 });
+
+// Handle POST request for file upload
+// Route to handle the form submission
+// API endpoint to handle form submissions for adding a new project
+app.post('/projectsdetails', upload.single('attachFile'), (req, res) => {
+  const formData = req.body;
+
+  // Process the attachFile if it exists
+  const attachFile = req.file;
+  if (attachFile) {
+    const fileName = `${Date.now()}_${attachFile.originalname}`;
+    const filePath = path.join(__dirname, 'uploads', fileName);
+    fs.renameSync(attachFile.path, filePath);
+    formData.file_name = fileName; // Insert the file name into the 'file_name' column
+    formData.file_path = filePath; // Insert the file path into the 'file_path' column
+  }
+
+  // Convert the selectedMembers array to a comma-separated string
+  const membersString = formData.members.join(', ');
+
+  // Set the members field in formData with the formatted string
+  formData.members = membersString;
+
+  // Remove the attachFile property from formData as it's not needed for the SQL query
+  delete formData.attachFile;
+
+  // Insert formData into the projectsdetails table
+  const sql = 'INSERT INTO projectsdetails SET ?';
+  con.query(sql, formData, (err, result) => {
+    if (err) {
+      console.error('Error inserting data:', err);
+      res.status(500).json({ error: 'Error inserting data' });
+    } else {
+      res.json({ success: true });
+    }
+  });
+});
+
+// Add new project route
+// app.post('/projectsdetails', (req, res) => {
+//   const { project_name, project_desc, manager } = req.body;
+
+//   const query = `
+//     INSERT INTO projectsdetails (project_name, project_desc, manager)
+//     VALUES (?, ?, ?)
+//   `;
+//   const values = [project_name, project_desc, manager];
+
+//   con.query(query, values, (err, results) => {
+//     if (err) {
+//       console.error('Error adding project:', err);
+//       res.status(500).json({ error: 'Failed to add project' });
+//       return;
+//     }
+
+//     res.json({ message: 'Project added successfully' });
+//   });
+// });
+
+
 
 
  
